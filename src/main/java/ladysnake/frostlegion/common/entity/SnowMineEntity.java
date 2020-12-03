@@ -1,6 +1,7 @@
 package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.network.Packets;
+import ladysnake.frostlegion.common.world.CustomExplosion;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -10,8 +11,14 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+
+import java.util.Iterator;
 
 public class SnowMineEntity extends SnowGolemEntity {
     public SnowMineEntity(EntityType<SnowMineEntity> entityType, World world) {
@@ -30,7 +37,7 @@ public class SnowMineEntity extends SnowGolemEntity {
     }
 
     public static DefaultAttributeContainer.Builder createSnowGolemAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.30D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
     }
 
     @Override
@@ -40,10 +47,34 @@ public class SnowMineEntity extends SnowGolemEntity {
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
-        if (!this.world.isClient()) {
-            Explosion explosion = new Explosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), 4.0F, false, Explosion.DestructionType.DESTROY);
+        explode();
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        explode();
+        return super.damage(source, amount);
+    }
+
+    public void explode() {
+        if (!this.getEntityWorld().isClient()) {
+            this.remove();
+
+            ServerWorld world = (ServerWorld) this.getEntityWorld();
+            float power = 4.0f;
+
+            Explosion explosion = new CustomExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, Explosion.DestructionType.DESTROY);
             explosion.collectBlocksAndDamageEntities();
-            explosion.affectWorld(true);
+            explosion.affectWorld(false);
+
+            Iterator var14 = world.getPlayers().iterator();
+
+            while (var14.hasNext()) {
+                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) var14.next();
+                if (serverPlayerEntity.squaredDistanceTo(this.getX(), this.getY(), this.getZ()) < 4096.0D) {
+                    serverPlayerEntity.networkHandler.sendPacket(new ExplosionS2CPacket(this.getX(), this.getY(), this.getZ(), power, explosion.getAffectedBlocks(), (Vec3d) explosion.getAffectedPlayers().get(serverPlayerEntity)));
+                }
+            }
         }
     }
 }

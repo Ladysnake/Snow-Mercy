@@ -49,7 +49,6 @@ import net.minecraft.world.explosion.ExplosionBehavior;
 
 public class CustomExplosion extends Explosion {
     private static final ExplosionBehavior field_25818 = new ExplosionBehavior();
-    private final boolean createFire;
     private final CustomExplosion.DestructionType destructionType;
     private final Random random;
     private final World world;
@@ -64,23 +63,18 @@ public class CustomExplosion extends Explosion {
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
 
     @Environment(EnvType.CLIENT)
-    public CustomExplosion(World world, Entity entity, double x, double y, double z, float power, List<BlockPos> affectedBlocks) {
-        this(world, entity, x, y, z, power, false, CustomExplosion.DestructionType.DESTROY, affectedBlocks);
-    }
-
-    @Environment(EnvType.CLIENT)
-    public CustomExplosion(World world, Entity entity, double x, double y, double z, float power, boolean createFire, CustomExplosion.DestructionType destructionType, List<BlockPos> affectedBlocks) {
-        this(world, entity, x, y, z, power, createFire, destructionType);
+    public CustomExplosion(World world, Entity entity, double x, double y, double z, float power, CustomExplosion.DestructionType destructionType, List<BlockPos> affectedBlocks) {
+        this(world, entity, x, y, z, power, destructionType);
         this.affectedBlocks.addAll(affectedBlocks);
     }
 
     @Environment(EnvType.CLIENT)
-    public CustomExplosion(World world, Entity entity, double d, double e, double f, float g, boolean bl, CustomExplosion.DestructionType destructionType) {
-        this(world, entity, (DamageSource)null, (ExplosionBehavior)null, d, e, f, g, bl, destructionType);
+    public CustomExplosion(World world, Entity entity, double d, double e, double f, float g, CustomExplosion.DestructionType destructionType) {
+        this(world, entity, (DamageSource)null, (ExplosionBehavior)null, d, e, f, g, destructionType);
     }
 
-    public CustomExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, boolean fire, CustomExplosion.DestructionType destructionType) {
-        super(world, entity, damageSource, explosionBehavior, x, y, z, power, fire, destructionType);
+    public CustomExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, CustomExplosion.DestructionType destructionType) {
+        super(world, entity, damageSource, explosionBehavior, x, y, z, power, false, destructionType);
         this.random = new Random();
         this.affectedBlocks = Lists.newArrayList();
         this.affectedPlayers = Maps.newHashMap();
@@ -90,7 +84,6 @@ public class CustomExplosion extends Explosion {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.createFire = fire;
         this.destructionType = destructionType;
         this.damageSource = damageSource == null ? DamageSource.explosion(this) : damageSource;
         this.behavior = explosionBehavior == null ? this.chooseBehavior(entity) : explosionBehavior;
@@ -202,8 +195,8 @@ public class CustomExplosion extends Explosion {
                         aa /= ac;
                         ab /= ac;
                         double ad = (double)getExposure(vec3d, entity);
-                        double ae = (1.0D - y) * ad;
-                        entity.damage(this.getDamageSource(), (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
+                        double ae = (1.0D - y) * ad * 5;
+//                        entity.damage(this.getDamageSource(), (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
                         double af = ae;
                         if (entity instanceof LivingEntity) {
                             af = ProtectionEnchantment.transformExplosionKnockback((LivingEntity)entity, ae);
@@ -275,14 +268,9 @@ public class CustomExplosion extends Explosion {
             }
         }
 
-        if (this.createFire) {
-            Iterator var11 = this.affectedBlocks.iterator();
-
-            while(var11.hasNext()) {
-                BlockPos blockPos3 = (BlockPos)var11.next();
-                if (this.random.nextInt(3) == 0 && this.world.getBlockState(blockPos3).isAir() && this.world.getBlockState(blockPos3.down()).isOpaqueFullCube(this.world, blockPos3.down())) {
-                    this.world.setBlockState(blockPos3, AbstractFireBlock.getState(this.world, blockPos3));
-                }
+        for (BlockPos blockPos3 : this.affectedBlocks) {
+            if (this.random.nextInt(3) == 0 && this.world.getBlockState(blockPos3).isAir() && this.world.getBlockState(blockPos3.down()).isOpaqueFullCube(this.world, blockPos3.down())) {
+                this.world.setBlockState(blockPos3, Blocks.SNOW.getDefaultState());
             }
         }
 

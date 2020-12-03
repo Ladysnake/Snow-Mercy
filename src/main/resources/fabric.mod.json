@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "frostlegion",
+  "version": "${version}",
+
+  "name": "Frost Legion",
+  "description": "",
+  "authors": [
+    "doctor4t"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/doctor4t/frost-legion"
+  },
+
+  "license": "ARR",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ladysnake.frostlegion.common.FrostLegion"
+    ],
+    "client": [
+      "ladysnake.frostlegion.client.FrostLegionClient"
+    ]
+  },
+  "mixins": [
+    "frostlegion.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  }
+}

@@ -1,7 +1,7 @@
 package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.network.Packets;
-import ladysnake.frostlegion.common.world.CustomExplosion;
+import ladysnake.frostlegion.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -27,10 +27,10 @@ public class SnowMineEntity extends SnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
+        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, false));
         this.targetSelector.add(1, new FollowTargetGoal(this, PlayerEntity.class, 10, true, false, (livingEntity) -> {
             return livingEntity instanceof PlayerEntity;
         }));
@@ -52,8 +52,11 @@ public class SnowMineEntity extends SnowGolemEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        explode();
-        return super.damage(source, amount);
+        boolean ret = super.damage(source, amount);
+        if (!this.isDead()) {
+            explode();
+        }
+        return ret;
     }
 
     public void explode() {
@@ -61,13 +64,18 @@ public class SnowMineEntity extends SnowGolemEntity {
             this.remove();
 
             ServerWorld world = (ServerWorld) this.getEntityWorld();
-            float power = 4.0f;
 
-            Explosion explosion = new CustomExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, Explosion.DestructionType.DESTROY);
+            float power = 3.0f;
+            Explosion.DestructionType destructionType = Explosion.DestructionType.DESTROY;
+
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 
             Iterator var14 = world.getPlayers().iterator();
+            if (destructionType == Explosion.DestructionType.NONE) {
+                explosion.clearAffectedBlocks();
+            }
 
             while (var14.hasNext()) {
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) var14.next();

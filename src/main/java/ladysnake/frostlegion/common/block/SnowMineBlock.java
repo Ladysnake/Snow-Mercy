@@ -1,6 +1,5 @@
 package ladysnake.frostlegion.common.block;
 
-import ladysnake.frostlegion.common.world.CustomExplosion;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.entity.Entity;

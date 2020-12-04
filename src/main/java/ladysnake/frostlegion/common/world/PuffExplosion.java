@@ -15,16 +15,12 @@ import java.util.Random;
 import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.ProtectionEnchantment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.TntEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -47,9 +43,9 @@ import net.minecraft.world.explosion.EntityExplosionBehavior;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 
-public class CustomExplosion extends Explosion {
+public class PuffExplosion extends Explosion {
     private static final ExplosionBehavior field_25818 = new ExplosionBehavior();
-    private final CustomExplosion.DestructionType destructionType;
+    private final PuffExplosion.DestructionType destructionType;
     private final Random random;
     private final World world;
     private final double x;
@@ -63,17 +59,17 @@ public class CustomExplosion extends Explosion {
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
 
     @Environment(EnvType.CLIENT)
-    public CustomExplosion(World world, Entity entity, double x, double y, double z, float power, CustomExplosion.DestructionType destructionType, List<BlockPos> affectedBlocks) {
+    public PuffExplosion(World world, Entity entity, double x, double y, double z, float power, PuffExplosion.DestructionType destructionType, List<BlockPos> affectedBlocks) {
         this(world, entity, x, y, z, power, destructionType);
         this.affectedBlocks.addAll(affectedBlocks);
     }
 
     @Environment(EnvType.CLIENT)
-    public CustomExplosion(World world, Entity entity, double d, double e, double f, float g, CustomExplosion.DestructionType destructionType) {
+    public PuffExplosion(World world, Entity entity, double d, double e, double f, float g, PuffExplosion.DestructionType destructionType) {
         this(world, entity, (DamageSource)null, (ExplosionBehavior)null, d, e, f, g, destructionType);
     }
 
-    public CustomExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, CustomExplosion.DestructionType destructionType) {
+    public PuffExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, PuffExplosion.DestructionType destructionType) {
         super(world, entity, damageSource, explosionBehavior, x, y, z, power, false, destructionType);
         this.random = new Random();
         this.affectedBlocks = Lists.newArrayList();
@@ -159,6 +155,14 @@ public class CustomExplosion extends Explosion {
 
                             if (h > 0.0F && this.behavior.canDestroyBlock(this, this.world, blockPos, blockState, h)) {
                                 set.add(blockPos);
+
+                                // spawn flying snow on all blocks that will be destroyed
+                                if (random.nextInt(25) == 0) {
+                                    FallingBlockEntity flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.SNOW_BLOCK.getDefaultState());
+                                    flyingSnow.timeFalling = 1;
+                                    flyingSnow.dropItem = false;
+                                    world.spawnEntity(flyingSnow);
+                                }
                             }
 
                             m += d * 0.30000001192092896D;
@@ -195,7 +199,7 @@ public class CustomExplosion extends Explosion {
                         aa /= ac;
                         ab /= ac;
                         double ad = (double)getExposure(vec3d, entity);
-                        double ae = (1.0D - y) * ad * 5;
+                        double ae = ((1.0D - y) * ad) * 5f;
 //                        entity.damage(this.getDamageSource(), (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
                         double af = ae;
                         if (entity instanceof LivingEntity) {
@@ -221,7 +225,7 @@ public class CustomExplosion extends Explosion {
             this.world.playSound(this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.random.nextFloat() - this.world.random.nextFloat()) * 0.2F) * 0.7F, false);
         }
 
-        boolean bl2 = this.destructionType != CustomExplosion.DestructionType.NONE;
+        boolean bl2 = this.destructionType != PuffExplosion.DestructionType.NONE;
         if (bl) {
             if (this.power >= 2.0F && bl2) {
                 this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
@@ -245,7 +249,7 @@ public class CustomExplosion extends Explosion {
                     if (block.shouldDropItemsOnExplosion(this) && this.world instanceof ServerWorld) {
                         BlockEntity blockEntity = block.hasBlockEntity() ? this.world.getBlockEntity(blockPos) : null;
                         LootContext.Builder builder = (new LootContext.Builder((ServerWorld)this.world)).random(this.world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(blockPos)).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, this.entity);
-                        if (this.destructionType == CustomExplosion.DestructionType.DESTROY) {
+                        if (this.destructionType == PuffExplosion.DestructionType.DESTROY) {
                             builder.parameter(LootContextParameters.EXPLOSION_RADIUS, this.power);
                         }
 
@@ -269,7 +273,7 @@ public class CustomExplosion extends Explosion {
         }
 
         for (BlockPos blockPos3 : this.affectedBlocks) {
-            if (this.random.nextInt(3) == 0 && this.world.getBlockState(blockPos3).isAir() && this.world.getBlockState(blockPos3.down()).isOpaqueFullCube(this.world, blockPos3.down())) {
+            if (this.world.getBlockState(blockPos3).isAir() && this.world.getBlockState(blockPos3.down()).isOpaqueFullCube(this.world, blockPos3.down())) {
                 this.world.setBlockState(blockPos3, Blocks.SNOW.getDefaultState());
             }
         }

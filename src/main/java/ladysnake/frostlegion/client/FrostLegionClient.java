@@ -1,7 +1,7 @@
 package ladysnake.frostlegion.client;
 
 import ladysnake.frostlegion.client.network.EntityDispatcher;
-import ladysnake.frostlegion.client.render.entity.SnowmineEntityRenderer;
+import ladysnake.frostlegion.client.render.entity.SnowgglerEntityRenderer;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
 import net.fabricmc.api.ClientModInitializer;
@@ -15,7 +15,7 @@ public class FrostLegionClient implements ClientModInitializer {
     }
 
     public static void registerRenders() {
-        EntityRendererRegistry.INSTANCE.register(EntityTypes.SNOWMINE, (manager, context) -> new SnowmineEntityRenderer(manager));
+        EntityRendererRegistry.INSTANCE.register(EntityTypes.SNOWGGLER, (manager, context) -> new SnowgglerEntityRenderer(manager));
 
         ClientSidePacketRegistry.INSTANCE.register(Packets.SPAWN, EntityDispatcher::spawnFrom);
     }

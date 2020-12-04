@@ -7,12 +7,12 @@ import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
-public class SnowmineEntityModel<T extends Entity> extends CompositeEntityModel<T> {
+public class SnowgglerEntityModel<T extends Entity> extends CompositeEntityModel<T> {
     private final ModelPart head;
     private final ModelPart piece1;
     private final ModelPart piece2;
 
-    public SnowmineEntityModel() {
+    public SnowgglerEntityModel() {
         textureWidth = 64;
         textureHeight = 64;
         head = new ModelPart(this);

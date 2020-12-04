@@ -24,6 +24,7 @@ public final class EntityDispatcher {
                         entity.yaw = (float) (packet.getYaw() * 360) / 256.0F;
                         entity.setEntityId(packet.getId());
                         entity.setUuid(packet.getUuid());
+                        entity.setPos(packet.getX(), packet.getY(), packet.getZ());
                         world.addEntity(packet.getId(), entity);
                     });
                 }));

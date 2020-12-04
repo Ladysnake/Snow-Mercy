@@ -1,6 +1,6 @@
 package ladysnake.frostlegion.common;
 
-import ladysnake.frostlegion.common.entity.SnowMineEntity;
+import ladysnake.frostlegion.common.entity.SnowmineEntity;
 import ladysnake.frostlegion.common.init.Blocks;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.init.Items;
@@ -16,6 +16,6 @@ public class FrostLegion implements ModInitializer {
         Items.init();
         EntityTypes.init();
 
-        FabricDefaultAttributeRegistry.register(EntityTypes.SNOWMINE, SnowMineEntity.createSnowGolemAttributes());
+        FabricDefaultAttributeRegistry.register(EntityTypes.SNOWMINE, SnowmineEntity.createSnowGolemAttributes());
     }
 }

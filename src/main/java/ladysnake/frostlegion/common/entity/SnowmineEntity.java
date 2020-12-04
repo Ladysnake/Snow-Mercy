@@ -20,8 +20,8 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Iterator;
 
-public class SnowMineEntity extends SnowGolemEntity {
-    public SnowMineEntity(EntityType<SnowMineEntity> entityType, World world) {
+public class SnowmineEntity extends SnowGolemEntity {
+    public SnowmineEntity(EntityType<SnowmineEntity> entityType, World world) {
         super(entityType, world);
     }
 

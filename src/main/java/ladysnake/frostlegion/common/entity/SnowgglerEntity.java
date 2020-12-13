@@ -44,7 +44,7 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
             float power = 3.0f;
             Explosion.DestructionType destructionType = Explosion.DestructionType.DESTROY;
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power + ((float) this.dataTracker.get(EvilSnowGolemEntity.FROST_LEVEL)) / 10f, 3f + ((float) this.dataTracker.get(EvilSnowGolemEntity.FROST_LEVEL)) / 10f, destructionType);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power + ((float) frostLevel) / 10f, 3f + ((float) frostLevel) / 10f, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 

@@ -4,12 +4,11 @@ import ladysnake.frostlegion.common.entity.ai.goal.FollowAndBlowGoal;
 import ladysnake.frostlegion.common.network.Packets;
 import ladysnake.frostlegion.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
@@ -55,7 +54,7 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
             float power = 3.0f;
             Explosion.DestructionType destructionType = Explosion.DestructionType.DESTROY;
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, destructionType);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power + ((float) frostLevel) / 10f, 3f + ((float) frostLevel) / 10f, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 
@@ -72,4 +71,10 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
             }
         }
     }
+
+    @Override
+    public Packet<?> createSpawnPacket() {
+        return Packets.newSpawnPacket(this);
+    }
+
 }

@@ -48,23 +48,13 @@ public class PuffExplosion extends Explosion {
     private final double z;
     private final Entity entity;
     private final float power;
+    private final float knockbackPower;
     private final DamageSource damageSource;
     private final ExplosionBehavior behavior;
     private final List<BlockPos> affectedBlocks;
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
 
-    @Environment(EnvType.CLIENT)
-    public PuffExplosion(World world, Entity entity, double x, double y, double z, float power, PuffExplosion.DestructionType destructionType, List<BlockPos> affectedBlocks) {
-        this(world, entity, x, y, z, power, destructionType);
-        this.affectedBlocks.addAll(affectedBlocks);
-    }
-
-    @Environment(EnvType.CLIENT)
-    public PuffExplosion(World world, Entity entity, double d, double e, double f, float g, PuffExplosion.DestructionType destructionType) {
-        this(world, entity, (DamageSource)null, (ExplosionBehavior)null, d, e, f, g, destructionType);
-    }
-
-    public PuffExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, PuffExplosion.DestructionType destructionType) {
+    public PuffExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, float knockbackPower, DestructionType destructionType) {
         super(world, entity, damageSource, explosionBehavior, x, y, z, power, false, destructionType);
         this.random = new Random();
         this.affectedBlocks = Lists.newArrayList();
@@ -72,6 +62,7 @@ public class PuffExplosion extends Explosion {
         this.world = world;
         this.entity = entity;
         this.power = power;
+        this.knockbackPower = knockbackPower;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -194,7 +185,7 @@ public class PuffExplosion extends Explosion {
                         aa /= ac;
                         ab /= ac;
                         double ad = (double)getExposure(vec3d, entity);
-                        double ae = ((1.0D - y) * ad) * 5f;
+                        double ae = ((1.0D - y) * ad) * this.knockbackPower;
 //                        entity.damage(this.getDamageSource(), (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
                         double af = ae;
                         if (entity instanceof LivingEntity) {

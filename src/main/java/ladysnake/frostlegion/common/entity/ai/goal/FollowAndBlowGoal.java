@@ -1,7 +1,10 @@
 package ladysnake.frostlegion.common.entity.ai.goal;
 
+import java.util.EnumSet;
+
 import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
 import ladysnake.frostlegion.common.entity.SnowgglerEntity;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -9,8 +12,6 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
-
-import java.util.EnumSet;
 
 public class FollowAndBlowGoal extends Goal {
     protected PathAwareEntity mob;
@@ -29,7 +30,7 @@ public class FollowAndBlowGoal extends Goal {
         this.mob = mob;
         this.speed = speed;
         this.pauseWhenMobIdle = pauseWhenMobIdle;
-        this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
     }
 
     public boolean canStart() {
@@ -108,13 +109,20 @@ public class FollowAndBlowGoal extends Goal {
         }
 
         this.field_24667 = Math.max(this.field_24667 - 1, 0);
+        this.explode(livingEntity, d);
+    }
 
-        if (this.mob instanceof SnowgglerEntity) {
-            ((SnowgglerEntity) this.mob).explode();
+    protected void explode(LivingEntity target, double squaredDistance) {
+        double d = this.getSquaredMaxAttackDistance(target);
+        if (squaredDistance <= d && this.field_24667 <= 0) {
+            if (target instanceof PlayerEntity && mob instanceof SnowgglerEntity) {
+                ((SnowgglerEntity) mob).explode();
+            }
         }
+
     }
 
     protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-        return (double)(this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + entity.getWidth());
+        return (double)(this.mob.getWidth() * this.mob.getWidth() + entity.getWidth());
     }
 }

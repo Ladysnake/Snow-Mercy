@@ -1,5 +1,6 @@
 package ladysnake.frostlegion.common.entity;
 
+import ladysnake.frostlegion.common.entity.ai.goal.MergeGoal;
 import ladysnake.frostlegion.common.network.Packets;
 import ladysnake.frostlegion.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
@@ -30,7 +31,7 @@ public class SnowblobEntity extends SnowGolemEntity {
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.add(2, new MergeGoal(this, 1.0D, false));
         this.targetSelector.add(1, new FollowTargetGoal(this, EvilSnowGolemEntity.class, 10, true, false, (livingEntity) -> {
             return livingEntity instanceof EvilSnowGolemEntity;
         }));

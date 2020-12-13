@@ -10,7 +10,6 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.util.Hand;
 
 public class MergeGoal extends Goal {
     protected PathAwareEntity mob;
@@ -108,10 +107,34 @@ public class MergeGoal extends Goal {
         }
 
         this.field_24667 = Math.max(this.field_24667 - 1, 0);
+        this.merge(livingEntity, d);
+    }
 
-        if (livingEntity instanceof EvilSnowGolemEntity) {
-            ((EvilSnowGolemEntity) livingEntity).increaseFrost();
+    protected void merge(LivingEntity target, double squaredDistance) {
+        double d = this.getSquaredMaxAttackDistance(target);
+        if (squaredDistance <= d && this.field_24667 <= 0) {
+            if (target instanceof EvilSnowGolemEntity) {
+                ((EvilSnowGolemEntity) target).increaseFrost();
+                mob.remove();
+            }
         }
+
+    }
+
+    protected void method_28346() {
+        this.field_24667 = 20;
+    }
+
+    protected boolean method_28347() {
+        return this.field_24667 <= 0;
+    }
+
+    protected int method_28348() {
+        return this.field_24667;
+    }
+
+    protected int method_28349() {
+        return 20;
     }
 
     protected double getSquaredMaxAttackDistance(LivingEntity entity) {

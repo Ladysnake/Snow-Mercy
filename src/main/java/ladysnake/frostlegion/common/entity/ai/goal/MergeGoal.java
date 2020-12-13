@@ -1,7 +1,5 @@
 package ladysnake.frostlegion.common.entity.ai.goal;
 
-import java.util.EnumSet;
-
 import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -10,6 +8,8 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
+
+import java.util.EnumSet;
 
 public class MergeGoal extends Goal {
     protected PathAwareEntity mob;

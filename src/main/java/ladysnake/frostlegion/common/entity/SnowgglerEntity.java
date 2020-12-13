@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.ZombifiedPiglinEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
@@ -30,21 +29,10 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
         this.targetSelector.add(1, (new RevengeGoal(this, new Class[0])).setGroupRevenge(ZombifiedPiglinEntity.class));
         this.goalSelector.add(2, new FollowAndBlowGoal(this, 1.0D, false));
         this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, SnowGolemEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity) && !(snowGolemEntity instanceof SnowblobEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
-
-
-    }
-
-    @Override
-    public boolean damage(DamageSource source, float amount) {
-        boolean ret = super.damage(source, amount);
-        if (!this.isDead()) {
-//            explode();
-        }
-        return ret;
     }
 
     public void explode() {
@@ -56,7 +44,7 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
             float power = 3.0f;
             Explosion.DestructionType destructionType = Explosion.DestructionType.DESTROY;
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power + ((float) frostLevel) / 10f, 3f + ((float) frostLevel) / 10f, destructionType);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power + ((float) this.dataTracker.get(EvilSnowGolemEntity.FROST_LEVEL)) / 10f, 3f + ((float) this.dataTracker.get(EvilSnowGolemEntity.FROST_LEVEL)) / 10f, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 

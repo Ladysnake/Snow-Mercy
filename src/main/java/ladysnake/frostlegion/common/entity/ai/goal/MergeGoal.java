@@ -121,23 +121,7 @@ public class MergeGoal extends Goal {
 
     }
 
-    protected void method_28346() {
-        this.field_24667 = 20;
-    }
-
-    protected boolean method_28347() {
-        return this.field_24667 <= 0;
-    }
-
-    protected int method_28348() {
-        return this.field_24667;
-    }
-
-    protected int method_28349() {
-        return 20;
-    }
-
     protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-        return (double)(this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + entity.getWidth());
+        return (double)(this.mob.getWidth()* this.mob.getWidth() + entity.getWidth());
     }
 }

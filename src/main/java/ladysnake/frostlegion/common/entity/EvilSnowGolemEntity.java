@@ -24,8 +24,7 @@ public class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
     public void increaseFrost() {
         this.frostLevel++;
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(4.0f + this.frostLevel);
-        System.out.println("HEALTH = "+this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getBaseValue());
-        System.out.println("FROST = "+this.frostLevel);
+        this.heal(1.0f);
     }
 
     @Override

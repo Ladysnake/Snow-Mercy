@@ -41,7 +41,7 @@ public class BallistaEntity extends EvilSnowGolemEntity {
     }
 
     public void attack(LivingEntity target, float pullProgress) {
-        SnowballEntity snowballEntity = new SnowballEntity(this.world, this.getX(), this.getY()+0.75, this.getZ());
+        SnowballEntity snowballEntity = new SnowballEntity(this.world, this);
         double d = target.getEyeY() - 1.100000023841858D;
         double e = target.getX() - this.getX();
         double f = d - snowballEntity.getY();

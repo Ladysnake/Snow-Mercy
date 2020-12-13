@@ -19,11 +19,11 @@ public class BallistaEntityModel<T extends Entity> extends CompositeEntityModel<
         head = new ModelPart(this);
         head.setPivot(0.0F, 4.0F, 0.0F);
         head.setTextureOffset(0, 0).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, true);
+        head.setTextureOffset(40, 26).addCuboid(-3.0F, -7.0F, -7.0F, 6.0F, 6.0F, 4.0F, -0.5F, true);
 
         piece1 = new ModelPart(this);
         piece1.setPivot(0.0F, 13.0F, 0.0F);
         piece1.setTextureOffset(0, 16).addCuboid(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, true);
-        piece1.setTextureOffset(40, 26).addCuboid(-3.0F, -8.0F, -8.0F, 6.0F, 6.0F, 4.0F, -0.5F, true);
 
         piece2 = new ModelPart(this);
         piece2.setPivot(0.0F, 24.0F, 0.0F);

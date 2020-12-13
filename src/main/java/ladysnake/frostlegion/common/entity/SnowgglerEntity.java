@@ -1,5 +1,6 @@
 package ladysnake.frostlegion.common.entity;
 
+import ladysnake.frostlegion.common.entity.ai.goal.FollowAndBlowGoal;
 import ladysnake.frostlegion.common.network.Packets;
 import ladysnake.frostlegion.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
@@ -20,7 +21,7 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Iterator;
 
-public class SnowgglerEntity extends SnowGolemEntity {
+public class SnowgglerEntity extends EvilSnowGolemEntity {
     public SnowgglerEntity(EntityType<SnowgglerEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -30,24 +31,10 @@ public class SnowgglerEntity extends SnowGolemEntity {
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.add(2, new FollowAndBlowGoal(this, 1.0D, false));
         this.targetSelector.add(1, new FollowTargetGoal(this, PlayerEntity.class, 10, true, false, (livingEntity) -> {
             return livingEntity instanceof PlayerEntity;
         }));
-    }
-
-    public static DefaultAttributeContainer.Builder createSnowGolemAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
-    }
-
-    @Override
-    public Packet<?> createSpawnPacket() {
-        return Packets.newSpawnPacket(this);
-    }
-
-    @Override
-    public void onPlayerCollision(PlayerEntity player) {
-        explode();
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class SnowgglerEntityRenderer extends MobEntityRenderer<SnowgglerEntity, SnowgglerEntityModel<SnowgglerEntity>> {
-    private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/snowmine.png");
+    private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/snowggler.png");
 
     public SnowgglerEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new SnowgglerEntityModel(), 0.5F);

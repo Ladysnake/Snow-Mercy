@@ -113,9 +113,7 @@ public class FollowAndBlowGoal extends Goal {
     protected void explode(LivingEntity target, double squaredDistance) {
         double d = this.getSquaredMaxAttackDistance(target);
         if (squaredDistance <= d && this.field_24667 <= 0) {
-            if (target instanceof PlayerEntity && mob instanceof SnowgglerEntity) {
-                ((SnowgglerEntity) mob).explode();
-            }
+            ((SnowgglerEntity) mob).explode();
         }
 
     }

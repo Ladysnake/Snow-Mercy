@@ -4,11 +4,11 @@ import ladysnake.frostlegion.common.entity.ai.goal.FollowAndBlowGoal;
 import ladysnake.frostlegion.common.network.Packets;
 import ladysnake.frostlegion.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.ZombifiedPiglinEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
@@ -27,20 +27,22 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(4, new LookAroundGoal(this));
+        this.targetSelector.add(1, (new RevengeGoal(this, new Class[0])).setGroupRevenge(ZombifiedPiglinEntity.class));
         this.goalSelector.add(2, new FollowAndBlowGoal(this, 1.0D, false));
-        this.targetSelector.add(1, new FollowTargetGoal(this, PlayerEntity.class, 10, true, false, (livingEntity) -> {
-            return livingEntity instanceof PlayerEntity;
-        }));
+        this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal(this, SnowGolemEntity.class, true));
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
+        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(5, new LookAroundGoal(this));
+
+
     }
 
     @Override
     public boolean damage(DamageSource source, float amount) {
         boolean ret = super.damage(source, amount);
         if (!this.isDead()) {
-            explode();
+//            explode();
         }
         return ret;
     }

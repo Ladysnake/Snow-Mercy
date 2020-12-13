@@ -1,7 +1,9 @@
 package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.entity.ai.goal.MergeGoal;
+import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -13,6 +15,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -42,7 +45,25 @@ public class SnowblobEntity extends SnowGolemEntity implements IAnimatable {
     }
 
     public static DefaultAttributeContainer.Builder createEntityAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (this.world.getBlockState(this.getBlockPos().add(0, -0.5, 0)).getBlock() == Blocks.SNOW_BLOCK
+        && this.world.getBlockState(this.getBlockPos().add(0, -1.5, 0)).getBlock() == Blocks.SNOW_BLOCK) {
+            this.remove();
+            this.world.breakBlock(this.getBlockPos().add(0, -0.5, 0), false);
+            this.world.breakBlock(this.getBlockPos().add(0, -1.5, 0), false);
+
+            EvilSnowGolemEntity snowGolemEntity = EntityTypes.SNOWGGLER.create(world);
+            BlockPos blockPos = this.getBlockPos().add(0, -2, 0);
+            snowGolemEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+            world.spawnEntity(snowGolemEntity);
+            this.world.spawnEntity(snowGolemEntity);
+        }
     }
 
     @Override
@@ -51,7 +72,7 @@ public class SnowblobEntity extends SnowGolemEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.prevX != this.getX() || this.prevY != this.getY() || this.prevZ != this.getZ()) {
+        if (this.prevX != this.getX() || this.prevZ != this.getZ()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.snowblob.roll", true));
             return PlayState.CONTINUE;
         } else {

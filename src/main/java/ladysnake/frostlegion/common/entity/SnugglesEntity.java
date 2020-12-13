@@ -18,8 +18,8 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Iterator;
 
-public class SnowgglerEntity extends EvilSnowGolemEntity {
-    public SnowgglerEntity(EntityType<SnowgglerEntity> entityType, World world) {
+public class SnugglesEntity extends EvilSnowGolemEntity {
+    public SnugglesEntity(EntityType<SnugglesEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -43,7 +43,7 @@ public class SnowgglerEntity extends EvilSnowGolemEntity {
             float power = 3.0f;
             Explosion.DestructionType destructionType = Explosion.DestructionType.DESTROY;
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power + ((float) frostLevel) / 10f, 3f + ((float) frostLevel) / 10f, destructionType);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), 3f, 5f, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 

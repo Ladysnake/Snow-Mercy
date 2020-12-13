@@ -114,7 +114,7 @@ public class MergeGoal extends Goal {
         double d = this.getSquaredMaxAttackDistance(target);
         if (squaredDistance <= d && this.field_24667 <= 0) {
             if (target instanceof EvilSnowGolemEntity) {
-                ((EvilSnowGolemEntity) target).increaseFrost();
+//                ((EvilSnowGolemEntity) target).increaseFrost();
                 mob.remove();
             }
         }

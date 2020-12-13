@@ -1,6 +1,6 @@
 package ladysnake.frostlegion.common.entity.ai.goal;
 
-import ladysnake.frostlegion.common.entity.SnowgglerEntity;
+import ladysnake.frostlegion.common.entity.SnugglesEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -113,7 +113,7 @@ public class FollowAndBlowGoal extends Goal {
     protected void explode(LivingEntity target, double squaredDistance) {
         double d = this.getSquaredMaxAttackDistance(target);
         if (squaredDistance <= d && this.field_24667 <= 0) {
-            ((SnowgglerEntity) mob).explode();
+            ((SnugglesEntity) mob).explode();
         }
 
     }

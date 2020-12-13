@@ -15,7 +15,5 @@ public class FrostLegion implements ModInitializer {
         Blocks.init();
         Items.init();
         EntityTypes.init();
-
-        FabricDefaultAttributeRegistry.register(EntityTypes.SNOWGGLER, SnowgglerEntity.createSnowGolemAttributes());
     }
 }

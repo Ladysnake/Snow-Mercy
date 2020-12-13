@@ -14,7 +14,7 @@ public class SnugglesEntityRenderer extends MobEntityRenderer<SnugglesEntity, Sn
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/snuggles.png");
 
     public SnugglesEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new SnugglesEntityModel(), 0.5F);
+        super(entityRenderDispatcher, new SnugglesEntityModel<>(), 0.5F);
     }
 
     public Identifier getTexture(SnugglesEntity snugglesEntity) {

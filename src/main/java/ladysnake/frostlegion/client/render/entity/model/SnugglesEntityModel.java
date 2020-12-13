@@ -49,7 +49,7 @@ public class SnugglesEntityModel<T extends Entity> extends CompositeEntityModel<
     public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         head.render(matrixStack, buffer, packedLight, packedOverlay);
         upper.render(matrixStack, buffer, packedLight, packedOverlay);
-        upper.render(matrixStack, buffer, packedLight, packedOverlay);
+        lower.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class SnowblobEntity extends SnowGolemEntity implements IAnimatable {
             this.world.breakBlock(this.getBlockPos().add(0, -0.5, 0), false);
             this.world.breakBlock(this.getBlockPos().add(0, -1.5, 0), false);
 
-            EvilSnowGolemEntity snowGolemEntity = EntityTypes.SNOWGGLER.create(world);
+            EvilSnowGolemEntity snowGolemEntity = EntityTypes.SNUGGLES.create(world);
             BlockPos blockPos = this.getBlockPos().add(0, -2, 0);
             snowGolemEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);
             this.world.spawnEntity(snowGolemEntity);

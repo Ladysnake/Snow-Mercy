@@ -6,7 +6,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 
 public class RocketsEntityModel<T extends Entity> extends CompositeEntityModel<T> {
     private final ModelPart head;
@@ -108,7 +107,9 @@ public class RocketsEntityModel<T extends Entity> extends CompositeEntityModel<T
 
     @Override
     public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        //previously the render function, render code was moved to a method below
+        this.head.yaw = netHeadYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
+        this.piece1.yaw = netHeadYaw * 0.017453292F * 0.25F;
     }
 
     @Override

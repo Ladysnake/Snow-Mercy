@@ -1,8 +1,8 @@
 package ladysnake.frostlegion.client;
 
 import ladysnake.frostlegion.client.network.EntityDispatcher;
+import ladysnake.frostlegion.client.render.entity.MortarsEntityRenderer;
 import ladysnake.frostlegion.client.render.entity.RocketsEntityRenderer;
-import ladysnake.frostlegion.client.render.entity.SnowblobEntityRenderer;
 import ladysnake.frostlegion.client.render.entity.SnugglesEntityRenderer;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
@@ -21,6 +21,7 @@ public class FrostLegionClient implements ClientModInitializer {
 
         EntityRendererRegistry.INSTANCE.register(EntityTypes.SNUGGLES, (manager, context) -> new SnugglesEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ROCKETS, (manager, context) -> new RocketsEntityRenderer(manager));
+        EntityRendererRegistry.INSTANCE.register(EntityTypes.MORTARS, (manager, context) -> new MortarsEntityRenderer(manager));
     }
 
 }

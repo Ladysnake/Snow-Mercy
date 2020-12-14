@@ -6,7 +6,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.SnowGolemEntity;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;
 
 public class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {

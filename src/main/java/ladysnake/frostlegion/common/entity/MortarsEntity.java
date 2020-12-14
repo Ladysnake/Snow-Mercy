@@ -34,7 +34,7 @@ public class MortarsEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 25, 30f));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 10, 30f));
         this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new FollowTargetGoal(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity) && !(snowGolemEntity instanceof SnowblobEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
@@ -43,8 +43,11 @@ public class MortarsEntity extends EvilSnowGolemEntity {
     }
 
     public void attack(LivingEntity target, float pullProgress) {
-        for (int i = 0; i < 12; i++) {
-            Entity entity = new ArrowEntity(world, this.getX(), this.getY(), this.getZ());
+        for (int i = 0; i < 3; i++) {
+            FallingBlockEntity entity = new FallingBlockEntity(world, this.getX(), this.getY(), this.getZ(), Blocks.ANVIL.getDefaultState());
+            entity.timeFalling = 1;
+            entity.dropItem = false;
+            entity.setHurtEntities(true);
             entity.setVelocity((target.getX()-this.getX())/30f+random.nextGaussian()/25f, 1f+random.nextGaussian()/10f, (target.getZ()-this.getZ())/30f+random.nextGaussian()/25f);
             world.spawnEntity(entity);
         }

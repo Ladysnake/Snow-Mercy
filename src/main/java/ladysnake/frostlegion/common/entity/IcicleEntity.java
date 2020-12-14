@@ -6,13 +6,19 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
 public class IcicleEntity extends PersistentProjectileEntity {
+
+
     public IcicleEntity(EntityType<? extends IcicleEntity> entityType, World world) {
         super(entityType, world);
         this.setSound(SoundEvents.BLOCK_GLASS_BREAK);
@@ -48,6 +54,9 @@ public class IcicleEntity extends PersistentProjectileEntity {
         super.tick();
 
         if (this.inGround) {
+            for(int i = 0; i < 8; ++i) {
+                this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX()+random.nextGaussian()/20f, this.getY()+random.nextGaussian()/20f, this.getZ()+random.nextGaussian()/20f, random.nextGaussian()/20f, 0.2D+random.nextGaussian()/20f, random.nextGaussian()/20f);
+            }
             this.remove();
         }
     }

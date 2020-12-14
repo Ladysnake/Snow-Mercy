@@ -11,8 +11,6 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Geckolib
-	maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
 }
 
 dependencies {
@@ -23,9 +21,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	// Geckloib
-	modImplementation 'software.bernie.geckolib:fabric-1.16.4-geckolib:3.0.0:dev'
 }
 
 processResources {

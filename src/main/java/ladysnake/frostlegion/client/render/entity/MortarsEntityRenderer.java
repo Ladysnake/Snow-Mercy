@@ -1,10 +1,8 @@
 package ladysnake.frostlegion.client.render.entity;
 
 import ladysnake.frostlegion.client.render.entity.model.MortarsEntityModel;
-import ladysnake.frostlegion.client.render.entity.model.RocketsEntityModel;
 import ladysnake.frostlegion.common.FrostLegion;
 import ladysnake.frostlegion.common.entity.MortarsEntity;
-import ladysnake.frostlegion.common.entity.RocketsEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;

@@ -40,8 +40,8 @@ public class RocketsEntity extends EvilSnowGolemEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 50, 30f));
-        this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity) && !(snowGolemEntity instanceof SnowblobEntity)));
+        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
@@ -54,8 +54,8 @@ public class RocketsEntity extends EvilSnowGolemEntity {
         Vec3d vec3d2 = this.getRotationVec(1.0F);
         Vector3f vector3f = new Vector3f(vec3d2);
         vector3f.rotate(quaternion);
-        ((ProjectileEntity)fireworkRocketEntity).setVelocity((double)vector3f.getX(), (double)vector3f.getY(), (double)vector3f.getZ(), 3f, 0f);
-        world.spawnEntity((Entity)fireworkRocketEntity);
+        ((ProjectileEntity) fireworkRocketEntity).setVelocity((double) vector3f.getX(), (double) vector3f.getY(), (double) vector3f.getZ(), 3f, 5f);
+        world.spawnEntity((Entity) fireworkRocketEntity);
     }
 
     @Override

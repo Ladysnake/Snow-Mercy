@@ -13,6 +13,7 @@ import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -25,10 +26,10 @@ public class SnugglesEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(1, new RevengeGoal(this));
         this.goalSelector.add(2, new FollowAndBlowGoal(this, 1.0D, false));
-        this.targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new FollowTargetGoal(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity) && !(snowGolemEntity instanceof SnowblobEntity)));
+        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
@@ -41,9 +42,14 @@ public class SnugglesEntity extends EvilSnowGolemEntity {
             ServerWorld world = (ServerWorld) this.getEntityWorld();
 
             float power = 3.0f;
-            Explosion.DestructionType destructionType = Explosion.DestructionType.DESTROY;
+            Explosion.DestructionType destructionType;
+            if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+                destructionType = Explosion.DestructionType.DESTROY;
+            } else {
+                destructionType = Explosion.DestructionType.NONE;
+            }
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), 3f, 5f, destructionType);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 10f, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 

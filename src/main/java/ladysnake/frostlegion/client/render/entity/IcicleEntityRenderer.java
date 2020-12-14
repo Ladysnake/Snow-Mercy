@@ -4,7 +4,6 @@ import ladysnake.frostlegion.common.FrostLegion;
 import ladysnake.frostlegion.common.entity.IcicleEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.util.Identifier;
 
 public class IcicleEntityRenderer extends ProjectileEntityRenderer<IcicleEntity> {

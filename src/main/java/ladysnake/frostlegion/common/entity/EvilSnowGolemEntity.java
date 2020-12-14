@@ -3,6 +3,7 @@ package ladysnake.frostlegion.common.entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.SnowGolemEntity;
@@ -15,5 +16,14 @@ public class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
 
     public static DefaultAttributeContainer.Builder createEntityAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if (!(source.getAttacker() instanceof EvilSnowGolemEntity)) {
+            return super.damage(source, amount);
+        } else {
+            return false;
+        }
     }
 }

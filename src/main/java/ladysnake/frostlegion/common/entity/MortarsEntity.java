@@ -1,5 +1,6 @@
 package ladysnake.frostlegion.common.entity;
 
+import com.sun.jna.platform.win32.WinBase;
 import ladysnake.frostlegion.common.network.Packets;
 import net.minecraft.block.AnvilBlock;
 import net.minecraft.block.Blocks;
@@ -22,6 +23,9 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.Packet;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
@@ -43,6 +47,7 @@ public class MortarsEntity extends EvilSnowGolemEntity {
     }
 
     public void attack(LivingEntity target, float pullProgress) {
+        world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.HOSTILE, 1.0f, 0.75f);
         for (int i = 0; i < 50; i++) {
             IcicleEntity entity = new IcicleEntity(world, this);
             entity.setPos(this.getX(), this.getY()+0.5f, this.getZ());

@@ -39,7 +39,7 @@ public class RocketsEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 50, 30f));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 50, 50f));
         this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));

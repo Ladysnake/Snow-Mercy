@@ -21,6 +21,7 @@ public class FrostLegionClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ROCKETS, (manager, context) -> new RocketsEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.MORTARS, (manager, context) -> new MortarsEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.SAWMAN, (manager, context) -> new SawmanEntityRenderer(manager));
+        EntityRendererRegistry.INSTANCE.register(EntityTypes.SNOW_GOLEM_HEAD, (manager, context) -> new SnowGolemHeadEntityRenderer(manager));
 
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ICICLE, (manager, context) -> new IcicleEntityRenderer(manager));
     }

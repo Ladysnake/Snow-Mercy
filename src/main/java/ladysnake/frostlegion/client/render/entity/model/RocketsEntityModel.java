@@ -1,15 +1,9 @@
 package ladysnake.frostlegion.client.render.entity.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
-public class RocketsEntityModel<T extends Entity> extends CompositeEntityModel<T> {
-    private final ModelPart head;
-    private final ModelPart piece1;
+public class RocketsEntityModel<T extends Entity> extends EvilSnowGolemEntityModel<T> {
     private final ModelPart launcher;
     private final ModelPart rocket;
     private final ModelPart tip;
@@ -22,11 +16,11 @@ public class RocketsEntityModel<T extends Entity> extends CompositeEntityModel<T
     private final ModelPart tip_r2;
     private final ModelPart rocket4;
     private final ModelPart tip4;
-    private final ModelPart piece2;
 
     public RocketsEntityModel() {
         textureWidth = 128;
         textureHeight = 64;
+
         head = new ModelPart(this);
         head.setPivot(0.0F, 4.0F, 0.0F);
         head.setTextureOffset(0, 0).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, true);
@@ -62,11 +56,9 @@ public class RocketsEntityModel<T extends Entity> extends CompositeEntityModel<T
         launcher.addChild(rocket2);
         setRotationAngle(rocket2, 0.0F, 0.0873F, 0.0F);
 
-
         tip2 = new ModelPart(this);
         tip2.setPivot(0.0F, 0.0F, 0.0F);
         rocket2.addChild(tip2);
-
 
         launcher2 = new ModelPart(this);
         launcher2.setPivot(6.5F, -6.5F, -1.0F);
@@ -94,39 +86,12 @@ public class RocketsEntityModel<T extends Entity> extends CompositeEntityModel<T
         launcher2.addChild(rocket4);
         setRotationAngle(rocket4, 0.0F, 0.0873F, 0.0F);
 
-
         tip4 = new ModelPart(this);
         tip4.setPivot(0.0F, 0.0F, 0.0F);
         rocket4.addChild(tip4);
 
-
         piece2 = new ModelPart(this);
         piece2.setPivot(0.0F, 24.0F, 0.0F);
         piece2.setTextureOffset(0, 36).addCuboid(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, -0.5F, true);
-    }
-
-    @Override
-    public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yaw = netHeadYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
-        this.piece1.yaw = netHeadYaw * 0.017453292F * 0.25F;
-    }
-
-    @Override
-    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        head.render(matrixStack, buffer, packedLight, packedOverlay);
-        piece1.render(matrixStack, buffer, packedLight, packedOverlay);
-        piece2.render(matrixStack, buffer, packedLight, packedOverlay);
-    }
-
-    public void setRotationAngle(ModelPart bone, float x, float y, float z) {
-        bone.pitch = x;
-        bone.yaw = y;
-        bone.roll = z;
-    }
-
-    @Override
-    public Iterable<ModelPart> getParts() {
-        return ImmutableList.of(head, piece1, piece2);
     }
 }

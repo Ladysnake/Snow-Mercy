@@ -1,22 +1,16 @@
 package ladysnake.frostlegion.client.render.entity.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
-public class SawmanEntityModel<T extends Entity> extends CompositeEntityModel<T> {
-    private final ModelPart head;
+public class SawmanEntityModel<T extends Entity> extends EvilSnowGolemEntityModel<T> {
     private final ModelPart headsaw_r1;
-    private final ModelPart piece1;
-    private final ModelPart piece2;
     private final ModelPart saw;
 
     public SawmanEntityModel() {
         textureWidth = 128;
         textureHeight = 64;
+
         head = new ModelPart(this);
         head.setPivot(0.0F, 4.0F, 0.0F);
         head.setTextureOffset(0, 0).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, true);
@@ -44,28 +38,7 @@ public class SawmanEntityModel<T extends Entity> extends CompositeEntityModel<T>
 
     @Override
     public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yaw = netHeadYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
-        this.piece1.yaw = netHeadYaw * 0.017453292F * 0.25F;
+        super.setAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.setRotationAngle(this.saw, 0, entity.age, 0);
     }
-
-    @Override
-    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        head.render(matrixStack, buffer, packedLight, packedOverlay);
-        piece1.render(matrixStack, buffer, packedLight, packedOverlay);
-        piece2.render(matrixStack, buffer, packedLight, packedOverlay);
-    }
-
-    @Override
-    public Iterable<ModelPart> getParts() {
-        return ImmutableList.of(this.piece1, this.piece2, this.head);
-    }
-
-    public void setRotationAngle(ModelPart bone, float x, float y, float z) {
-        bone.pitch = x;
-        bone.yaw = y;
-        bone.roll = z;
-    }
-
 }

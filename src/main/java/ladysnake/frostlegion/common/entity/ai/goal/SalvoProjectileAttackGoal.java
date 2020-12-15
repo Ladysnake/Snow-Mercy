@@ -1,11 +1,12 @@
 package ladysnake.frostlegion.common.entity.ai.goal;
 
-import java.util.EnumSet;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.EnumSet;
 
 public class SalvoProjectileAttackGoal extends Goal {
     private MobEntity mob;

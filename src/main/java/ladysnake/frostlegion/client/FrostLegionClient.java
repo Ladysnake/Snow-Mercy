@@ -1,10 +1,7 @@
 package ladysnake.frostlegion.client;
 
 import ladysnake.frostlegion.client.network.EntityDispatcher;
-import ladysnake.frostlegion.client.render.entity.IcicleEntityRenderer;
-import ladysnake.frostlegion.client.render.entity.MortarsEntityRenderer;
-import ladysnake.frostlegion.client.render.entity.RocketsEntityRenderer;
-import ladysnake.frostlegion.client.render.entity.SnugglesEntityRenderer;
+import ladysnake.frostlegion.client.render.entity.*;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
 import net.fabricmc.api.ClientModInitializer;
@@ -23,6 +20,7 @@ public class FrostLegionClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(EntityTypes.SNUGGLES, (manager, context) -> new SnugglesEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ROCKETS, (manager, context) -> new RocketsEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.MORTARS, (manager, context) -> new MortarsEntityRenderer(manager));
+        EntityRendererRegistry.INSTANCE.register(EntityTypes.SAWMAN, (manager, context) -> new SawmanEntityRenderer(manager));
 
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ICICLE, (manager, context) -> new IcicleEntityRenderer(manager));
     }

@@ -2,7 +2,6 @@ package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
-import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;

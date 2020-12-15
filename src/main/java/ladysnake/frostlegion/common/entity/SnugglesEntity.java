@@ -35,6 +35,15 @@ public class SnugglesEntity extends EvilSnowGolemEntity {
         this.goalSelector.add(5, new LookAroundGoal(this));
     }
 
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        boolean ret = super.damage(source, amount);
+        if (!this.isDead()) {
+            explode();
+        }
+        return ret;
+    }
+
     public void explode() {
         if (!this.getEntityWorld().isClient()) {
             this.remove();

@@ -38,7 +38,7 @@ public class SnugglesEntity extends EvilSnowGolemEntity {
     @Override
     public boolean damage(DamageSource source, float amount) {
         boolean ret = super.damage(source, amount);
-        if (!this.isDead()) {
+        if (!this.isDead() && ret) {
             explode();
         }
         return ret;

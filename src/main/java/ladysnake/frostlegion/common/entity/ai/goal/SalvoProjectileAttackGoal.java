@@ -18,12 +18,16 @@ public class SalvoProjectileAttackGoal extends Goal {
     private int maxIntervalTicks;
     private float maxShootRange;
     private float squaredMaxShootRange;
+    private int maxSalvo;
+    private int currentSalvo;
+    private int cooldownBetweenShots;
+    private int currentCooldownBetweenShots;
 
-    public SalvoProjectileAttackGoal(RangedAttackMob mob, double mobSpeed, int intervalTicks, float maxShootRange) {
-        this(mob, mobSpeed, intervalTicks, intervalTicks, maxShootRange);
+    public SalvoProjectileAttackGoal(RangedAttackMob mob, double mobSpeed, int intervalTicks, float maxShootRange, int maxSalvo, int cooldownBetweenShots) {
+        this(mob, mobSpeed, intervalTicks, intervalTicks, maxShootRange, maxSalvo, cooldownBetweenShots);
     }
 
-    public SalvoProjectileAttackGoal(RangedAttackMob mob, double mobSpeed, int minIntervalTicks, int maxIntervalTicks, float maxShootRange) {
+    public SalvoProjectileAttackGoal(RangedAttackMob mob, double mobSpeed, int minIntervalTicks, int maxIntervalTicks, float maxShootRange, int maxSalvo, int cooldownBetweenShots) {
         this.updateCountdownTicks = -1;
         if (!(mob instanceof LivingEntity)) {
             throw new IllegalArgumentException("SalvoProjectileAttackGoal requires Mob implements RangedAttackMob");
@@ -36,6 +40,8 @@ public class SalvoProjectileAttackGoal extends Goal {
             this.maxShootRange = maxShootRange;
             this.squaredMaxShootRange = maxShootRange * maxShootRange;
             this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+            this.maxSalvo = maxSalvo;
+            this.cooldownBetweenShots = cooldownBetweenShots;
         }
     }
 
@@ -83,11 +89,23 @@ public class SalvoProjectileAttackGoal extends Goal {
 
             f = MathHelper.sqrt(d) / this.maxShootRange;
             float g = MathHelper.clamp(f, 0.1F, 1.0F);
-            this.owner.attack(this.target, g);
-            this.updateCountdownTicks = MathHelper.floor(f * (float)(this.maxIntervalTicks - this.minIntervalTicks) + (float)this.minIntervalTicks);
+            this.currentCooldownBetweenShots = this.cooldownBetweenShots;
+            this.currentSalvo = 0;
+            this.updateCountdownTicks = MathHelper.floor(f * (float) (this.maxIntervalTicks - this.minIntervalTicks) + (float) this.minIntervalTicks);
         } else if (this.updateCountdownTicks < 0) {
             f = MathHelper.sqrt(d) / this.maxShootRange;
             this.updateCountdownTicks = MathHelper.floor(f * (float)(this.maxIntervalTicks - this.minIntervalTicks) + (float)this.minIntervalTicks);
+        }
+
+        if (this.currentSalvo < this.maxSalvo) {
+            if (this.currentCooldownBetweenShots-- <= 0) {
+                f = MathHelper.sqrt(d) / this.maxShootRange;
+                float g = MathHelper.clamp(f, 0.1F, 1.0F);
+                this.owner.attack(this.target, g);
+
+                this.currentCooldownBetweenShots = this.cooldownBetweenShots;
+                this.currentSalvo++;
+            }
         }
     }
 }

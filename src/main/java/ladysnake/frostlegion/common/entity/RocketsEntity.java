@@ -1,5 +1,6 @@
 package ladysnake.frostlegion.common.entity;
 
+import ladysnake.frostlegion.common.entity.ai.goal.SalvoProjectileAttackGoal;
 import ladysnake.frostlegion.common.network.Packets;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.Entity;
@@ -39,7 +40,7 @@ public class RocketsEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 50, 50f));
+        this.goalSelector.add(1, new SalvoProjectileAttackGoal(this, 1.25D, 60, 50f, 1, 3));
         this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
@@ -54,7 +55,7 @@ public class RocketsEntity extends EvilSnowGolemEntity {
         Vec3d vec3d2 = this.getRotationVec(1.0F);
         Vector3f vector3f = new Vector3f(vec3d2);
         vector3f.rotate(quaternion);
-        ((ProjectileEntity) fireworkRocketEntity).setVelocity((double) vector3f.getX(), (double) vector3f.getY(), (double) vector3f.getZ(), 3f, 5f);
+        ((ProjectileEntity) fireworkRocketEntity).setVelocity((double) vector3f.getX(), (double) vector3f.getY(), (double) vector3f.getZ(), 3f, 3f);
         world.spawnEntity((Entity) fireworkRocketEntity);
     }
 

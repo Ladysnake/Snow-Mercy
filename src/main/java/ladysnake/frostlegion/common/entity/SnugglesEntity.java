@@ -49,7 +49,7 @@ public class SnugglesEntity extends EvilSnowGolemEntity {
                 destructionType = Explosion.DestructionType.NONE;
             }
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 2f, destructionType);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 3f, destructionType);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 

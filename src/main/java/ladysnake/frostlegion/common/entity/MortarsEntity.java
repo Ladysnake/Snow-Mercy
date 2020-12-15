@@ -18,7 +18,7 @@ public class MortarsEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 60, 30f));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 80, 30f));
         this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
@@ -27,8 +27,8 @@ public class MortarsEntity extends EvilSnowGolemEntity {
     }
 
     public void attack(LivingEntity target, float pullProgress) {
-        world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.HOSTILE, 1.0f, 0.75f);
-        for (int i = 0; i < 50; i++) {
+        world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.HOSTILE, 1.0f, 0.6f);
+        for (int i = 0; i < 20; i++) {
             IcicleEntity entity = new IcicleEntity(world, this);
             entity.setPos(this.getX(), this.getY()+0.5f, this.getZ());
             entity.updateTrackedPosition(this.getX(), this.getY()+0.5f, this.getZ());

@@ -4,6 +4,8 @@ import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -135,5 +137,10 @@ public class SnowGolemHeadEntity extends EvilSnowGolemEntity {
     @Override
     public boolean hurtByWater() {
         return true;
+    }
+
+    @Override
+    protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+        return 0.5f;
     }
 }

@@ -58,6 +58,17 @@ public class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (!(source.getAttacker() instanceof EvilSnowGolemEntity)) {
+            if (!this.isHeadless() && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof ServerPlayerEntity) {
+                SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), this.getY() + this.getEyeHeight(this.getPose()), this.getZ());
+                PlayerEntity player = ((PlayerEntity) source.getAttacker());
+                if (player.getMainHandStack().getItem() instanceof ShovelItem) {
+                    this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
+                    entity.setProperties(player, player.pitch, player.yaw, 0.0F, amount, amount);
+                    world.spawnEntity(entity);
+                    this.setHeadless(true);
+                }
+            }
+
             return super.damage(source, amount);
         } else {
             return false;
@@ -71,19 +82,6 @@ public class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
 
     @Override
     public void onDeath(DamageSource source) {
-        if (!(this instanceof SnowGolemHeadEntity)) {
-            SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), this.getY() + this.getEyeHeight(this.getPose()), this.getZ());
-            if (source.getAttacker() instanceof ServerPlayerEntity) {
-                PlayerEntity player = ((PlayerEntity) source.getAttacker());
-                if (player.getMainHandStack().getItem() instanceof ShovelItem) {
-                    this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
-                    entity.setProperties(player, player.pitch, player.yaw, 0.0F, 1.5F, 1.0F);
-                    world.spawnEntity(entity);
-                    this.setHeadless(true);
-                }
-            }
-
-            world.spawnEntity(entity);
-        }
+        super.onDeath(source);
     }
 }

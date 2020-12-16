@@ -5,6 +5,7 @@ import ladysnake.frostlegion.client.render.entity.model.EvilSnowGolemEntityModel
 import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -13,15 +14,19 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.SnowGolemEntityModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -54,10 +59,13 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
     }
 
     public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        if (((EvilSnowGolemEntity) livingEntity).getHead() == 0) {
+            ((EvilSnowGolemEntityModel)this.model).head.visible = false;
+        } else {
+            ((EvilSnowGolemEntityModel)this.model).head.visible = true;
+        }
+
         matrixStack.push();
-
-        ((EvilSnowGolemEntityModel)this.model).head.visible = !((EvilSnowGolemEntity) livingEntity).isHeadless();
-
         this.model.handSwingProgress = this.getHandSwingProgress(livingEntity, g);
         this.model.riding = livingEntity.hasVehicle();
         this.model.child = livingEntity.isBaby();

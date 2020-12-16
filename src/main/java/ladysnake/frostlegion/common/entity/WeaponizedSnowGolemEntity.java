@@ -102,11 +102,11 @@ public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
                     this.setHead(0);
                 }
             }
-
-            return super.damage(source, amount);
-        } else {
+        } else if (this.getHead() == ((WeaponizedSnowGolemEntity) source.getAttacker()).getHead()) {
             return false;
         }
+
+        return super.damage(source, amount);
     }
 
     @Override

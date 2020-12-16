@@ -109,9 +109,9 @@ public class SnowGolemHeadEntity extends EvilSnowGolemEntity {
             world.spawnEntity(golemEntity);
         }
 
-        if (!this.isOnGround()) {
-            this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW, 1)), this.getX() + random.nextGaussian() / 20f, this.getY() + 0.25f + random.nextGaussian() / 20f, this.getZ() + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f);
-        }
+//        if (!this.isOnGround()) {
+//            this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW, 1)), this.getX() + random.nextGaussian() / 20f, this.getY() + 0.25f + random.nextGaussian() / 20f, this.getZ() + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f);
+//        }
     }
 
     @Override

@@ -25,6 +25,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.AbstractTeam;
@@ -61,8 +62,6 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
     public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         if (((EvilSnowGolemEntity) livingEntity).getHead() == 0) {
             ((EvilSnowGolemEntityModel)this.model).head.visible = false;
-        } else {
-            ((EvilSnowGolemEntityModel)this.model).head.visible = true;
         }
 
         matrixStack.push();
@@ -143,6 +142,19 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
                 FeatureRenderer<T, M> featureRenderer = (FeatureRenderer)var23.next();
                 featureRenderer.render(matrixStack, vertexConsumerProvider, i, livingEntity, q, p, g, o, k, m);
             }
+        }
+
+        if (((EvilSnowGolemEntity) livingEntity).getHead() == 2 && !livingEntity.isInvisible()) {
+            ((EvilSnowGolemEntityModel)this.model).head.visible = true;
+            matrixStack.push();
+            ((EvilSnowGolemEntityModel)this.model).head.rotate(matrixStack);
+//            float m = 0.625F;
+            matrixStack.translate(0.0D, -0.34375D, 0.0D);
+            matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+            matrixStack.scale(0.625F, -0.625F, -0.625F);
+            ItemStack itemStack = new ItemStack(Blocks.CARVED_PUMPKIN);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(livingEntity, itemStack, ModelTransformation.Mode.HEAD, false, matrixStack, vertexConsumerProvider, livingEntity.world, i, LivingEntityRenderer.getOverlay(livingEntity, 0.0F));
+            matrixStack.pop();
         }
 
         matrixStack.pop();

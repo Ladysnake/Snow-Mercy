@@ -132,4 +132,8 @@ public class SnowGolemHeadEntity extends EvilSnowGolemEntity {
         this.prevPitch = this.pitch;
     }
 
+    @Override
+    public boolean hurtByWater() {
+        return true;
+    }
 }

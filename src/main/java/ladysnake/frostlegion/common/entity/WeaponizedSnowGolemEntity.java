@@ -1,5 +1,6 @@
 package ladysnake.frostlegion.common.entity;
 
+import ladysnake.frostlegion.common.entity.ai.goal.WeaponizedSnowGolemFollowTargetGoal;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
@@ -14,6 +15,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.SnowGolemEntity;
@@ -40,11 +42,17 @@ public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof WeaponizedSnowGolemEntity)));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(5, new LookAroundGoal(this));
+        // hostile (1) goals = target weaponized snowmen with a pumpkin (2) + snow golems + players
+        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, WeaponizedSnowGolemEntity.class, 10, true, false, 1, livingEntity -> ((WeaponizedSnowGolemEntity) livingEntity).getHead() == 2));
+        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, SnowGolemEntity.class, 100, true, false, 1, livingEntity -> !(livingEntity instanceof WeaponizedSnowGolemEntity)));
+        this.targetSelector.add(2, new WeaponizedSnowGolemFollowTargetGoal(this, PlayerEntity.class, true, 1));
+        // friendly (2) goals = target weaponized snowmen with a normal face (1) + hostile entities
+        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, WeaponizedSnowGolemEntity.class, 10, true, false, 2, livingEntity -> ((WeaponizedSnowGolemEntity) livingEntity).getHead() == 1));
+        this.targetSelector.add(2, new WeaponizedSnowGolemFollowTargetGoal(this, MobEntity.class, 10, true, false, 2, (livingEntity) -> livingEntity instanceof Monster));
+        // common goals
+        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
+        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(4, new LookAroundGoal(this));
     }
 
     protected void initDataTracker() {

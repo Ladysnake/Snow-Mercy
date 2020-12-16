@@ -25,8 +25,7 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
     @Override
     protected void initGoals() {
         super.initGoals();
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.goalSelector.add(2, new FollowAndBlowGoal(this, 1.0D, false));
+        this.goalSelector.add(1, new FollowAndBlowGoal(this, 1.0D, false));
     }
 
     @Override

@@ -23,6 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -84,9 +85,10 @@ public class SnowGolemHeadEntity extends WeaponizedSnowGolemEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        for (int i = 0; i < 40; ++i) {
-            this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX() + random.nextGaussian() / 10f, this.getY() + random.nextGaussian() / 10f, this.getZ() + random.nextGaussian() / 10f, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f);
+        if (!this.world.isClient()) {
+            ((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX(), this.getY()+0.4f, this.getZ(), 40, 0f, 0f, 0f, 0.1f);
         }
+        System.out.println(this.world.isClient);
         this.world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_SNOW_GOLEM_DEATH, SoundCategory.NEUTRAL, 1.0f, 1.0f);
         this.remove();
 

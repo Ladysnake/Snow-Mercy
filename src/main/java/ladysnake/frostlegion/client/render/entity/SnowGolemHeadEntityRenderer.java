@@ -39,7 +39,7 @@ public class SnowGolemHeadEntityRenderer extends EntityRenderer<SnowGolemHeadEnt
 
     public void render(SnowGolemHeadEntity golemHead, float yaw, float tickdelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
         EvilSnowGolemEntityModel model = this.getModel(golemHead);
-        
+
         matrixStack.push();
         model.handSwingProgress = this.getHandSwingProgress(golemHead, tickdelta);
         model.riding = golemHead.hasVehicle();
@@ -83,7 +83,7 @@ public class SnowGolemHeadEntityRenderer extends EntityRenderer<SnowGolemHeadEnt
         this.setupTransforms(golemHead, matrixStack, o, h, tickdelta);
         matrixStack.scale(-1.0F, -1.0F, 1.0F);
         this.scale(golemHead, matrixStack, tickdelta);
-        matrixStack.translate(0.0D, -0.3D, 0.0D);
+        matrixStack.translate(0.0D, -0.35D, 0.0D);
         p = 0.0F;
         float q = 0.0F;
         if (!golemHead.hasVehicle() && golemHead.isAlive()) {

@@ -2,6 +2,7 @@ package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -13,6 +14,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,6 +24,7 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -92,6 +95,17 @@ public class SnowGolemHeadEntity extends EvilSnowGolemEntity {
     @Override
     public void tick() {
         super.tick();
+
+        if (this.world.getBlockState(this.getBlockPos().add(0d, -1d, 0d)).getBlock() == Blocks.SNOW_BLOCK
+        && this.world.getBlockState(this.getBlockPos().add(0d, -2d, 0d)).getBlock() == Blocks.SNOW_BLOCK) {
+            this.damage(DamageSource.GENERIC, 1.0f);
+            this.world.breakBlock(this.getBlockPos().add(0d, -1d, 0d), false);
+            this.world.breakBlock(this.getBlockPos().add(0d, -2d, 0d), false);
+            EvilSnowGolemEntity golemEntity = EntityTypes.GOLEM_IDS.get(this.getGolemType()).create(this.world);
+            BlockPos blockPos = this.getBlockPos().add(0d, -2d, 0d);
+            golemEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);
+            world.spawnEntity(golemEntity);
+        }
     }
 
     @Override

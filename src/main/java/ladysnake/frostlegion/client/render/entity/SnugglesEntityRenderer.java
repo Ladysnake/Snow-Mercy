@@ -6,11 +6,10 @@ import ladysnake.frostlegion.common.entity.SnugglesEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class SnugglesEntityRenderer extends MobEntityRenderer<SnugglesEntity, SnugglesEntityModel<SnugglesEntity>> {
+public class SnugglesEntityRenderer extends EvilSnowGolemEntityRenderer<SnugglesEntity, SnugglesEntityModel<SnugglesEntity>> {
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/snuggles.png");
 
     public SnugglesEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

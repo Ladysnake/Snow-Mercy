@@ -6,11 +6,10 @@ import ladysnake.frostlegion.common.entity.RocketsEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class RocketsEntityRenderer extends MobEntityRenderer<RocketsEntity, RocketsEntityModel<RocketsEntity>> {
+public class RocketsEntityRenderer extends EvilSnowGolemEntityRenderer<RocketsEntity, RocketsEntityModel<RocketsEntity>> {
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/rockets.png");
 
     public RocketsEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

@@ -1,6 +1,7 @@
 package ladysnake.frostlegion.client.render.entity.model;
 
 import com.google.common.collect.ImmutableList;
+import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;

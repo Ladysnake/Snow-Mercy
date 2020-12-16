@@ -6,11 +6,10 @@ import ladysnake.frostlegion.common.entity.MortarsEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class MortarsEntityRenderer extends MobEntityRenderer<MortarsEntity, MortarsEntityModel<MortarsEntity>> {
+public class MortarsEntityRenderer extends EvilSnowGolemEntityRenderer<MortarsEntity, MortarsEntityModel<MortarsEntity>> {
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/mortars.png");
 
     public MortarsEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

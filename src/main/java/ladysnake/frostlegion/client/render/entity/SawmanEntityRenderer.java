@@ -6,11 +6,10 @@ import ladysnake.frostlegion.common.entity.SawmanEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class SawmanEntityRenderer extends MobEntityRenderer<SawmanEntity, SawmanEntityModel<SawmanEntity>> {
+public class SawmanEntityRenderer extends EvilSnowGolemEntityRenderer<SawmanEntity, SawmanEntityModel<SawmanEntity>> {
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/sawman.png");
 
     public SawmanEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

@@ -3,6 +3,10 @@ package ladysnake.frostlegion.common.entity;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,16 +23,20 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
+public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
     private static final TrackedData<Boolean> HEADLESS = DataTracker.registerData(EvilSnowGolemEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public EvilSnowGolemEntity(EntityType<? extends EvilSnowGolemEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public EvilSnowGolemEntity(EntityType<? extends EvilSnowGolemEntity> entityType, World world, double x, double y, double z) {
-        super(entityType, world);
-        this.updatePosition(x, y, z);
+    @Override
+    protected void initGoals() {
+        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
+        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(5, new LookAroundGoal(this));
     }
 
     protected void initDataTracker() {

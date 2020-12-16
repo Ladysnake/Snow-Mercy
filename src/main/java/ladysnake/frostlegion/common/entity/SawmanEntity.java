@@ -15,13 +15,9 @@ public class SawmanEntity extends EvilSnowGolemEntity {
 
     @Override
     protected void initGoals() {
+        super.initGoals();
         this.targetSelector.add(1, new RevengeGoal(this));
         this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(5, new LookAroundGoal(this));
     }
 
     @Override

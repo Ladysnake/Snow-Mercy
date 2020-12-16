@@ -1,6 +1,7 @@
 package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.init.EntityTypes;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
@@ -26,6 +27,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.core.jmx.Server;
@@ -113,5 +116,16 @@ public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Mon
     @Override
     public boolean hasPumpkin() {
         return this.getHead() == 2;
+    }
+
+    @Override
+    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+        if (this.getHead() == 0 && player.getStackInHand(hand).getItem() == Blocks.CARVED_PUMPKIN.asItem()) {
+            player.getStackInHand(hand).decrement(1);
+            this.setHead(2);
+            return ActionResult.success(this.world.isClient);
+        } else {
+            return ActionResult.PASS;
+        }
     }
 }

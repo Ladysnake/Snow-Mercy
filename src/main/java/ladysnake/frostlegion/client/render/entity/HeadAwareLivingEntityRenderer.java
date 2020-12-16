@@ -60,8 +60,10 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
     }
 
     public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        if (((EvilSnowGolemEntity) livingEntity).getHead() == 0) {
+        if (((EvilSnowGolemEntity) livingEntity).getHead() == 0 || ((EvilSnowGolemEntity) livingEntity).getHead() == 2) {
             ((EvilSnowGolemEntityModel)this.model).head.visible = false;
+        } else {
+            ((EvilSnowGolemEntityModel)this.model).head.visible = true;
         }
 
         matrixStack.push();
@@ -145,7 +147,7 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
         }
 
         if (((EvilSnowGolemEntity) livingEntity).getHead() == 2 && !livingEntity.isInvisible()) {
-            ((EvilSnowGolemEntityModel)this.model).head.visible = true;
+            ((EvilSnowGolemEntityModel)this.model).head.visible = false;
             matrixStack.push();
             ((EvilSnowGolemEntityModel)this.model).head.rotate(matrixStack);
 //            float m = 0.625F;

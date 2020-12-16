@@ -1,8 +1,8 @@
 package ladysnake.frostlegion.client.render.entity;
 
 import com.google.common.collect.Lists;
-import ladysnake.frostlegion.client.render.entity.model.EvilSnowGolemEntityModel;
-import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
+import ladysnake.frostlegion.client.render.entity.model.WeaponizedSnowGolemEntityModel;
+import ladysnake.frostlegion.common.entity.WeaponizedSnowGolemEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
@@ -19,13 +19,11 @@ import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.SnowGolemEntityModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.AbstractTeam;
@@ -60,10 +58,10 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
     }
 
     public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        if (((EvilSnowGolemEntity) livingEntity).getHead() == 0 || ((EvilSnowGolemEntity) livingEntity).getHead() == 2) {
-            ((EvilSnowGolemEntityModel)this.model).head.visible = false;
+        if (((WeaponizedSnowGolemEntity) livingEntity).getHead() == 0 || ((WeaponizedSnowGolemEntity) livingEntity).getHead() == 2) {
+            ((WeaponizedSnowGolemEntityModel)this.model).head.visible = false;
         } else {
-            ((EvilSnowGolemEntityModel)this.model).head.visible = true;
+            ((WeaponizedSnowGolemEntityModel)this.model).head.visible = true;
         }
 
         matrixStack.push();
@@ -146,10 +144,10 @@ public abstract class HeadAwareLivingEntityRenderer<T extends LivingEntity, M ex
             }
         }
 
-        if (((EvilSnowGolemEntity) livingEntity).getHead() == 2 && !livingEntity.isInvisible()) {
-            ((EvilSnowGolemEntityModel)this.model).head.visible = false;
+        if (((WeaponizedSnowGolemEntity) livingEntity).getHead() == 2 && !livingEntity.isInvisible()) {
+            ((WeaponizedSnowGolemEntityModel)this.model).head.visible = false;
             matrixStack.push();
-            ((EvilSnowGolemEntityModel)this.model).head.rotate(matrixStack);
+            ((WeaponizedSnowGolemEntityModel)this.model).head.rotate(matrixStack);
 //            float m = 0.625F;
             matrixStack.translate(0.0D, -0.34375D, 0.0D);
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));

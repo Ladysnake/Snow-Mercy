@@ -15,8 +15,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 
 @Environment(EnvType.CLIENT)
-public abstract class EvilSnowGolemEntityRenderer<T extends MobEntity, M extends EntityModel<T>> extends HeadAwareLivingEntityRenderer<T, M> {
-    public EvilSnowGolemEntityRenderer(EntityRenderDispatcher entityRenderDispatcher, M entityModel, float f) {
+public abstract class WeaponizedSnowGolemEntityRenderer<T extends MobEntity, M extends EntityModel<T>> extends HeadAwareLivingEntityRenderer<T, M> {
+    public WeaponizedSnowGolemEntityRenderer(EntityRenderDispatcher entityRenderDispatcher, M entityModel, float f) {
         super(entityRenderDispatcher, entityModel, f);
     }
 

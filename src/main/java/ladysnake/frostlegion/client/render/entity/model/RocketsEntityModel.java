@@ -3,7 +3,7 @@ package ladysnake.frostlegion.client.render.entity.model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.entity.Entity;
 
-public class RocketsEntityModel<T extends Entity> extends EvilSnowGolemEntityModel<T> {
+public class RocketsEntityModel<T extends Entity> extends WeaponizedSnowGolemEntityModel<T> {
     private final ModelPart launcher;
     private final ModelPart rocket;
     private final ModelPart tip;

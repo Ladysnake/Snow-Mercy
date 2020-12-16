@@ -9,7 +9,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class MortarsEntityRenderer extends EvilSnowGolemEntityRenderer<MortarsEntity, MortarsEntityModel<MortarsEntity>> {
+public class MortarsEntityRenderer extends WeaponizedSnowGolemEntityRenderer<MortarsEntity, MortarsEntityModel<MortarsEntity>> {
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/mortars.png");
 
     public MortarsEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

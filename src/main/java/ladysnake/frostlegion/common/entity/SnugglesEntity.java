@@ -6,8 +6,6 @@ import ladysnake.frostlegion.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.passive.SnowGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,7 +17,7 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Iterator;
 
-public class SnugglesEntity extends EvilSnowGolemEntity {
+public class SnugglesEntity extends WeaponizedSnowGolemEntity {
     public SnugglesEntity(EntityType<SnugglesEntity> entityType, World world) {
         super(entityType, world);
     }

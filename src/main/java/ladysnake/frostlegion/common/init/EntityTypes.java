@@ -28,7 +28,7 @@ public class EntityTypes {
     public static EntityType<IcicleEntity> ICICLE;
 
     public static final Int2ObjectOpenHashMap<SnowGolemEntityData> GOLEM_MODELS_AND_TEXTURES = new Int2ObjectOpenHashMap<>();
-    public static final HashBiMap<Integer, EntityType<? extends EvilSnowGolemEntity>> GOLEM_IDS = HashBiMap.create();
+    public static final HashBiMap<Integer, EntityType<? extends WeaponizedSnowGolemEntity>> GOLEM_IDS = HashBiMap.create();
 
     public static void init() {
         SNUGGLES = register("mister_snuggles", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SnugglesEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());

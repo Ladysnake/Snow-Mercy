@@ -1,7 +1,7 @@
 package ladysnake.frostlegion.client.render.entity;
 
 import com.google.common.collect.Lists;
-import ladysnake.frostlegion.client.render.entity.model.EvilSnowGolemEntityModel;
+import ladysnake.frostlegion.client.render.entity.model.WeaponizedSnowGolemEntityModel;
 import ladysnake.frostlegion.common.entity.SnowGolemHeadEntity;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import net.fabricmc.api.EnvType;
@@ -38,7 +38,7 @@ public class SnowGolemHeadEntityRenderer extends EntityRenderer<SnowGolemHeadEnt
     }
 
     public void render(SnowGolemHeadEntity golemHead, float yaw, float tickdelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        EvilSnowGolemEntityModel model = this.getModel(golemHead);
+        WeaponizedSnowGolemEntityModel model = this.getModel(golemHead);
 
         matrixStack.push();
         model.handSwingProgress = this.getHandSwingProgress(golemHead, tickdelta);
@@ -128,8 +128,8 @@ public class SnowGolemHeadEntityRenderer extends EntityRenderer<SnowGolemHeadEnt
         return EntityTypes.GOLEM_MODELS_AND_TEXTURES.get(golemHeadEntity.getGolemType()).getTexture();
     }
 
-    public EvilSnowGolemEntityModel getModel(SnowGolemHeadEntity golemHeadEntity) {
-        return (EvilSnowGolemEntityModel) EntityTypes.GOLEM_MODELS_AND_TEXTURES.get(golemHeadEntity.getGolemType()).getEntityModel();
+    public WeaponizedSnowGolemEntityModel getModel(SnowGolemHeadEntity golemHeadEntity) {
+        return (WeaponizedSnowGolemEntityModel) EntityTypes.GOLEM_MODELS_AND_TEXTURES.get(golemHeadEntity.getGolemType()).getEntityModel();
     }
 
     public static int getOverlay(LivingEntity entity, float whiteOverlayProgress) {
@@ -141,7 +141,7 @@ public class SnowGolemHeadEntityRenderer extends EntityRenderer<SnowGolemHeadEnt
      */
     protected RenderLayer getRenderLayer(SnowGolemHeadEntity entity, boolean showBody, boolean translucent, boolean showOutline) {
         Identifier identifier = this.getTexture(entity);
-        EvilSnowGolemEntityModel model = this.getModel(entity);
+        WeaponizedSnowGolemEntityModel model = this.getModel(entity);
         if (translucent) {
             return RenderLayer.getItemEntityTranslucentCull(identifier);
         } else if (showBody) {

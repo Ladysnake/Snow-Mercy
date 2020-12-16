@@ -2,15 +2,11 @@ package ladysnake.frostlegion.client;
 
 import ladysnake.frostlegion.client.network.EntityDispatcher;
 import ladysnake.frostlegion.client.render.entity.*;
-import ladysnake.frostlegion.client.render.entity.model.EvilSnowGolemEntityModel;
-import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.network.Packets;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 
 public class FrostLegionClient implements ClientModInitializer {
     @Override

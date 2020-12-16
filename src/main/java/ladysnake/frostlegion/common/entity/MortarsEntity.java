@@ -4,14 +4,12 @@ import ladysnake.frostlegion.common.network.Packets;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.SnowGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class MortarsEntity extends EvilSnowGolemEntity {
+public class MortarsEntity extends WeaponizedSnowGolemEntity {
     public MortarsEntity(EntityType<MortarsEntity> entityType, World world) {
         super(entityType, world);
     }

@@ -1,19 +1,18 @@
 package ladysnake.frostlegion.client.render.entity.model;
 
 import com.google.common.collect.ImmutableList;
-import ladysnake.frostlegion.common.entity.EvilSnowGolemEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
-public class EvilSnowGolemEntityModel<T extends Entity> extends CompositeEntityModel<T> {
+public class WeaponizedSnowGolemEntityModel<T extends Entity> extends CompositeEntityModel<T> {
     public ModelPart head;
     public ModelPart piece1;
     public ModelPart piece2;
 
-    public EvilSnowGolemEntityModel() {
+    public WeaponizedSnowGolemEntityModel() {
         head = new ModelPart(this);
         head.setPivot(0.0F, 4.0F, 0.0F);
         head.setTextureOffset(0, 0).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, true);

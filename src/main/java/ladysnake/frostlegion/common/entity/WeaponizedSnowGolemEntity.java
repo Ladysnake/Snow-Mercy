@@ -29,21 +29,19 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.core.jmx.Server;
 
-public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
-    private static final TrackedData<Integer> HEAD = DataTracker.registerData(EvilSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
+public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
+    private static final TrackedData<Integer> HEAD = DataTracker.registerData(WeaponizedSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-    public EvilSnowGolemEntity(EntityType<? extends EvilSnowGolemEntity> entityType, World world) {
+    public WeaponizedSnowGolemEntity(EntityType<? extends WeaponizedSnowGolemEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
     protected void initGoals() {
         this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof EvilSnowGolemEntity)));
+        this.targetSelector.add(3, new FollowTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, snowGolemEntity -> !(snowGolemEntity instanceof WeaponizedSnowGolemEntity)));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
@@ -79,7 +77,7 @@ public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Mon
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (!(source.getAttacker() instanceof EvilSnowGolemEntity)) {
+        if (!(source.getAttacker() instanceof WeaponizedSnowGolemEntity)) {
             if (this.getHead() == 1 && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof ServerPlayerEntity) {
                 double eyeHeight = this.getY() + this.getEyeHeight(this.getPose()) - 0.3f;
                 SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), eyeHeight, this.getZ());

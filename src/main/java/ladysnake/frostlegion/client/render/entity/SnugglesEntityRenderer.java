@@ -9,7 +9,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class SnugglesEntityRenderer extends EvilSnowGolemEntityRenderer<SnugglesEntity, SnugglesEntityModel<SnugglesEntity>> {
+public class SnugglesEntityRenderer extends WeaponizedSnowGolemEntityRenderer<SnugglesEntity, SnugglesEntityModel<SnugglesEntity>> {
     private static final Identifier TEXTURE = new Identifier(FrostLegion.MODID, "textures/entity/snuggles.png");
 
     public SnugglesEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

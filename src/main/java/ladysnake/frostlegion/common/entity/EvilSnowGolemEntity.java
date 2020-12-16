@@ -17,7 +17,10 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -25,6 +28,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.core.jmx.Server;
 
 public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Monster {
     private static final TrackedData<Integer> HEAD = DataTracker.registerData(EvilSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -74,7 +78,8 @@ public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Mon
     public boolean damage(DamageSource source, float amount) {
         if (!(source.getAttacker() instanceof EvilSnowGolemEntity)) {
             if (this.getHead() == 1 && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof ServerPlayerEntity) {
-                SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), this.getY() + this.getEyeHeight(this.getPose()), this.getZ());
+                double eyeHeight = this.getY() + this.getEyeHeight(this.getPose()) - 0.3f;
+                SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), eyeHeight, this.getZ());
                 PlayerEntity player = ((PlayerEntity) source.getAttacker());
                 if (player.getMainHandStack().getItem() instanceof ShovelItem) {
                     this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
@@ -82,10 +87,8 @@ public abstract class EvilSnowGolemEntity extends SnowGolemEntity implements Mon
                     entity.setProperties(player, player.pitch, player.yaw, 0.0F, amount, amount);
                     world.spawnEntity(entity);
 
-                    double d = (double)(-MathHelper.sin(player.yaw * 0.017453292F));
-                    double e = (double)MathHelper.cos(player.yaw * 0.017453292F);
-                    ((ServerWorld)this.world).spawnParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d, player.getBodyY(0.5D), player.getZ() + e, 0, d, 0.0D, e, 0.0D);
                     player.spawnSweepAttackParticles();
+                    ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX(), eyeHeight, this.getZ(), 40, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.1f);
 
                     this.setHead(0);
                 }

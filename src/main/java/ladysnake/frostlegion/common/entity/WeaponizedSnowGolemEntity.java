@@ -137,6 +137,7 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
                     ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX(), eyeHeight, this.getZ(), 40, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.1f);
 
                     this.setHead(0);
+                    return super.damage(source, 0.0f);
                 }
             }
         } else if (this.getHead() == ((WeaponizedSnowGolemEntity) source.getAttacker()).getHead()) {

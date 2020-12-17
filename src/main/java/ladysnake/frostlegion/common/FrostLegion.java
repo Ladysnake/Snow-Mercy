@@ -37,7 +37,7 @@ public class FrostLegion implements ModInitializer {
                 if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {
                     WorldUtils.getLoadedChunks(world).forEach(chunk -> {
                         ChunkPos pos = chunk.getPos();
-                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 2) {
+                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 1) {
                             int randomX = world.random.nextInt(16);
                             int randomZ = world.random.nextInt(16);
                             ChunkPos chunkPos = chunk.getPos();

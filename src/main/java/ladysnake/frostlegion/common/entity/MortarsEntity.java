@@ -3,13 +3,14 @@ package ladysnake.frostlegion.common.entity;
 import ladysnake.frostlegion.common.network.Packets;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.network.Packet;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class MortarsEntity extends WeaponizedSnowGolemEntity {
+public class MortarsEntity extends WeaponizedSnowGolemEntity implements RangedAttackMob {
     public MortarsEntity(EntityType<MortarsEntity> entityType, World world) {
         super(entityType, world);
     }

@@ -6,6 +6,7 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class RocketsEntity extends WeaponizedSnowGolemEntity {
+public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAttackMob {
     public static final ItemStack FIREWORKS = new ItemStack(Items.FIREWORK_ROCKET, 1);
 
     public RocketsEntity(EntityType<RocketsEntity> entityType, World world) {

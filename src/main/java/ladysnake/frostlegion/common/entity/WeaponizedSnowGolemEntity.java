@@ -2,8 +2,10 @@ package ladysnake.frostlegion.common.entity;
 
 import ladysnake.frostlegion.common.entity.ai.goal.WeaponizedSnowGolemFollowTargetGoal;
 import ladysnake.frostlegion.common.init.EntityTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -18,6 +20,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -32,9 +35,13 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
-public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
+public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
     private static final TrackedData<Integer> HEAD = DataTracker.registerData(WeaponizedSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public WeaponizedSnowGolemEntity(EntityType<? extends WeaponizedSnowGolemEntity> entityType, World world) {
@@ -80,8 +87,36 @@ public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
     @Override
     public void tick() {
         super.tick();
+        this.updateDespawnCounter();
 
         FrostWalkerEnchantment.freezeWater(this, this.world, this.getBlockPos(), 0);
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+
+        if (!this.world.isClient) {
+            int i;
+            int j;
+            int k;
+
+            if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+                return;
+            }
+
+            BlockState blockState = Blocks.SNOW.getDefaultState();
+
+            for(int l = 0; l < 4; ++l) {
+                i = MathHelper.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(this.getY());
+                k = MathHelper.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                BlockPos blockPos = new BlockPos(i, j, k);
+                if (this.world.getBlockState(blockPos).isAir() && this.world.getBiome(blockPos).getTemperature(blockPos) < 0.8F && blockState.canPlaceAt(this.world, blockPos)) {
+                    this.world.setBlockState(blockPos, blockState);
+                }
+            }
+        }
     }
 
     @Override
@@ -122,11 +157,6 @@ public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
     }
 
     @Override
-    public boolean hasPumpkin() {
-        return this.getHead() == 2;
-    }
-
-    @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (this.getHead() == 0 && player.getStackInHand(hand).getItem() == Blocks.CARVED_PUMPKIN.asItem()) {
             player.getStackInHand(hand).decrement(1);
@@ -140,5 +170,60 @@ public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
     @Override
     public boolean cannotDespawn() {
         return super.cannotDespawn() && this.getHead() == 2;
+    }
+
+    protected void updateDespawnCounter() {
+        float f = this.getBrightnessAtEyes();
+        if (f > 0.5F) {
+            this.despawnCounter += 2;
+        }
+
+    }
+
+    protected boolean isDisallowedInPeaceful() {
+        return this.getHead() != 2;
+    }
+
+    protected boolean canDropLootAndXp() {
+        return true;
+    }
+
+    protected boolean shouldDropLoot() {
+        return true;
+    }
+
+    public boolean isAngryAt(PlayerEntity player) {
+        return this.getHead() == 1;
+    }
+
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return this.getHead() == 1;
+    }
+
+    public void checkDespawn() {
+        if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
+            this.remove();
+        } else if (!this.isPersistent() && !this.cannotDespawn()) {
+            Entity entity = this.world.getClosestPlayer(this, -1.0D);
+            if (entity != null) {
+                double d = entity.squaredDistanceTo((Entity)this);
+                int i = this.getType().getSpawnGroup().getImmediateDespawnRange();
+                int j = i * i;
+                if (d > (double)j && this.canImmediatelyDespawn(d)) {
+                    this.remove();
+                }
+
+                int k = this.getType().getSpawnGroup().getDespawnStartRange();
+                int l = k * k;
+                if (this.despawnCounter > 600 && this.random.nextInt(800) == 0 && d > (double)l && this.canImmediatelyDespawn(d)) {
+                    this.remove();
+                } else if (d < (double)l) {
+                    this.despawnCounter = 0;
+                }
+            }
+
+        } else {
+            this.despawnCounter = 0;
+        }
     }
 }

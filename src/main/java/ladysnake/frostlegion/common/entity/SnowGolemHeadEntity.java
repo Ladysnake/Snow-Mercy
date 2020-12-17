@@ -32,6 +32,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SnowGolemHeadEntity extends WeaponizedSnowGolemEntity {
+    public static final int MAX_AGE = 600;
+
     private static final TrackedData<Integer> GOLEM_TYPE = DataTracker.registerData(SnowGolemHeadEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public SnowGolemHeadEntity(EntityType<? extends SnowGolemHeadEntity> entityType, World world) {
@@ -107,6 +109,10 @@ public class SnowGolemHeadEntity extends WeaponizedSnowGolemEntity {
             BlockPos blockPos = this.getBlockPos().add(0d, -2d, 0d);
             golemEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);
             world.spawnEntity(golemEntity);
+        }
+
+        if (this.age >= MAX_AGE) {
+            this.damage(DamageSource.GENERIC, 1.0f);
         }
 
 //        if (!this.isOnGround()) {

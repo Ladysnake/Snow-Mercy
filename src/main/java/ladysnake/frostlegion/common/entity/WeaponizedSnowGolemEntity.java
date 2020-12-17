@@ -44,6 +44,8 @@ import net.minecraft.world.World;
 public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
     private static final TrackedData<Integer> HEAD = DataTracker.registerData(WeaponizedSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
+    private int ageHeadless = 0;
+
     public WeaponizedSnowGolemEntity(EntityType<? extends WeaponizedSnowGolemEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -88,6 +90,12 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
     public void tick() {
         super.tick();
         this.updateDespawnCounter();
+
+        if (this.getHead() == 0) {
+            if (this.ageHeadless++ > SnowGolemHeadEntity.MAX_AGE) {
+                this.kill();
+            }
+        }
 
         FrostWalkerEnchantment.freezeWater(this, this.world, this.getBlockPos(), 0);
     }

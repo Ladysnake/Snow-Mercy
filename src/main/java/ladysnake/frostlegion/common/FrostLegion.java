@@ -2,6 +2,7 @@ package ladysnake.frostlegion.common;
 
 import ladysnake.frostlegion.cca.SnowMercyComponents;
 import ladysnake.frostlegion.common.command.SnowMercyCommand;
+import ladysnake.frostlegion.common.entity.WeaponizedSnowGolemEntity;
 import ladysnake.frostlegion.common.init.Blocks;
 import ladysnake.frostlegion.common.init.EntityTypes;
 import ladysnake.frostlegion.common.init.Items;
@@ -37,7 +38,7 @@ public class FrostLegion implements ModInitializer {
                     if (world.getTimeOfDay() >= 13188) {
                         WorldUtils.getLoadedChunks(world).forEach(chunk -> {
                             ChunkPos pos = chunk.getPos();
-                            if (world.getEntitiesByClass(HostileEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 3) {
+                            if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 3) {
                                 int randomX = world.random.nextInt(16);
                                 int randomZ = world.random.nextInt(16);
                                 ChunkPos chunkPos = chunk.getPos();
@@ -47,7 +48,7 @@ public class FrostLegion implements ModInitializer {
 
                                 MobEntity entity = EntityTypes.EVENT_SPAWN_CANDIDATES.get(world.getRandom().nextInt(EntityTypes.EVENT_SPAWN_CANDIDATES.size())).create(world);
 
-                                if (entity != null) {
+                                if (entity != null && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0))) {
                                     entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
                                     entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
                                     entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());

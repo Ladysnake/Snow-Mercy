@@ -136,4 +136,9 @@ public abstract class WeaponizedSnowGolemEntity extends SnowGolemEntity {
             return ActionResult.PASS;
         }
     }
+
+    @Override
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() && this.getHead() == 2;
+    }
 }

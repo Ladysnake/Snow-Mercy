@@ -14,6 +14,7 @@ import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
@@ -142,9 +143,10 @@ public class PuffExplosion extends Explosion {
 
                                 // spawn flying snow on all blocks that will be destroyed
                                 if (random.nextInt(25) == 0) {
-                                    FallingBlockEntity flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.SNOW_BLOCK.getDefaultState());
-                                    flyingSnow.timeFalling = 1;
-                                    flyingSnow.dropItem = false;
+//                                    FallingBlockEntity flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.SNOW_BLOCK.getDefaultState());
+//                                    flyingSnow.timeFalling = 1;
+//                                    flyingSnow.dropItem = false;
+                                    Entity flyingSnow = new ArrowEntity(this.world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
                                     world.spawnEntity(flyingSnow);
                                 }
                             }

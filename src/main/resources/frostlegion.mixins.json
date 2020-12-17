@@ -4,6 +4,7 @@
   "package": "ladysnake.frostlegion.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "FrozenTemperatureMixin"
   ],
   "client": [
   ],

@@ -23,11 +23,20 @@
     ],
     "client": [
       "ladysnake.frostlegion.client.FrostLegionClient"
+    ],
+    "cardinal-components-world": [
+      "ladysnake.frostlegion.cca.SnowMercyComponents"
     ]
   },
   "mixins": [
     "frostlegion.mixins.json"
   ],
+
+  "custom": {
+    "cardinal-components": [
+      "frostlegion:snowmercy"
+    ]
+  },
 
   "depends": {
     "fabricloader": ">=0.7.4",

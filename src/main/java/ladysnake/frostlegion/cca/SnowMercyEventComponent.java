@@ -4,7 +4,7 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.nbt.CompoundTag;
 
-public class SnowMercyEventComponent implements BooleanComponent, AutoSyncedComponent, ServerTickingComponent {
+public class SnowMercyEventComponent implements BooleanComponent, AutoSyncedComponent {
     private boolean isEventOngoing;
 
     @Override
@@ -24,11 +24,5 @@ public class SnowMercyEventComponent implements BooleanComponent, AutoSyncedComp
     @Override
     public void writeToNbt(CompoundTag compoundTag) {
         compoundTag.putBoolean("SnowMercy", this.isEventOngoing);
-    }
-
-    @Override
-    public void serverTick() {
-        System.out.println("WORKING");
-
     }
 }

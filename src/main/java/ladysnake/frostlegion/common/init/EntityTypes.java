@@ -18,6 +18,8 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.ArrayList;
+
 public class EntityTypes {
     public static EntityType<SnugglesEntity> SNUGGLES;
     public static EntityType<RocketsEntity> ROCKETS;
@@ -29,6 +31,8 @@ public class EntityTypes {
 
     public static final Int2ObjectOpenHashMap<SnowGolemEntityData> GOLEM_MODELS_AND_TEXTURES = new Int2ObjectOpenHashMap<>();
     public static final HashBiMap<Integer, EntityType<? extends WeaponizedSnowGolemEntity>> GOLEM_IDS = HashBiMap.create();
+
+    public static final ArrayList<EntityType<? extends WeaponizedSnowGolemEntity>> EVENT_SPAWN_CANDIDATES = new ArrayList<>();
 
     public static void init() {
         SNUGGLES = register("mister_snuggles", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SnugglesEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
@@ -53,6 +57,11 @@ public class EntityTypes {
         GOLEM_IDS.put(2, ROCKETS);
         GOLEM_MODELS_AND_TEXTURES.put(3,  new SnowGolemEntityData(MORTARS, new MortarsEntityModel<>(), new Identifier(FrostLegion.MODID, "textures/entity/mortars.png")));
         GOLEM_IDS.put(3, MORTARS);
+
+        EVENT_SPAWN_CANDIDATES.add(SNUGGLES);
+        EVENT_SPAWN_CANDIDATES.add(ROCKETS);
+        EVENT_SPAWN_CANDIDATES.add(SAWMAN);
+        EVENT_SPAWN_CANDIDATES.add(MORTARS);
     }
 
     private static <T extends Entity> EntityType<T> register(String s, EntityType<T> entityType) {

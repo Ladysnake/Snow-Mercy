@@ -117,7 +117,7 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
                 j = MathHelper.floor(this.getY());
                 k = MathHelper.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockPos = new BlockPos(i, j, k);
-                if (this.world.getBlockState(blockPos).isAir() && this.world.getBiome(blockPos).getTemperature(blockPos) < 0.8F && blockState.canPlaceAt(this.world, blockPos)) {
+                if (this.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(this.world, blockPos)) {
                     this.world.setBlockState(blockPos, blockState);
                 }
             }

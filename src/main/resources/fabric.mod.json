@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "frostlegion",
+  "id": "snowmercy",
   "version": "${version}",
 
-  "name": "Frost Legion",
+  "name": "Snow Mercy",
   "description": "",
   "authors": [
     "doctor4t"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/doctor4t/frost-legion"
+    "sources": "https://github.com/doctor4t/snow-mercy"
   },
 
   "license": "ARR",
@@ -19,22 +19,22 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "ladysnake.frostlegion.common.FrostLegion"
+      "ladysnake.snowmercy.common.SnowMercy"
     ],
     "client": [
-      "ladysnake.frostlegion.client.FrostLegionClient"
+      "ladysnake.snowmercy.client.SnowMercyClient"
     ],
     "cardinal-components-world": [
-      "ladysnake.frostlegion.cca.SnowMercyComponents"
+      "ladysnake.snowmercy.cca.SnowMercyComponents"
     ]
   },
   "mixins": [
-    "frostlegion.mixins.json"
+    "snowmercy.mixins.json"
   ],
 
   "custom": {
     "cardinal-components": [
-      "frostlegion:snowmercy"
+      "snowmercy:snowmercy"
     ]
   },
 

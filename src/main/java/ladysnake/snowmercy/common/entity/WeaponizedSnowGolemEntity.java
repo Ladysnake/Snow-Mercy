@@ -132,7 +132,7 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
                 SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), eyeHeight, this.getZ());
                 PlayerEntity player = ((PlayerEntity) source.getAttacker());
 
-                if (player.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) player.getMainHandStack().getItem()).getAttackDamage()) {
+                if (player.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) player.getMainHandStack().getItem()).getAttackDamage() && random.nextInt(11) <= amount) {
                     this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
                     this.world.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     entity.setProperties(player, player.pitch, player.yaw, 0.0F, amount, amount);

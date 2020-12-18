@@ -54,6 +54,18 @@ public class SnowMercy implements ModInitializer {
                                     break;
                                 }
                             }
+
+                            // spawn on surface as well
+                            BlockPos spawnPos = new BlockPos(chunkPos.getStartX() + randomX, yMax, chunkPos.getStartZ() + randomZ);
+
+                            MobEntity entity = EntityTypes.EVENT_SPAWN_CANDIDATES.get(world.getRandom().nextInt(EntityTypes.EVENT_SPAWN_CANDIDATES.size())).create(world);
+
+                            if (entity != null && world.getBlockState(spawnPos).isAir() && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0))) {
+                                entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                                entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                                entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                                world.spawnEntity(entity);
+                            }
                         }
                     });
                 }

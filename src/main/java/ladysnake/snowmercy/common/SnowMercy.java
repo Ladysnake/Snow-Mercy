@@ -34,17 +34,18 @@ public class SnowMercy implements ModInitializer {
         );
 
         SPAWN_CANDIDATES
-                .add(5, EntityTypes.SAWMAN)
-                .add(5, EntityTypes.MORTARS)
-                .add(4, EntityTypes.ROCKETS)
-                .add(1, EntityTypes.SNUGGLES);
+                .add(25, EntityTypes.SAWMAN)
+                .add(20, EntityTypes.MORTARS)
+                .add(20, EntityTypes.ROCKETS)
+                .add(5, EntityTypes.SNUGGLES)
+                .add(1, EntityTypes.CHILL_SNUGGLES);
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             server.getWorlds().forEach(world -> {
-                if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(20 * 20) == 0) {
+                if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {
                     WorldUtils.getLoadedChunks(world).forEach(chunk -> {
                         ChunkPos pos = chunk.getPos();
-                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(32, 256, 32)), e -> true).size() < 1) {
+                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 1) {
                             int randomX = world.random.nextInt(16);
                             int randomZ = world.random.nextInt(16);
                             ChunkPos chunkPos = chunk.getPos();

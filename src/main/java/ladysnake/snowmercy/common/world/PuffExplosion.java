@@ -51,8 +51,9 @@ public class PuffExplosion extends Explosion {
     private final ExplosionBehavior behavior;
     private final List<BlockPos> affectedBlocks;
     private final Map<PlayerEntity, Vec3d> affectedPlayers;
+    private final boolean spawnPuff;
 
-    public PuffExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, float knockbackPower, DestructionType destructionType) {
+    public PuffExplosion(World world, Entity entity, DamageSource damageSource, ExplosionBehavior explosionBehavior, double x, double y, double z, float power, float knockbackPower, DestructionType destructionType, boolean spawnPuff) {
         super(world, entity, damageSource, explosionBehavior, x, y, z, power, false, destructionType);
         this.random = new Random();
         this.affectedBlocks = Lists.newArrayList();
@@ -67,6 +68,7 @@ public class PuffExplosion extends Explosion {
         this.destructionType = destructionType;
         this.damageSource = damageSource == null ? DamageSource.explosion(this) : damageSource;
         this.behavior = explosionBehavior == null ? this.chooseBehavior(entity) : explosionBehavior;
+        this.spawnPuff = spawnPuff;
     }
 
     private ExplosionBehavior chooseBehavior(Entity entity) {
@@ -141,7 +143,7 @@ public class PuffExplosion extends Explosion {
                                 set.add(blockPos);
 
                                 // spawn flying snow on all blocks that will be destroyed
-                                if (random.nextInt(25) == 0) {
+                                if (spawnPuff && random.nextInt(25) == 0) {
                                     FallingBlockEntity flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.SNOW_BLOCK.getDefaultState());
                                     flyingSnow.timeFalling = 1;
                                     flyingSnow.dropItem = false;

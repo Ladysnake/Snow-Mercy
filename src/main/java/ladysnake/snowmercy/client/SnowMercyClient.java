@@ -28,6 +28,7 @@ public class SnowMercyClient implements ClientModInitializer {
         ClientSidePacketRegistry.INSTANCE.register(Packets.SPAWN, EntityDispatcher::spawnFrom);
 
         EntityRendererRegistry.INSTANCE.register(EntityTypes.SNUGGLES, (manager, context) -> new SnugglesEntityRenderer(manager));
+        EntityRendererRegistry.INSTANCE.register(EntityTypes.CHILL_SNUGGLES, (manager, context) -> new ChillSnugglesEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ROCKETS, (manager, context) -> new RocketsEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.MORTARS, (manager, context) -> new MortarsEntityRenderer(manager));
         EntityRendererRegistry.INSTANCE.register(EntityTypes.SAWMAN, (manager, context) -> new SawmanEntityRenderer(manager));
@@ -39,6 +40,7 @@ public class SnowMercyClient implements ClientModInitializer {
         GOLEM_MODELS_AND_TEXTURES.put(1,  new SnowGolemEntityData(EntityTypes.SNUGGLES, new SnugglesEntityModel<>(), new Identifier(SnowMercy.MODID, "textures/entity/snuggles.png")));
         GOLEM_MODELS_AND_TEXTURES.put(2,  new SnowGolemEntityData(EntityTypes.ROCKETS, new RocketsEntityModel<>(), new Identifier(SnowMercy.MODID, "textures/entity/rockets.png")));
         GOLEM_MODELS_AND_TEXTURES.put(3,  new SnowGolemEntityData(EntityTypes.MORTARS, new MortarsEntityModel<>(), new Identifier(SnowMercy.MODID, "textures/entity/mortars.png")));
+        GOLEM_MODELS_AND_TEXTURES.put(4,  new SnowGolemEntityData(EntityTypes.CHILL_SNUGGLES, new SnugglesEntityModel<>(), new Identifier(SnowMercy.MODID, "textures/entity/chill_snuggles.png")));
     }
 
 }

@@ -9,6 +9,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -16,24 +18,10 @@ import net.minecraft.world.explosion.Explosion;
 
 import java.util.Iterator;
 
-public class SnugglesEntity extends WeaponizedSnowGolemEntity {
-    public SnugglesEntity(EntityType<? extends SnugglesEntity> entityType, World world) {
+public class ChillSnugglesEntity extends SnugglesEntity {
+
+    public ChillSnugglesEntity(EntityType<ChillSnugglesEntity> entityType, World world) {
         super(entityType, world);
-    }
-
-    @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(1, new FollowAndBlowGoal(this, 1.0D, false));
-    }
-
-    @Override
-    public boolean damage(DamageSource source, float amount) {
-        boolean ret = super.damage(source, amount);
-        if (!this.isDead() && ret && amount == 0) {
-            explode();
-        }
-        return ret;
     }
 
     public void explode() {
@@ -50,9 +38,17 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
                 destructionType = Explosion.DestructionType.NONE;
             }
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 3f, destructionType, true);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 3f, destructionType, false);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
+
+            for (int i = 0; i < 100; i++) {
+                IcicleEntity entity = new IcicleEntity(world, this);
+                entity.setPos(this.getX(), this.getY(), this.getZ());
+                entity.updateTrackedPosition(this.getX(), this.getY()+0.5f, this.getZ());
+                entity.setVelocity(random.nextGaussian(), random.nextGaussian(), random.nextGaussian());
+                world.spawnEntity(entity);
+            }
 
             Iterator var14 = world.getPlayers().iterator();
             if (destructionType == Explosion.DestructionType.NONE) {
@@ -73,4 +69,15 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
         return Packets.newSpawnPacket(this);
     }
 
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.BLOCK_GLASS_BREAK;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.BLOCK_GLASS_BREAK;
+    }
 }

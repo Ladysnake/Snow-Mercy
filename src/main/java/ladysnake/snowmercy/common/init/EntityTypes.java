@@ -13,6 +13,7 @@ import net.minecraft.util.registry.Registry;
 
 public class EntityTypes {
     public static EntityType<SnugglesEntity> SNUGGLES;
+    public static EntityType<ChillSnugglesEntity> CHILL_SNUGGLES;
     public static EntityType<RocketsEntity> ROCKETS;
     public static EntityType<MortarsEntity> MORTARS;
     public static EntityType<SawmanEntity> SAWMAN;
@@ -24,6 +25,7 @@ public class EntityTypes {
 
     public static void init() {
         SNUGGLES = register("mister_snuggles", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SnugglesEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
+        CHILL_SNUGGLES = register("mister_chill_snuggles", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ChillSnugglesEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
         ROCKETS = register("aftermarket_snowman", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RocketsEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
         MORTARS = register("ice_mortar", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MortarsEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
         SAWMAN = register("sawman", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SawmanEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
@@ -32,6 +34,7 @@ public class EntityTypes {
         ICICLE = register("icicle", FabricEntityTypeBuilder.<IcicleEntity>create(SpawnGroup.MISC, IcicleEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
 
         FabricDefaultAttributeRegistry.register(EntityTypes.SNUGGLES, SnugglesEntity.createEntityAttributes());
+        FabricDefaultAttributeRegistry.register(EntityTypes.CHILL_SNUGGLES, SnugglesEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(EntityTypes.ROCKETS, RocketsEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(EntityTypes.MORTARS, MortarsEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(EntityTypes.SAWMAN, SawmanEntity.createEntityAttributes());
@@ -41,6 +44,7 @@ public class EntityTypes {
         GOLEM_IDS.put(1, SNUGGLES);
         GOLEM_IDS.put(2, ROCKETS);
         GOLEM_IDS.put(3, MORTARS);
+        GOLEM_IDS.put(4, CHILL_SNUGGLES);
     }
 
     private static <T extends Entity> EntityType<T> register(String s, EntityType<T> entityType) {

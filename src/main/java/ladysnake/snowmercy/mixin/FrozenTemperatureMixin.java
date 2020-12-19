@@ -25,7 +25,7 @@ public class FrozenTemperatureMixin implements ExtendedBiome {
 
     @Inject(at = @At(value = "RETURN"), method = "getPrecipitation", cancellable = true)
     public void getPrecipitation(CallbackInfoReturnable<Biome.Precipitation> cir) {
-        if (this.world != null && SnowMercyComponents.SNOWMERCY.get(this.world).isEventOngoing()) {
+        if (this.world != null && SnowMercyComponents.SNOWMERCY.get(this.world).isEventOngoing() && cir.getReturnValue() == Biome.Precipitation.RAIN) {
             cir.setReturnValue(Biome.Precipitation.SNOW);
         }
     }

@@ -2,5 +2,8 @@
   "entity.snowmercy.mister_snuggles": "Mister Snuggles",
   "entity.snowmercy.sawman": "Sawman",
   "entity.snowmercy.ice_mortar": "Ice Mortar",
-  "entity.snowmercy.aftermarket_snowman": "Aftermarket Snowman"
+  "entity.snowmercy.aftermarket_snowman": "Aftermarket Snowman",
+  "commands.snowmercy.start": "Snow Mercy invasion started",
+  "commands.snowmercy.stop": "Snow Mercy invasion stopped",
+  "info.snowmercy.start": "This is not time to chill, a Snow Mercy snowman army is invading!"
 }

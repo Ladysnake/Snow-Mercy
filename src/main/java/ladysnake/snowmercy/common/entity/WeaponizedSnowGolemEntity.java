@@ -18,6 +18,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,7 +40,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
-public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
+public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     private static final TrackedData<Integer> HEAD = DataTracker.registerData(WeaponizedSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private int ageHeadless = 0;
@@ -87,7 +88,6 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
     @Override
     public void tick() {
         super.tick();
-        this.updateDespawnCounter();
 
         if (this.getHead() == 0) {
             if (this.ageHeadless++ > SnowGolemHeadEntity.MAX_AGE) {
@@ -179,14 +179,6 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
         return super.cannotDespawn() && this.getHead() == 2;
     }
 
-    protected void updateDespawnCounter() {
-        float f = this.getBrightnessAtEyes();
-        if (f > 0.5F) {
-            this.despawnCounter += 2;
-        }
-
-    }
-
     protected boolean isDisallowedInPeaceful() {
         return this.getHead() != 2;
     }
@@ -204,36 +196,9 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
     }
 
     public boolean canImmediatelyDespawn(double distanceSquared) {
-        return this.getHead() == 1;
+        return super.canImmediatelyDespawn(distanceSquared) && this.getHead() != 2;
     }
 
-    public void checkDespawn() {
-        if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
-            this.remove();
-        } else if (!this.isPersistent() && !this.cannotDespawn()) {
-            Entity entity = this.world.getClosestPlayer(this, -1.0D);
-            if (entity != null) {
-                double d = entity.squaredDistanceTo((Entity)this);
-                int i = this.getType().getSpawnGroup().getImmediateDespawnRange();
-                int j = i * i;
-                if (d > (double)j && this.canImmediatelyDespawn(d)) {
-                    this.remove();
-                }
-
-                int k = this.getType().getSpawnGroup().getDespawnStartRange();
-                int l = k * k;
-                if (this.despawnCounter > 600 && this.random.nextInt(800) == 0 && d > (double)l && this.canImmediatelyDespawn(d)) {
-                    this.remove();
-                } else if (d < (double)l) {
-                    this.despawnCounter = 0;
-                }
-            }
-
-        } else {
-            this.despawnCounter = 0;
-        }
-    }
-    
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
     }

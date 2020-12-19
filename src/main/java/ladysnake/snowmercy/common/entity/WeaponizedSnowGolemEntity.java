@@ -29,6 +29,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -231,5 +232,17 @@ public abstract class WeaponizedSnowGolemEntity extends GolemEntity {
         } else {
             this.despawnCounter = 0;
         }
+    }
+    
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_SNOW_GOLEM_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
     }
 }

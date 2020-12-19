@@ -18,7 +18,7 @@ public class MortarsEntity extends WeaponizedSnowGolemEntity implements RangedAt
     @Override
     protected void initGoals() {
         super.initGoals();
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 80, 50f));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 80, 40f));
     }
 
     public void attack(LivingEntity target, float pullProgress) {

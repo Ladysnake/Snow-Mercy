@@ -153,4 +153,10 @@ public class SnowGolemHeadEntity extends WeaponizedSnowGolemEntity {
     protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
         return 0.5f;
     }
+
+    @Override
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+        return false;
+    }
+
 }

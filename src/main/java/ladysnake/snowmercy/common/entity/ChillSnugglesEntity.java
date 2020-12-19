@@ -42,7 +42,7 @@ public class ChillSnugglesEntity extends SnugglesEntity {
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 250; i++) {
                 IcicleEntity entity = new IcicleEntity(world, this);
                 entity.setPos(this.getX(), this.getY(), this.getZ());
                 entity.updateTrackedPosition(this.getX(), this.getY()+0.5f, this.getZ());

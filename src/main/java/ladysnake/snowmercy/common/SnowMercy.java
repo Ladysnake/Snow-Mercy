@@ -44,7 +44,7 @@ public class SnowMercy implements ModInitializer {
                 if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {
                     WorldUtils.getLoadedChunks(world).forEach(chunk -> {
                         ChunkPos pos = chunk.getPos();
-                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(64, 256, 64)), e -> true).size() < 1) {
+                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(32, 256, 32)), e -> true).size() < 1) {
                             int randomX = world.random.nextInt(16);
                             int randomZ = world.random.nextInt(16);
                             ChunkPos chunkPos = chunk.getPos();

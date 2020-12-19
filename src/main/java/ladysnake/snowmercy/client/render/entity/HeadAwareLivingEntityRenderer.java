@@ -3,8 +3,6 @@ package ladysnake.snowmercy.client.render.entity;
 import com.google.common.collect.Lists;
 import ladysnake.snowmercy.client.render.entity.model.WeaponizedSnowGolemEntityModel;
 import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;

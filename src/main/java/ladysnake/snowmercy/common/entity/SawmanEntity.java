@@ -2,7 +2,7 @@ package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.common.network.Packets;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.network.Packet;
 import net.minecraft.world.World;
 

@@ -3,8 +3,6 @@ package ladysnake.snowmercy.client.render.entity;
 import ladysnake.snowmercy.client.render.entity.model.SawmanEntityModel;
 import ladysnake.snowmercy.common.SnowMercy;
 import ladysnake.snowmercy.common.entity.SawmanEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.util.Identifier;
 

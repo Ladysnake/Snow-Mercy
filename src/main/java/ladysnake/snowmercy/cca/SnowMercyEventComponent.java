@@ -25,7 +25,7 @@ public class SnowMercyEventComponent implements AutoSyncedComponent {
             world.getPlayers().forEach(serverPlayerEntity -> {
                 serverPlayerEntity.sendMessage(
                         new TranslatableText("info.snowmercy.start", world.getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false);
-                serverPlayerEntity.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, SoundCategory.MASTER, 1.0f, 1.5f);
+                serverPlayerEntity.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, SoundCategory.MASTER, 1.0f, 2.0f);
             });
         }
     }
@@ -34,9 +34,10 @@ public class SnowMercyEventComponent implements AutoSyncedComponent {
         if (this.isEventOngoing) {
             this.isEventOngoing = false;
             this.world = world;
-            world.getPlayers().forEach(serverPlayerEntity -> serverPlayerEntity.sendMessage(
-                    new TranslatableText("info.snowmercy.stop", world.getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false)
-            );
+            world.getPlayers().forEach(serverPlayerEntity -> {
+                serverPlayerEntity.sendMessage(
+                        new TranslatableText("info.snowmercy.stop", world.getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false);
+            });
         }
     }
 

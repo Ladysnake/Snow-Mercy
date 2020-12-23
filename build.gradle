@@ -121,7 +121,7 @@ task checkGitStatus() {
 }
 
 githubRelease {
-	repo "Illuminations"
+	repo "Snow-Mercy"
 	token "${getProjectProperty('github_releases_token')}"
 	// default owner: last component of maven group
 	// default repo: name of the project

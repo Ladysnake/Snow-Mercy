@@ -1,17 +1,12 @@
 package ladysnake.snowmercy.common.item;
 
 import ladysnake.snowmercy.cca.SnowMercyComponents;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -19,11 +14,9 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Optional;
 
 import static net.minecraft.text.Style.EMPTY;
 
@@ -55,6 +48,8 @@ public class FrozenCompassItem extends Item {
                 if (context.getWorld() instanceof ServerWorld) {
                     SnowMercyComponents.SNOWMERCY.get(context.getWorld()).startEvent((ServerWorld) context.getWorld());
                 }
+
+                context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.EVENT_RAID_HORN, SoundCategory.MASTER, 1.0f, 1.5f);
                 return ActionResult.SUCCESS;
             }
         } else {

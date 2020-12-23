@@ -3,13 +3,8 @@ package ladysnake.snowmercy.common.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import ladysnake.snowmercy.cca.SnowMercyComponents;
-import net.minecraft.network.MessageType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-
-import static net.minecraft.text.Style.EMPTY;
 
 public class SnowMercyCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {

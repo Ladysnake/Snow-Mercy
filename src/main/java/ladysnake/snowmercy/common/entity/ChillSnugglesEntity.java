@@ -1,6 +1,5 @@
 package ladysnake.snowmercy.common.entity;
 
-import ladysnake.snowmercy.common.entity.ai.goal.FollowAndBlowGoal;
 import ladysnake.snowmercy.common.network.Packets;
 import ladysnake.snowmercy.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;

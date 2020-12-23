@@ -3,7 +3,6 @@ package ladysnake.snowmercy.client.render.entity;
 import ladysnake.snowmercy.client.render.entity.model.SnugglesEntityModel;
 import ladysnake.snowmercy.common.SnowMercy;
 import ladysnake.snowmercy.common.entity.ChillSnugglesEntity;
-import ladysnake.snowmercy.common.entity.SnugglesEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.util.Identifier;
 

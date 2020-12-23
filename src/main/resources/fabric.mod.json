@@ -13,7 +13,7 @@
     "sources": "https://github.com/doctor4t/snow-mercy"
   },
 
-  "license": "ARR",
+  "license": "Code: GNU GPLv3; Art: ARR",
   "icon": "assets/snowmercy/icon.png",
 
   "environment": "*",

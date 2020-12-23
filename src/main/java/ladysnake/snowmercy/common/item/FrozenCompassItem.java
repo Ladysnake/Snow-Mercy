@@ -49,7 +49,6 @@ public class FrozenCompassItem extends Item {
                     SnowMercyComponents.SNOWMERCY.get(context.getWorld()).startEvent((ServerWorld) context.getWorld());
                 }
 
-                context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.EVENT_RAID_HORN, SoundCategory.MASTER, 1.0f, 1.5f);
                 return ActionResult.SUCCESS;
             }
         } else {

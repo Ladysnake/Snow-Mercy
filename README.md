@@ -1,5 +1,7 @@
 # Snow Mercy
 
+[![img](https://img.shields.io/discord/292744693803122688?color=informational&label=Ladysnake&logo=Discord)](https://ladysnake.glitch.me)[![img](http://cf.way2muchnoise.eu/full_snow-mercy_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/snow-mercy)[![img](http://cf.way2muchnoise.eu/versions/minecraft_snow-mercy_latest.svg)](https://www.curseforge.com/minecraft/mc-mods/snow-mercy)[![img](https://img.shields.io/github/last-commit/ladysnake/snow-mercy)](https://github.com/ladysnake/snow-mercy/commits/main)
+
 **Snow Mercy** is a Minecraft mod introducing a new event, the Snow Mercy invasion, in which the player can fight off waves of hostile and heavily modified combat snowmen, as well as new mechanics to fight these snowmen and make them your own.
 
 ## Video Showcase
@@ -29,8 +31,14 @@ After crafting a Frozen Compass, the player can then use it on a Lodestone in or
 
 #### Can I include this mod in a modpack?
 
-**Yes**: You can. Go ahead, don't bother asking. Please however provide credit and a link to either the GitHub repository or Curse Forge project page.
+**Yes**: You can. Go ahead, don't bother asking. Please however provide credit and a link to both the GitHub repository and Curse Forge project page.
 
 #### Will you be making a Forge version? Does a Forge version exist?
 
 **No:** I will not be making a Forge version of this mod. The code being GPL3 however, feel free to do a port if you feel like it.
+
+
+
+## [**If you have questions, propositions or ideas, join us on Discord!**](https://ladysnake.glitch.me)
+
+[**![img](https://cdn.discordapp.com/attachments/410024251995979777/410024434439553034/ladysnake_discord.png)**](https://ladysnake.glitch.me)

@@ -27,6 +27,22 @@ After crafting a Frozen Compass, the player can then use it on a Lodestone in or
 
 ![image-20201223151930549](README.assets/image-20201223151930549.png)
 
+## Gallery
+
+![image-20201223175227545](README.assets/image-20201223175227545.png)
+
+![image-20201223175232875](README.assets/image-20201223175232875.png)
+
+![image-20201223175235954](README.assets/image-20201223175235954.png)
+
+![image-20201223175238968](README.assets/image-20201223175238968.png)
+
+![image-20201223175243141](README.assets/image-20201223175243141.png)
+
+![image-20201223175245704](README.assets/image-20201223175245704.png)
+
+![image-20201223175249418](README.assets/image-20201223175249418.png)
+
 ## FAQ
 
 #### Can I include this mod in a modpack?

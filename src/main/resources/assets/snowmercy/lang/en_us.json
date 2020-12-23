@@ -1,10 +1,16 @@
 {
+  "item.snowmercy.frozen_compass": "Frozen Compass",
+  "item.snowmercy.frozen_compass.tooltip": "Use on a Lodestone to start a Snow Mercy invasion",
+  "block.snowmercy.frozen_lodestone": "Frozen Lodestone",
   "entity.snowmercy.mister_snuggles": "Mister Snuggles",
   "entity.snowmercy.mister_chill_snuggles": "Mister Chill Snuggles",
   "entity.snowmercy.sawman": "Sawman",
   "entity.snowmercy.ice_mortar": "Ice Mortar",
   "entity.snowmercy.aftermarket_snowman": "Aftermarket Snowman",
+  "entity.snowmercy.icicle": "Icicle",
   "commands.snowmercy.start": "Snow Mercy invasion started",
   "commands.snowmercy.stop": "Snow Mercy invasion stopped",
-  "info.snowmercy.start": "This is no time to chill, a Snow Mercy army is invading!"
+  "info.snowmercy.start": "This is no time to chill, a Snow Mercy army is invading!",
+  "info.snowmercy.stop": "The Snow Mercy army is retreating!",
+  "info.snowmercy.ongoing": "A Snow Mercy invasion is already happening!"
 }

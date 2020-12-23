@@ -23,17 +23,12 @@ public class SnowMercyCommand {
     }
 
     private static int executeStart(ServerCommandSource source) {
-        SnowMercyComponents.SNOWMERCY.get(source.getWorld()).setEventOngoing(true);
-//        source.sendFeedback(new TranslatableText("commands.snowmercy.start"), true);
-        source.getWorld().getPlayers().forEach(serverPlayerEntity -> serverPlayerEntity.sendMessage(
-                new TranslatableText("info.snowmercy.start", source.getWorld().getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false)
-        );
+        SnowMercyComponents.SNOWMERCY.get(source.getWorld()).startEvent(source.getWorld());
         return 0;
     }
 
     private static int executeStop(ServerCommandSource source) {
-        SnowMercyComponents.SNOWMERCY.get(source.getWorld()).setEventOngoing(false);
-//        source.sendFeedback(new TranslatableText("commands.snowmercy.stop"), true);
+        SnowMercyComponents.SNOWMERCY.get(source.getWorld()).stopEvent(source.getWorld());
         return 0;
     }
 }

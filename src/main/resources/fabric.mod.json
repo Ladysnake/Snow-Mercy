@@ -4,17 +4,17 @@
   "version": "${version}",
 
   "name": "Snow Mercy",
-  "description": "",
+  "description": "Invade your world with ruthless modified combat snowmen, and make your onw!",
   "authors": [
     "doctor4t"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/snow-mercy",
     "sources": "https://github.com/doctor4t/snow-mercy"
   },
 
   "license": "ARR",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/snowmercy/icon.png",
 
   "environment": "*",
   "entrypoints": {

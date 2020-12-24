@@ -35,11 +35,11 @@ After crafting a Frozen Compass, the player can then use it on a Lodestone in or
 
 ![image-20201223175235954](https://raw.githubusercontent.com/Ladysnake/Snow-Mercy/main/README.assets/image-20201223175235954.png)
 
-![image-20201223175238968](README.assets/image-20201223175238968.png)
+![image-20201223175238968](https://raw.githubusercontent.com/Ladysnake/Snow-Mercy/main/README.assets/image-20201223175238968.png)
 
 ![image-20201223175243141](https://raw.githubusercontent.com/Ladysnake/Snow-Mercy/main/README.assets/image-20201223175243141.png)
 
-![image-20201223175245704](README.assets/image-20201223175245704.png)
+![image-20201223175245704](https://raw.githubusercontent.com/Ladysnake/Snow-Mercy/main/README.assets/image-20201223175245704.png)
 
 ![image-20201223175249418](https://raw.githubusercontent.com/Ladysnake/Snow-Mercy/main/README.assets/image-20201223175249418.png)
 

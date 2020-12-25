@@ -23,6 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -206,5 +207,23 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
 
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
+    }
+
+    @Override
+    public void readCustomDataFromTag(CompoundTag tag) {
+        super.readCustomDataFromTag(tag);
+
+        if (tag.contains("Head")) {
+            this.setHead(tag.getInt("Head"));
+        } else {
+            this.setHead(1);
+        }
+    }
+
+    @Override
+    public void writeCustomDataToTag(CompoundTag tag) {
+        super.writeCustomDataToTag(tag);
+
+        tag.putInt("Head", this.getHead());
     }
 }

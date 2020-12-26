@@ -1,5 +1,9 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy beta-1.0.1 - 1.16.4
+- Fixed an issue where headless snowmen and pumpkin snowmen would reset back to hostile snowmen when reloading a world
+- Weaponized snowmen now drop between 1 and 3 experience orbs
+
 ### Snow Mercy beta-1.0 - 1.16.4
 - Added the Snow Mercy invasion
 - Added Mister Snuggles

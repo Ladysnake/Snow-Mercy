@@ -226,4 +226,9 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
 
         tag.putInt("Head", this.getHead());
     }
+
+    @Override
+    protected int getCurrentExperience(PlayerEntity player) {
+        return 1 + this.world.random.nextInt(3);
+    }
 }

@@ -5,7 +5,7 @@
 - Mister Snuggles and Mister Chill Snuggles now have a 20% chance to drop one tnt
 - Mister Chill Snuggles now drop 0 to 1 packed ice
 - Ice Mortars now drop 0 to 1 packed ice
-- 
+- Sawmen now drop 0 to 1 iron nugget
 
 ### Snow Mercy 1.0.1-beta - 1.16.4
 - Fixed an issue where headless snowmen and pumpkin snowmen would reset back to hostile snowmen when reloading a world

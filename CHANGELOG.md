@@ -3,7 +3,8 @@
 ### Snow Mercy 1.0.2-beta - 1.16.4
 - Aftermarket Snowmen now have a 25% chance to drop between 1 and 3 of their rockets
 - Mister Snuggles and Mister Chill Snuggles now have a 20% chance to drop one tnt
-- Mister Chill Snuggles now drops 0 to 1 packed ice
+- Mister Chill Snuggles now drop 0 to 1 packed ice
+- Ice Mortars now drop 0 to 1 packed ice
 - 
 
 ### Snow Mercy 1.0.1-beta - 1.16.4

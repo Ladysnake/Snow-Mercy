@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
@@ -126,18 +127,20 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (!(source.getAttacker() instanceof WeaponizedSnowGolemEntity)) {
-            if (this.getHead() == 1 && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof ServerPlayerEntity) {
+            if (this.getHead() == 1 && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof LivingEntity) {
                 double eyeHeight = this.getY() + this.getEyeHeight(this.getPose(), this.getDimensions(this.getPose())) - 0.3f;
                 SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), eyeHeight, this.getZ());
-                PlayerEntity player = ((PlayerEntity) source.getAttacker());
+                LivingEntity livingEntity = ((LivingEntity) source.getAttacker());
 
-                if (player.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) player.getMainHandStack().getItem()).getAttackDamage() && random.nextInt(11) <= amount) {
+                if (livingEntity.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) livingEntity.getMainHandStack().getItem()).getAttackDamage() && random.nextInt(11) <= amount) {
                     this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
-                    this.world.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    entity.setProperties(player, player.pitch, player.yaw, 0.0F, amount, amount);
+                    this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    entity.setProperties(livingEntity, livingEntity.pitch, livingEntity.yaw, 0.0F, amount, amount);
                     world.spawnEntity(entity);
 
-                    player.spawnSweepAttackParticles();
+                    if (source.getAttacker() instanceof PlayerEntity) {
+                        ((PlayerEntity) source.getAttacker()).spawnSweepAttackParticles();
+                    }
                     ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX(), eyeHeight, this.getZ(), 40, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.1f);
 
                     this.setHead(0);

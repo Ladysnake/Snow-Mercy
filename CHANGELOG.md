@@ -6,6 +6,7 @@
 - Mister Chill Snuggles now drop 0 to 1 packed ice
 - Ice Mortars now drop 0 to 1 packed ice
 - Sawmen now drop 0 to 1 iron nugget
+- Snowman beheading is no longer limited to players, meaning mobs with a shovel item can potentially also behead snowmen when attacking them
 
 ### Snow Mercy 1.0.1-beta - 1.16.4
 - Fixed an issue where headless snowmen and pumpkin snowmen would reset back to hostile snowmen when reloading a world

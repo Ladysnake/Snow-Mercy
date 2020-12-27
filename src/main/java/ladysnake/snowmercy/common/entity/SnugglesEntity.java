@@ -4,7 +4,10 @@ import ladysnake.snowmercy.common.entity.ai.goal.FollowAndBlowGoal;
 import ladysnake.snowmercy.common.network.Packets;
 import ladysnake.snowmercy.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,8 +20,14 @@ import net.minecraft.world.explosion.Explosion;
 import java.util.Iterator;
 
 public class SnugglesEntity extends WeaponizedSnowGolemEntity {
+    public static final ItemStack TNT = new ItemStack(Items.TNT, 1);
+
     public SnugglesEntity(EntityType<? extends SnugglesEntity> entityType, World world) {
         super(entityType, world);
+
+        ItemStack equippedStack = TNT.copy();
+        this.equipStack(EquipmentSlot.CHEST, equippedStack);
+        this.setEquipmentDropChance(EquipmentSlot.CHEST, 0.20F);
     }
 
     @Override

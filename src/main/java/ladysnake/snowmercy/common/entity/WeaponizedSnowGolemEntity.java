@@ -157,11 +157,6 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     }
 
     @Override
-    public void onDeath(DamageSource source) {
-        super.onDeath(source);
-    }
-
-    @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (this.getHead() == 0 && player.getStackInHand(hand).getItem() == Blocks.CARVED_PUMPKIN.asItem()) {
             player.getStackInHand(hand).decrement(1);

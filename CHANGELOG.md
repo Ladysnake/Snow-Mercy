@@ -1,5 +1,8 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy 1.0.2-beta - 1.16.4
+- Aftermarket Snowmen now have a 25% chance to drop between  1 and 3 of their rockets
+
 ### Snow Mercy 1.0.1-beta - 1.16.4
 - Fixed an issue where headless snowmen and pumpkin snowmen would reset back to hostile snowmen when reloading a world
 - Weaponized snowmen now drop between 1 and 3 experience orbs

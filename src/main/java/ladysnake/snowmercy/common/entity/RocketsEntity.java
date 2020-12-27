@@ -3,10 +3,9 @@ package ladysnake.snowmercy.common.entity;
 import ladysnake.snowmercy.common.entity.ai.goal.SalvoProjectileAttackGoal;
 import ladysnake.snowmercy.common.network.Packets;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -34,6 +33,11 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         explosion.putIntArray("Colors", new int[] {15790320});
         explosions.add(explosion);
         FIREWORKS.getOrCreateSubTag("Fireworks").put("Explosions", explosions);
+
+        ItemStack stackInHand = FIREWORKS.copy();
+        stackInHand.setCount(1 + this.getRandom().nextInt(3));
+        this.equipStack(EquipmentSlot.MAINHAND, stackInHand);
+        this.setEquipmentDropChance(EquipmentSlot.MAINHAND, 0.25F);
     }
 
     @Override
@@ -56,5 +60,12 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
     @Override
     public Packet<?> createSpawnPacket() {
         return Packets.newSpawnPacket(this);
+    }
+
+    @Override
+    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+        for (int i = 0; i <= lootingMultiplier; i++) {
+            super.dropEquipment(source, lootingMultiplier, allowDrops);
+        }
     }
 }

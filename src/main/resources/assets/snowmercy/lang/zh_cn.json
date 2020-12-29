@@ -1,0 +1,16 @@
+{
+  "item.snowmercy.frozen_compass": "霜冻罗盘",
+  "item.snowmercy.frozen_compass.tooltip": "对着磁石使用来开启一场“雪之仁慈”的入侵吧",
+  "block.snowmercy.frozen_lodestone": "霜冻磁石",
+  "entity.snowmercy.mister_snuggles": "抱抱先生",
+  "entity.snowmercy.mister_chill_snuggles": "寒冷抱抱先生",
+  "entity.snowmercy.sawman": "锯锯人",
+  "entity.snowmercy.ice_mortar": "雪之迫击炮手",
+  "entity.snowmercy.aftermarket_snowman": "“售后”雪人",
+  "entity.snowmercy.icicle": "冰碴子",
+  "commands.snowmercy.start": "“雪之仁慈”入侵已开始",
+  "commands.snowmercy.stop": "“雪之仁慈”入侵已停止",
+  "info.snowmercy.start": "没时间哆哆嗦嗦了，“雪之仁慈”队伍开始入侵了！",
+  "info.snowmercy.stop": "“雪之仁慈”队伍撤退了！",
+  "info.snowmercy.ongoing": "“雪之仁慈”入侵已经发生了！"
+}

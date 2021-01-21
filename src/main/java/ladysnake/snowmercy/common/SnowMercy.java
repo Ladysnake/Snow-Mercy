@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.LightType;
 
 public class SnowMercy implements ModInitializer {
     public static final String MODID = "snowmercy";
@@ -62,7 +63,7 @@ public class SnowMercy implements ModInitializer {
 
                                 LivingEntity entity = SPAWN_CANDIDATES.next(world.getRandom()).create(world);
 
-                                if (entity != null && world.getBlockState(spawnPos).isAir() && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0))) {
+                                if (entity != null && !world.getBlockState(spawnPos).isSolidBlock(world, spawnPos) && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0))) {
                                     entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
                                     entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
                                     entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());

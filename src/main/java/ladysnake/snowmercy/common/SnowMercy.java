@@ -63,7 +63,7 @@ public class SnowMercy implements ModInitializer {
 
                                 LivingEntity entity = SPAWN_CANDIDATES.next(world.getRandom()).create(world);
 
-                                if (entity != null && !world.getBlockState(spawnPos).isSolidBlock(world, spawnPos) && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0))) {
+                                if (entity != null && !world.getBlockState(spawnPos).isSolidBlock(world, spawnPos) && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0)) && world.getLightLevel(LightType.BLOCK, spawnPos) <= 5) {
                                     entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
                                     entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
                                     entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());

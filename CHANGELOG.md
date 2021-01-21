@@ -2,6 +2,7 @@
 
 ### Snow Mercy 1.0.3-beta - 1.16.5
 - Fixed an issue with snowmen not spawning on snow layers
+- Snowmen will no longer spawn in player lit areas (if the light level is superior to 5)
 - Added Vanguard auto-updater
 - Added Simplified Chinese Localization, thanks to linzexin022!
 

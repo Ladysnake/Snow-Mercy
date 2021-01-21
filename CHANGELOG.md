@@ -1,5 +1,9 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy 1.0.3-beta - 1.16.5
+- Fixed an issue with snowmen not spawning on snow layers
+- Added Vanguard auto-updater
+
 ### Snow Mercy 1.0.2-beta - 1.16.4
 - Aftermarket Snowmen now have a 25% chance to drop between 1 and 3 of their rockets
 - Mister Snuggles and Mister Chill Snuggles now have a 20% chance to drop one tnt

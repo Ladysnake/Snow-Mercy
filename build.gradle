@@ -18,9 +18,11 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	maven { url 'https://jitpack.io' }
+	// Ladysnake bintray
 	maven {
 		name = "Ladysnake Libs"
-		url = 'https://dl.bintray.com/ladysnake/libs'
+		url = "https://dl.bintray.com/ladysnake/libs"
 	}
 }
 
@@ -38,6 +40,9 @@ dependencies {
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_components_version}"
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_components_version}"
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_components_version}"
+
+	// Includes Vanguard as a Jar-in-Jar dependency
+	include "io.github.ladysnake:vanguard:${vanguard_version}"
 }
 
 processResources {

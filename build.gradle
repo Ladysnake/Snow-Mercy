@@ -18,7 +18,6 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven { url 'https://jitpack.io' }
 	// Ladysnake bintray
 	maven {
 		name = "Ladysnake Libs"

@@ -35,7 +35,10 @@
   "custom": {
     "cardinal-components": [
       "snowmercy:snowmercy"
-    ]
+    ],
+    "vanguard": {
+      "curse-project-id": "429949"
+    }
   },
 
   "depends": {

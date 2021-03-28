@@ -1,5 +1,8 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy 1.0.5 - 1.16.5
+- Fixed a crash that would occur with VoxelMap installed
+
 ### Snow Mercy 1.0.4-beta - 1.16.5
 - Added Vanguard auto-updater
 

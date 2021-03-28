@@ -27,6 +27,8 @@ public abstract class BiomeAccessMixin {
 
     @Inject(method = "getBiome(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/world/biome/Biome;", at = @At("RETURN"))
     private void getBiome(BlockPos pos, CallbackInfoReturnable<Biome> cir) {
-        ((ExtendedBiome)(Object)cir.getReturnValue()).frostlegion_setWorld(this.world);
+        if (cir.getReturnValue() != null) {
+            ((ExtendedBiome)(Object)cir.getReturnValue()).frostlegion_setWorld(this.world);
+        }
     }
 }

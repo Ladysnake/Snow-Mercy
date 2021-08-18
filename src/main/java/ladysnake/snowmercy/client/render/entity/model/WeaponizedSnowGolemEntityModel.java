@@ -13,14 +13,18 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class WeaponizedSnowGolemEntityModel<T extends WeaponizedSnowGolemEntity> extends SinglePartEntityModel<T> {
-    protected final ModelPart root;
-    protected final ModelPart upperBody;
-    protected final ModelPart head;
+    protected ModelPart root;
+    protected ModelPart upperBody;
+    protected ModelPart head;
 
     public WeaponizedSnowGolemEntityModel(ModelPart root) {
         this.root = root;
         this.head = root.getChild(EntityModelPartNames.HEAD);
         this.upperBody = root.getChild("upper_body");
+    }
+
+    public WeaponizedSnowGolemEntityModel(ModelPart root, boolean bl) {
+        this.root = root;
     }
 
     public static TexturedModelData getTexturedModelData() {

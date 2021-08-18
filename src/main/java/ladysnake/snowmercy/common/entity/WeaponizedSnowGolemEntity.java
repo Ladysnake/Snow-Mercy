@@ -229,4 +229,9 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     protected int getXpToDrop(PlayerEntity player) {
         return 1 + this.world.random.nextInt(3);
     }
+
+    @Override
+    public boolean canFreeze() {
+        return false;
+    }
 }

@@ -142,7 +142,12 @@ public class PuffExplosion extends Explosion {
 
                                 // spawn flying snow on all blocks that will be destroyed
                                 if (spawnPuff && random.nextInt(25) == 0) {
-                                    FallingBlockEntity flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.SNOW_BLOCK.getDefaultState());
+                                    FallingBlockEntity flyingSnow;
+                                    if (random.nextBoolean()) {
+                                        flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.SNOW_BLOCK.getDefaultState());
+                                    } else {
+                                        flyingSnow = new FallingBlockEntity(world, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, Blocks.POWDER_SNOW.getDefaultState());
+                                    }
                                     flyingSnow.timeFalling = 1;
                                     flyingSnow.dropItem = false;
                                     world.spawnEntity(flyingSnow);

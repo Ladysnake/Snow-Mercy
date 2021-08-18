@@ -20,6 +20,8 @@ public class SnowMercyClient implements ClientModInitializer {
     public static final EntityModelLayer SAWMAN_MODEL_LAYER = new EntityModelLayer(new Identifier(SnowMercy.MODID, "sawman"), "main");
     public static final EntityModelLayer SNOW_GOLEM_HEAD_MODEL_LAYER = new EntityModelLayer(new Identifier(SnowMercy.MODID, "snow_golem_head"), "main");
 
+    public static final Int2ObjectOpenHashMap<SnowGolemEntityData> GOLEM_MODELS_AND_TEXTURES = new Int2ObjectOpenHashMap<>();
+
     @Override
     public void onInitializeClient() {
         EntityModelLayerRegistry.registerModelLayer(SNUGGLES_MODEL_LAYER, SnugglesEntityModel::getTexturedModelData);
@@ -37,5 +39,11 @@ public class SnowMercyClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(EntityTypes.SNOW_GOLEM_HEAD, SnowGolemHeadEntityRenderer::new);
 
         EntityRendererRegistry.INSTANCE.register(EntityTypes.ICICLE, IcicleEntityRenderer::new);
+
+        GOLEM_MODELS_AND_TEXTURES.put(0, new SnowGolemEntityData(EntityTypes.SAWMAN, SawmanEntityModel::new, new Identifier(SnowMercy.MODID, "textures/entity/sawman.png"), SAWMAN_MODEL_LAYER));
+        GOLEM_MODELS_AND_TEXTURES.put(1,  new SnowGolemEntityData(EntityTypes.SNUGGLES, SnugglesEntityModel::new, new Identifier(SnowMercy.MODID, "textures/entity/snuggles.png"), SNUGGLES_MODEL_LAYER));
+        GOLEM_MODELS_AND_TEXTURES.put(2,  new SnowGolemEntityData(EntityTypes.ROCKETS, RocketsEntityModel::new, new Identifier(SnowMercy.MODID, "textures/entity/rockets.png"), ROCKETS_MODEL_LAYER));
+        GOLEM_MODELS_AND_TEXTURES.put(3,  new SnowGolemEntityData(EntityTypes.MORTARS, MortarsEntityModel::new, new Identifier(SnowMercy.MODID, "textures/entity/mortars.png"), MORTARS_MODEL_LAYER));
+        GOLEM_MODELS_AND_TEXTURES.put(4,  new SnowGolemEntityData(EntityTypes.CHILL_SNUGGLES, SnugglesEntityModel::new, new Identifier(SnowMercy.MODID, "textures/entity/chill_snuggles.png"), CHILL_SNUGGLES_MODEL_LAYER));
     }
 }

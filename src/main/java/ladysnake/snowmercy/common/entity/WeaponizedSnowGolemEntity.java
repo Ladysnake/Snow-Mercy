@@ -24,10 +24,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -135,7 +134,7 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
                 if (livingEntity.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) livingEntity.getMainHandStack().getItem()).getAttackDamage() && random.nextInt(11) <= amount) {
                     this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
                     this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    entity.setProperties(livingEntity, livingEntity.pitch, livingEntity.yaw, 0.0F, Math.min(10, amount), Math.min(10, amount));
+                    entity.setProperties(livingEntity, livingEntity.getPitch(), livingEntity.getYaw(), 0.0F, Math.min(10, amount), Math.min(10, amount));
                     world.spawnEntity(entity);
 
                     if (source.getAttacker() instanceof PlayerEntity) {
@@ -179,7 +178,8 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
         return this.getHead() != 2;
     }
 
-    protected boolean canDropLootAndXp() {
+    @Override
+    protected boolean shouldDropXp() {
         return true;
     }
 
@@ -208,8 +208,8 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
 
         if (tag.contains("Head")) {
             this.setHead(tag.getInt("Head"));
@@ -219,14 +219,14 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
 
         tag.putInt("Head", this.getHead());
     }
 
     @Override
-    protected int getCurrentExperience(PlayerEntity player) {
+    protected int getXpToDrop(PlayerEntity player) {
         return 1 + this.world.random.nextInt(3);
     }
 }

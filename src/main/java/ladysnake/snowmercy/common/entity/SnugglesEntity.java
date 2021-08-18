@@ -1,18 +1,15 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.common.entity.ai.goal.FollowAndBlowGoal;
-import ladysnake.snowmercy.common.network.Packets;
 import ladysnake.snowmercy.common.world.PuffExplosion;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -47,7 +44,7 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
 
     public void explode() {
         if (!this.getEntityWorld().isClient()) {
-            this.remove();
+            this.discard();
 
             ServerWorld world = (ServerWorld) this.getEntityWorld();
 
@@ -63,23 +60,17 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
 
-            Iterator var14 = world.getPlayers().iterator();
+            Iterator<ServerPlayerEntity> var14 = world.getPlayers().iterator();
             if (destructionType == Explosion.DestructionType.NONE) {
                 explosion.clearAffectedBlocks();
             }
 
             while (var14.hasNext()) {
-                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) var14.next();
+                ServerPlayerEntity serverPlayerEntity = var14.next();
                 if (serverPlayerEntity.squaredDistanceTo(this.getX(), this.getY(), this.getZ()) < 4096.0D) {
-                    serverPlayerEntity.networkHandler.sendPacket(new ExplosionS2CPacket(this.getX(), this.getY(), this.getZ(), power, explosion.getAffectedBlocks(), (Vec3d) explosion.getAffectedPlayers().get(serverPlayerEntity)));
+                    serverPlayerEntity.networkHandler.sendPacket(new ExplosionS2CPacket(this.getX(), this.getY(), this.getZ(), power, explosion.getAffectedBlocks(), explosion.getAffectedPlayers().get(serverPlayerEntity)));
                 }
             }
         }
     }
-
-    @Override
-    public Packet<?> createSpawnPacket() {
-        return Packets.newSpawnPacket(this);
-    }
-
 }

@@ -3,7 +3,6 @@ package ladysnake.snowmercy.common.item;
 import ladysnake.snowmercy.cca.SnowMercyComponents;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -34,7 +33,7 @@ public class FrozenCompassItem extends Item {
                 }
                 return ActionResult.FAIL;
             } else {
-                context.getWorld().playSound((PlayerEntity)null, context.getBlockPos(), SoundEvents.ITEM_LODESTONE_COMPASS_LOCK, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ITEM_LODESTONE_COMPASS_LOCK, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
                 context.getWorld().setBlockState(context.getBlockPos(), Blocks.BLUE_ICE.getDefaultState());
                 context.getWorld().breakBlock(context.getBlockPos(), false);
@@ -46,7 +45,7 @@ public class FrozenCompassItem extends Item {
                 }
 
                 if (context.getWorld() instanceof ServerWorld) {
-                    SnowMercyComponents.SNOWMERCY.get(context.getWorld()).startEvent((ServerWorld) context.getWorld());
+                    SnowMercyComponents.SNOWMERCY.get(context.getWorld()).startEvent(context.getWorld());
                 }
 
                 return ActionResult.SUCCESS;

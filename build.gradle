@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 	id 'org.ajoberstar.grgit' version '3.1.1'
@@ -18,10 +18,9 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Ladysnake bintray
 	maven {
-		name = "Ladysnake Libs"
-		url = "https://dl.bintray.com/ladysnake/libs"
+		name = 'Ladysnake Mods'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 	}
 }
 

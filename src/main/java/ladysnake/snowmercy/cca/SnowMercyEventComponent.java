@@ -1,7 +1,7 @@
 package ladysnake.snowmercy.cca;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableText;
@@ -42,12 +42,12 @@ public class SnowMercyEventComponent implements AutoSyncedComponent {
     }
 
     @Override
-    public void readFromNbt(CompoundTag compoundTag) {
+    public void readFromNbt(NbtCompound compoundTag) {
         this.isEventOngoing = compoundTag.getBoolean("SnowMercy");
     }
 
     @Override
-    public void writeToNbt(CompoundTag compoundTag) {
+    public void writeToNbt(NbtCompound compoundTag) {
         compoundTag.putBoolean("SnowMercy", this.isEventOngoing);
     }
 }

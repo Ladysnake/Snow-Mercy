@@ -41,41 +41,39 @@ public class SnowMercy implements ModInitializer {
                 .add(5, EntityTypes.SNUGGLES)
                 .add(1, EntityTypes.CHILL_SNUGGLES);
 
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            server.getWorlds().forEach(world -> {
-                if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {
-                    WorldUtils.getLoadedChunks(world).forEach(chunk -> {
-                        ChunkPos pos = chunk.getPos();
-                        if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 1) {
-                            int randomX = world.random.nextInt(16);
-                            int randomZ = world.random.nextInt(16);
-                            ChunkPos chunkPos = chunk.getPos();
+        ServerTickEvents.END_SERVER_TICK.register(server -> server.getWorlds().forEach(world -> {
+            if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {
+                WorldUtils.getLoadedChunks(world).forEach(chunk -> {
+                    ChunkPos pos = chunk.getPos();
+                    if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 1) {
+                        int randomX = world.random.nextInt(16);
+                        int randomZ = world.random.nextInt(16);
+                        ChunkPos chunkPos = chunk.getPos();
 
-                            int yMax = world.getTopY(Heightmap.Type.MOTION_BLOCKING, chunkPos.getStartX() + randomX, chunkPos.getStartZ() + randomZ);
-                            int y = 1;
+                        int yMax = world.getTopY(Heightmap.Type.MOTION_BLOCKING, chunkPos.getStartX() + randomX, chunkPos.getStartZ() + randomZ);
+                        int y = 1;
 
-                            if (world.random.nextBoolean()) {
-                                y = yMax;
-                            }
+                        if (world.random.nextBoolean()) {
+                            y = yMax;
+                        }
 
-                            for (; y <= yMax; y++) {
-                                BlockPos spawnPos = new BlockPos(chunkPos.getStartX() + randomX, y, chunkPos.getStartZ() + randomZ);
+                        for (; y <= yMax; y++) {
+                            BlockPos spawnPos = new BlockPos(chunkPos.getStartX() + randomX, y, chunkPos.getStartZ() + randomZ);
 
-                                LivingEntity entity = SPAWN_CANDIDATES.next(world.getRandom()).create(world);
+                            LivingEntity entity = SPAWN_CANDIDATES.next(world.getRandom()).create(world);
 
-                                if (entity != null && !world.getBlockState(spawnPos).isSolidBlock(world, spawnPos) && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0)) && world.getLightLevel(LightType.BLOCK, spawnPos) <= 5) {
-                                    entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                                    entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                                    entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                                    world.spawnEntity(entity);
+                            if (entity != null && !world.getBlockState(spawnPos).isSolidBlock(world, spawnPos) && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0)) && world.getLightLevel(LightType.BLOCK, spawnPos) <= 5) {
+                                entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                                entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                                entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                                world.spawnEntity(entity);
 
-                                    break;
-                                }
+                                break;
                             }
                         }
-                    });
-                }
-            });
-        });
+                    }
+                });
+            }
+        }));
     }
 }

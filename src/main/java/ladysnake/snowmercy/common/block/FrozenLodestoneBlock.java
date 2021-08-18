@@ -21,7 +21,7 @@ public class FrozenLodestoneBlock extends Block {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).stopEvent((ServerWorld) world);
+            SnowMercyComponents.SNOWMERCY.get(world).stopEvent(world);
         }
     }
 
@@ -37,7 +37,7 @@ public class FrozenLodestoneBlock extends Block {
     public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
         super.onDestroyedByExplosion(world, pos, explosion);
         if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).stopEvent((ServerWorld) world);
+            SnowMercyComponents.SNOWMERCY.get(world).stopEvent(world);
         }
     }
 
@@ -45,7 +45,7 @@ public class FrozenLodestoneBlock extends Block {
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).startEvent((ServerWorld) world);
+            SnowMercyComponents.SNOWMERCY.get(world).startEvent(world);
         }
     }
 }

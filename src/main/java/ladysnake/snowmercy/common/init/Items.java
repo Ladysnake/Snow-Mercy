@@ -18,5 +18,4 @@ public class Items {
         Registry.register(Registry.ITEM, SnowMercy.MODID + ":" + name, item);
         return item;
     }
-
 }

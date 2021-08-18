@@ -1,7 +1,6 @@
 package ladysnake.snowmercy.common.entity.ai.goal;
 
 import ladysnake.snowmercy.common.entity.SnugglesEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -13,15 +12,14 @@ import java.util.EnumSet;
 
 public class FollowAndBlowGoal extends Goal {
     protected PathAwareEntity mob;
-    private double speed;
-    private boolean pauseWhenMobIdle;
+    private final double speed;
+    private final boolean pauseWhenMobIdle;
     private Path path;
     private double targetX;
     private double targetY;
     private double targetZ;
     private int updateCountdownTicks;
     private int field_24667;
-    private final int attackIntervalTicks = 20;
     private long lastUpdateTime;
 
     public FollowAndBlowGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
@@ -43,7 +41,7 @@ public class FollowAndBlowGoal extends Goal {
             } else if (!livingEntity.isAlive()) {
                 return false;
             } else {
-                this.path = this.mob.getNavigation().findPathTo((Entity)livingEntity, 0);
+                this.path = this.mob.getNavigation().findPathTo(livingEntity, 0);
                 if (this.path != null) {
                     return true;
                 } else {
@@ -78,7 +76,7 @@ public class FollowAndBlowGoal extends Goal {
     public void stop() {
         LivingEntity livingEntity = this.mob.getTarget();
         if (!EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(livingEntity)) {
-            this.mob.setTarget((LivingEntity)null);
+            this.mob.setTarget(null);
         }
 
         this.mob.setAttacking(false);
@@ -88,6 +86,7 @@ public class FollowAndBlowGoal extends Goal {
     public void tick() {
         LivingEntity livingEntity = this.mob.getTarget();
         this.mob.getLookControl().lookAt(livingEntity, 30.0F, 30.0F);
+        assert livingEntity != null;
         double d = this.mob.squaredDistanceTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
         this.updateCountdownTicks = Math.max(this.updateCountdownTicks - 1, 0);
         if ((this.pauseWhenMobIdle || this.mob.getVisibilityCache().canSee(livingEntity)) && this.updateCountdownTicks <= 0 && (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D || livingEntity.squaredDistanceTo(this.targetX, this.targetY, this.targetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
@@ -119,6 +118,6 @@ public class FollowAndBlowGoal extends Goal {
     }
 
     protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-        return (double)(this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + entity.getWidth());
+        return this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + entity.getWidth();
     }
 }

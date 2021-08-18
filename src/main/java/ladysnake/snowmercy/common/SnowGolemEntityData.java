@@ -6,10 +6,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 
 public class SnowGolemEntityData {
-    private EntityType<? extends WeaponizedSnowGolemEntity> entityType;
-    private EntityModel<? extends WeaponizedSnowGolemEntity> entityModel;
-    private Identifier texture;
-
+    private final EntityType<? extends WeaponizedSnowGolemEntity> entityType;
+    private final EntityModel<? extends WeaponizedSnowGolemEntity> entityModel;
+    private final Identifier texture;
 
     public SnowGolemEntityData(EntityType<? extends WeaponizedSnowGolemEntity> entityType, EntityModel<? extends WeaponizedSnowGolemEntity> entityModel, Identifier texture) {
         this.entityType = entityType;

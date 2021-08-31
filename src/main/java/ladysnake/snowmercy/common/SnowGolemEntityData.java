@@ -15,7 +15,8 @@ public class SnowGolemEntityData {
     private final Identifier texture;
     private final EntityModelLayer layer;
 
-    public SnowGolemEntityData(EntityType<? extends WeaponizedSnowGolemEntity> entityType, Function<EntityRendererFactory.Context, ? extends WeaponizedSnowGolemEntity> entityModel,
+    public SnowGolemEntityData(EntityType<? extends WeaponizedSnowGolemEntity> entityType,
+                               Function<EntityRendererFactory.Context, ? extends WeaponizedSnowGolemEntity> entityModel,
                                Identifier texture, EntityModelLayer layer) {
         this.entityType = entityType;
         this.entityModel = entityModel;

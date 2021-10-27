@@ -1,6 +1,7 @@
 package ladysnake.snowmercy.common.item;
 
 import ladysnake.snowmercy.cca.SnowMercyComponents;
+import ladysnake.snowmercy.common.init.SnowMercyBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
@@ -39,7 +40,7 @@ public class FrozenCompassItem extends Item {
                 context.getWorld().breakBlock(context.getBlockPos(), false);
                 context.getWorld().setBlockState(context.getBlockPos(), Blocks.SNOW_BLOCK.getDefaultState());
                 context.getWorld().breakBlock(context.getBlockPos(), false);
-                context.getWorld().setBlockState(context.getBlockPos(), ladysnake.snowmercy.common.init.Blocks.FROZEN_LODESTONE.getDefaultState());
+                context.getWorld().setBlockState(context.getBlockPos(), SnowMercyBlocks.FROZEN_LODESTONE.getDefaultState());
                 if (context.getPlayer() != null && !context.getPlayer().isCreative()) {
                     context.getStack().decrement(1);
                 }

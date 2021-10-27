@@ -1,6 +1,5 @@
 package ladysnake.snowmercy.client.render;
 
-import ladysnake.snowmercy.client.render.entity.SnugglesEntityRenderer;
 import ladysnake.snowmercy.client.render.entity.WeaponizedSnowGolemEntityRenderer;
 import ladysnake.snowmercy.client.render.entity.model.WeaponizedSnowGolemEntityModel;
 import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
@@ -22,8 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
-public class WeaponizedSnowmanPumpkinFeatureRenderer extends FeatureRenderer<WeaponizedSnowGolemEntity, WeaponizedSnowGolemEntityModel<WeaponizedSnowGolemEntity>> {
-    public WeaponizedSnowmanPumpkinFeatureRenderer(WeaponizedSnowGolemEntityRenderer featureRendererContext) {
+public class WeaponizedSnowmanPumpkinFeatureRenderer<E extends WeaponizedSnowGolemEntity, M extends WeaponizedSnowGolemEntityModel<E>> extends FeatureRenderer<E, M> {
+    public WeaponizedSnowmanPumpkinFeatureRenderer(WeaponizedSnowGolemEntityRenderer<E, M> featureRendererContext) {
         super(featureRendererContext);
     }
 

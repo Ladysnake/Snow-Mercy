@@ -45,6 +45,11 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         this.goalSelector.add(1, new SalvoProjectileAttackGoal(this, 1.25D, 120, 32f, 1, 3));
     }
 
+    @Override
+    public WeaponizedGolemType getGolemType() {
+        return WeaponizedGolemType.ROCKETS;
+    }
+
     public void attack(LivingEntity target, float pullProgress) {
         FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(world, FIREWORKS, this, this.getX(), this.getEyeY() - 0.15000000596046448D, this.getZ(), true);
         Vec3d vec3d = this.getOppositeRotationVector(1.0F);

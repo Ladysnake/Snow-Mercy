@@ -1,7 +1,6 @@
 package ladysnake.snowmercy.client.render.entity.model;
 
 import ladysnake.snowmercy.common.entity.SnowGolemHeadEntity;
-import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
@@ -55,18 +54,10 @@ public class SnowGolemHeadEntityModel extends WeaponizedSnowGolemEntityModel<Sno
         mortars_head.visible = false;
         saw_head.visible = false;
         switch (entity.getGolemType()) {
-            case 1:
-                head.visible = true;
-                break;
-            case 2:
-                rockets_head.visible = true;
-                break;
-            case 3:
-                mortars_head.visible = true;
-                break;
-            default:
-                saw_head.visible = true;
-                break;
+            case SNUGGLES, CHILL_SNUGGLES -> head.visible = true;
+            case ROCKETS -> rockets_head.visible = true;
+            case MORTARS -> mortars_head.visible = true;
+            case SAWMAN -> saw_head.visible = true;
         }
     }
 }

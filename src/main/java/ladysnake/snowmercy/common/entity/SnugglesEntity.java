@@ -42,6 +42,11 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
         return ret;
     }
 
+    @Override
+    public WeaponizedGolemType getGolemType() {
+        return WeaponizedGolemType.SNUGGLES;
+    }
+
     public void explode() {
         if (!this.getEntityWorld().isClient()) {
             this.discard();

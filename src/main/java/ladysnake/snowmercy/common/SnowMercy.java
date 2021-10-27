@@ -3,9 +3,9 @@ package ladysnake.snowmercy.common;
 import ladysnake.snowmercy.cca.SnowMercyComponents;
 import ladysnake.snowmercy.common.command.SnowMercyCommand;
 import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
-import ladysnake.snowmercy.common.init.Blocks;
-import ladysnake.snowmercy.common.init.EntityTypes;
-import ladysnake.snowmercy.common.init.Items;
+import ladysnake.snowmercy.common.init.SnowMercyBlocks;
+import ladysnake.snowmercy.common.init.SnowMercyEntities;
+import ladysnake.snowmercy.common.init.SnowMercyItems;
 import ladysnake.snowmercy.common.utils.RandomSpawnCollection;
 import ladysnake.snowmercy.common.utils.WorldUtils;
 import net.fabricmc.api.ModInitializer;
@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
@@ -21,25 +22,29 @@ import net.minecraft.world.LightType;
 
 public class SnowMercy implements ModInitializer {
     public static final String MODID = "snowmercy";
+    
+    public static Identifier id(String path) {
+        return new Identifier(MODID, path);
+    }
 
     private static final RandomSpawnCollection<EntityType<? extends LivingEntity>> SPAWN_CANDIDATES = new RandomSpawnCollection<>();
 
     @Override
     public void onInitialize() {
-        Blocks.init();
-        Items.init();
-        EntityTypes.init();
+        SnowMercyBlocks.init();
+        SnowMercyItems.init();
+        SnowMercyEntities.init();
 
         CommandRegistrationCallback.EVENT.register((commandDispatcher, b) ->
                 SnowMercyCommand.register(commandDispatcher)
         );
 
         SPAWN_CANDIDATES
-                .add(25, EntityTypes.SAWMAN)
-                .add(20, EntityTypes.MORTARS)
-                .add(20, EntityTypes.ROCKETS)
-                .add(5, EntityTypes.SNUGGLES)
-                .add(1, EntityTypes.CHILL_SNUGGLES);
+                .add(25, SnowMercyEntities.SAWMAN)
+                .add(20, SnowMercyEntities.MORTARS)
+                .add(20, SnowMercyEntities.ROCKETS)
+                .add(5, SnowMercyEntities.SNUGGLES)
+                .add(1, SnowMercyEntities.CHILL_SNUGGLES);
 
         ServerTickEvents.END_SERVER_TICK.register(server -> server.getWorlds().forEach(world -> {
             if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {

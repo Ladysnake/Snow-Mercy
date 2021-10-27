@@ -59,6 +59,11 @@ public class ChillSnugglesEntity extends SnugglesEntity {
         }
     }
 
+    @Override
+    public WeaponizedGolemType getGolemType() {
+        return WeaponizedGolemType.CHILL_SNUGGLES;
+    }
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
     }

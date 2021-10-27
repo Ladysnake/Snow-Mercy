@@ -1,7 +1,6 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.common.entity.ai.goal.WeaponizedSnowGolemFollowTargetGoal;
-import ladysnake.snowmercy.common.init.EntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
@@ -46,6 +45,8 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     public WeaponizedSnowGolemEntity(EntityType<? extends WeaponizedSnowGolemEntity> entityType, World world) {
         super(entityType, world);
     }
+
+    public abstract WeaponizedGolemType getGolemType();
 
     @Override
     protected void initGoals() {
@@ -128,7 +129,7 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
         if (!(source.getAttacker() instanceof WeaponizedSnowGolemEntity)) {
             if (this.getHead() == 1 && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof LivingEntity) {
                 double eyeHeight = this.getY() + this.getEyeHeight(this.getPose(), this.getDimensions(this.getPose())) - 0.3f;
-                SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, EntityTypes.GOLEM_IDS.inverse().get(this.getType()), this.getX(), eyeHeight, this.getZ());
+                SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, this.getGolemType(), this.getX(), eyeHeight, this.getZ());
                 LivingEntity livingEntity = ((LivingEntity) source.getAttacker());
 
                 if (livingEntity.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) livingEntity.getMainHandStack().getItem()).getAttackDamage() && random.nextInt(11) <= amount) {

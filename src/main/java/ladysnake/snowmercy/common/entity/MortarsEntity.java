@@ -19,6 +19,11 @@ public class MortarsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.25D, 80, 40f));
     }
 
+    @Override
+    public WeaponizedGolemType getGolemType() {
+        return WeaponizedGolemType.MORTARS;
+    }
+
     public void attack(LivingEntity target, float pullProgress) {
         world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.HOSTILE, 1.0f, 0.6f);
         for (int i = 0; i < 20; i++) {

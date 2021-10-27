@@ -14,4 +14,9 @@ public class SawmanEntity extends WeaponizedSnowGolemEntity {
         super.initGoals();
         this.goalSelector.add(1, new MeleeAttackGoal(this, 1.0D, false));
     }
+
+    @Override
+    public WeaponizedGolemType getGolemType() {
+        return WeaponizedGolemType.SAWMAN;
+    }
 }

@@ -1,6 +1,6 @@
 package ladysnake.snowmercy.common.entity;
 
-import ladysnake.snowmercy.common.init.EntityTypes;
+import ladysnake.snowmercy.common.init.SnowMercyEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -22,7 +22,7 @@ public class IcicleEntity extends PersistentProjectileEntity {
     }
 
     public IcicleEntity(World world, LivingEntity owner) {
-        super(EntityTypes.ICICLE, world);
+        super(SnowMercyEntities.ICICLE, world);
         this.setOwner(owner);
     }
 

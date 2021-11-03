@@ -1,0 +1,16 @@
+{
+  "item.snowmercy.frozen_compass": "Boussole givrée",
+  "item.snowmercy.frozen_compass.tooltip": "Utiliser sur une magnétite pour lancer une invasion Snow Mercy",
+  "block.snowmercy.frozen_lodestone": "Magnétite givrée",
+  "entity.snowmercy.mister_snuggles": "Monsieur Glalin",
+  "entity.snowmercy.mister_chill_snuggles": "Monsieur GlaGlalin",
+  "entity.snowmercy.sawman": "Bonhomme de scie",
+  "entity.snowmercy.ice_mortar": "Mortier grésil",
+  "entity.snowmercy.aftermarket_snowman": "Artinivier",
+  "entity.snowmercy.icicle": "Stalactite",
+  "commands.snowmercy.start": "L'invasion Snow Mercy a commencé",
+  "commands.snowmercy.stop": "L'invasion Snow Mercy s'est arrêtée",
+  "info.snowmercy.start": "Pas le temps pour un rafraichissement, une armée Snow Mercy nous envahit !",
+  "info.snowmercy.stop": "L'armée Snow Mercy bat en retraite !",
+  "info.snowmercy.ongoing": "Une invasion Snow Mercy est déjà en cours !"
+}

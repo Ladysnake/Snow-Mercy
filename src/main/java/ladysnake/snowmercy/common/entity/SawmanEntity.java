@@ -1,9 +1,7 @@
 package ladysnake.snowmercy.common.entity;
 
-import ladysnake.snowmercy.common.network.Packets;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.network.Packet;
 import net.minecraft.world.World;
 
 public class SawmanEntity extends WeaponizedSnowGolemEntity {
@@ -18,8 +16,7 @@ public class SawmanEntity extends WeaponizedSnowGolemEntity {
     }
 
     @Override
-    public Packet<?> createSpawnPacket() {
-        return Packets.newSpawnPacket(this);
+    public WeaponizedGolemType getGolemType() {
+        return WeaponizedGolemType.SAWMAN;
     }
-
 }

@@ -1,13 +1,11 @@
 package ladysnake.snowmercy.common.entity;
 
-import ladysnake.snowmercy.common.init.EntityTypes;
-import ladysnake.snowmercy.common.network.Packets;
+import ladysnake.snowmercy.common.init.SnowMercyEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.Packet;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -23,13 +21,8 @@ public class IcicleEntity extends PersistentProjectileEntity {
         this.setSound(SoundEvents.BLOCK_GLASS_BREAK);
     }
 
-    public IcicleEntity(World world, double x, double y, double z) {
-        this(EntityTypes.ICICLE, world);
-        this.setPos(x, y, z);
-    }
-
     public IcicleEntity(World world, LivingEntity owner) {
-        super(EntityTypes.ICICLE, world);
+        super(SnowMercyEntities.ICICLE, world);
         this.setOwner(owner);
     }
 
@@ -60,7 +53,7 @@ public class IcicleEntity extends PersistentProjectileEntity {
             for (int i = 0; i < 8; ++i) {
                 this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX() + random.nextGaussian() / 20f, this.getY() + random.nextGaussian() / 20f, this.getZ() + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f);
             }
-            this.remove();
+            this.discard();
         }
     }
 
@@ -74,10 +67,5 @@ public class IcicleEntity extends PersistentProjectileEntity {
     @Override
     public byte getPierceLevel() {
         return 1;
-    }
-
-    @Override
-    public Packet<?> createSpawnPacket() {
-        return Packets.newSpawnPacket(this);
     }
 }

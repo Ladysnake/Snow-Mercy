@@ -11,7 +11,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.registry.Registry;
 
-public class Blocks {
+public class SnowMercyBlocks {
     public static Block FROZEN_LODESTONE;
 
     public static void init() {
@@ -24,10 +24,9 @@ public class Blocks {
         if (itemGroup != null) {
             BlockItem item = new BlockItem(block, new Item.Settings().group(itemGroup));
             item.appendBlocks(Item.BLOCK_ITEMS, item);
-            Items.registerItem(item, name);
+            SnowMercyItems.registerItem(item, name);
         }
 
         return block;
     }
-
 }

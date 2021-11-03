@@ -9,19 +9,19 @@ import net.minecraft.util.math.MathHelper;
 import java.util.EnumSet;
 
 public class SalvoProjectileAttackGoal extends Goal {
-    private MobEntity mob;
-    private RangedAttackMob owner;
+    private final MobEntity mob;
+    private final RangedAttackMob owner;
     private LivingEntity target;
     private int updateCountdownTicks;
-    private double mobSpeed;
+    private final double mobSpeed;
     private int seenTargetTicks;
-    private int minIntervalTicks;
-    private int maxIntervalTicks;
-    private float maxShootRange;
-    private float squaredMaxShootRange;
-    private int maxSalvo;
+    private final int minIntervalTicks;
+    private final int maxIntervalTicks;
+    private final float maxShootRange;
+    private final float squaredMaxShootRange;
+    private final int maxSalvo;
     private int currentSalvo;
-    private int cooldownBetweenShots;
+    private final int cooldownBetweenShots;
     private int currentCooldownBetweenShots;
 
     public SalvoProjectileAttackGoal(RangedAttackMob mob, double mobSpeed, int intervalTicks, float maxShootRange, int maxSalvo, int cooldownBetweenShots) {
@@ -88,19 +88,18 @@ public class SalvoProjectileAttackGoal extends Goal {
                 return;
             }
 
-            f = MathHelper.sqrt(d) / this.maxShootRange;
-            float g = MathHelper.clamp(f, 0.1F, 1.0F);
+            f = MathHelper.sqrt((float) d) / this.maxShootRange;
             this.currentCooldownBetweenShots = this.cooldownBetweenShots;
             this.currentSalvo = 0;
             this.updateCountdownTicks = MathHelper.floor(f * (float) (this.maxIntervalTicks - this.minIntervalTicks) + (float) this.minIntervalTicks);
         } else if (this.updateCountdownTicks < 0) {
-            f = MathHelper.sqrt(d) / this.maxShootRange;
+            f = MathHelper.sqrt((float) d) / this.maxShootRange;
             this.updateCountdownTicks = MathHelper.floor(f * (float)(this.maxIntervalTicks - this.minIntervalTicks) + (float)this.minIntervalTicks);
         }
 
         if (this.currentSalvo < this.maxSalvo) {
             if (this.currentCooldownBetweenShots-- <= 0) {
-                f = MathHelper.sqrt(d) / this.maxShootRange;
+                f = MathHelper.sqrt((float) d) / this.maxShootRange;
                 float g = MathHelper.clamp(f, 0.1F, 1.0F);
                 this.owner.attack(this.target, g);
 

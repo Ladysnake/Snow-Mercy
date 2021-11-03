@@ -1,44 +1,36 @@
 package ladysnake.snowmercy.client.render.entity.model;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.entity.Entity;
+import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
-public class SawmanEntityModel<T extends Entity> extends WeaponizedSnowGolemEntityModel<T> {
-    private final ModelPart headsaw_r1;
+@Environment(EnvType.CLIENT)
+public class SawmanEntityModel<T extends WeaponizedSnowGolemEntity> extends WeaponizedSnowGolemEntityModel<T> {
     private final ModelPart saw;
 
-    public SawmanEntityModel() {
-        textureWidth = 128;
-        textureHeight = 64;
+    public SawmanEntityModel(ModelPart root) {
+        super(root);
+        this.saw = root.getChild("saw");
+    }
 
-        head = new ModelPart(this);
-        head.setPivot(0.0F, 4.0F, 0.0F);
-        head.setTextureOffset(0, 0).addCuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, true);
+    public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = new ModelData();
+        ModelPartData modelPartData = modelData.getRoot();
 
-        headsaw_r1 = new ModelPart(this);
-        headsaw_r1.setPivot(-1.0F, -7.0F, -0.5F);
-        head.addChild(headsaw_r1);
-        setRotationAngle(headsaw_r1, 0.0F, 0.0F, 1.1781F);
-        headsaw_r1.setTextureOffset(37, 34).addCuboid(-6.0F, 0.0F, -5.5F, 12.0F, 1.0F, 12.0F, -0.5F, true);
+        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        modelPartData.addChild("upper_body", ModelPartBuilder.create().uv(0, 16).mirrored(true).cuboid(-5.0F, -10.0F, -5.0F, 10.0F, 9.0F, 10.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        modelPartData.addChild("lower_body", ModelPartBuilder.create().uv(0, 35).mirrored(true).cuboid(-6.0F, -11.0F, -6.0F, 12.0F, 11.0F, 12.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        modelPartData.getChild(EntityModelPartNames.HEAD).addChild("headsaw_r1", ModelPartBuilder.create().uv(37, 34).mirrored(true).cuboid(-6.0F, 0.0F, -5.5F, 12.0F, 1.0F, 12.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(-1.0F, -7.0F, -0.5F, 0.0F, 0.0F, 1.1781F));
+        modelPartData.addChild("saw", ModelPartBuilder.create().uv(34, 47).mirrored(true).cuboid(-7.0F, 25.0F, -7.0F, 14.0F, -2.0F, 14.0F, new Dilation(1.0F, 1.0F, 1.0F)).uv(32, 10).cuboid(-1.5F, 22.5F, -1.5F, 3.0F, 3.0F, 3.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, -11.5F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        piece1 = new ModelPart(this);
-        piece1.setPivot(0.0F, 13.0F, 0.0F);
-        piece1.setTextureOffset(0, 16).addCuboid(-5.0F, -10.0F, -5.0F, 10.0F, 9.0F, 10.0F, -0.5F, true);
-
-        piece2 = new ModelPart(this);
-        piece2.setPivot(0.0F, 24.0F, 0.0F);
-        piece2.setTextureOffset(0, 35).addCuboid(-6.0F, -11.0F, -6.0F, 12.0F, 11.0F, 12.0F, -0.5F, true);
-
-        saw = new ModelPart(this);
-        saw.setPivot(0.0F, -11.5F, 0.0F);
-        piece2.addChild(saw);
-        saw.setTextureOffset(34, 47).addCuboid(-7.0F, 1.0F, -7.0F, 14.0F, -2.0F, 14.0F, 1.0F, true);
-        saw.setTextureOffset(32, 10).addCuboid(-1.5F, -1.5F, -1.5F, 3.0F, 3.0F, 3.0F, -0.5F, true);
+        return TexturedModelData.of(modelData, 128, 64);
     }
 
     @Override
-    public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        this.setRotationAngle(this.saw, 0, entity.age, 0);
+    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+        this.saw.yaw = entity.age;
     }
 }

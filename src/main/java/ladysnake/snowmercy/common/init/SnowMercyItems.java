@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
-public class Items {
+public class SnowMercyItems {
     public static Item FROZEN_COMPASS;
 
     public static void init() {
@@ -18,5 +18,4 @@ public class Items {
         Registry.register(Registry.ITEM, SnowMercy.MODID + ":" + name, item);
         return item;
     }
-
 }

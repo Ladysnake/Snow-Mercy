@@ -36,6 +36,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     private static final TrackedData<Integer> HEAD = DataTracker.registerData(WeaponizedSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -98,6 +99,21 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     }
 
     @Override
+    protected void onKilledBy(@Nullable LivingEntity adversary) {
+        if (adversary instanceof PlayerEntity && this.getHead() != 0) {
+            this.setHead(0);
+
+            double eyeHeight = this.getY() + this.getEyeHeight(this.getPose(), this.getDimensions(this.getPose())) - 0.3f;
+            SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, this.getGolemType(), this.getX(), eyeHeight, this.getZ());
+            entity.setVelocity(this.getVelocity().multiply(1, 0, 1));
+            entity.headYaw = this.headYaw;
+            world.spawnEntity(entity);
+        }
+
+        super.onKilledBy(adversary);
+    }
+
+    @Override
     public void tickMovement() {
         super.tickMovement();
 
@@ -136,6 +152,7 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
                     if (!this.world.isClient) {
                         this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
                         this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                        entity.headYaw = this.headYaw;
                         entity.setProperties(livingEntity, livingEntity.getPitch(), livingEntity.getYaw(), livingEntity.getRoll(), Math.min(10, amount), Math.min(10, amount));
                         world.spawnEntity(entity);
 

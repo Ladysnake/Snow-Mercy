@@ -10,6 +10,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
 
 public class IceboomboxEntity extends WeaponizedSnowGolemEntity {
@@ -30,5 +31,14 @@ public class IceboomboxEntity extends WeaponizedSnowGolemEntity {
 
     public static DefaultAttributeContainer.Builder createEntityAttributes() {
         return WeaponizedSnowGolemEntity.createEntityAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0d);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (world.isClient && this.age % 10 == 0) {
+            world.addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 2.1, this.getZ(), (double) random.nextInt(13) / 24.0, 0.0, 0.0);
+        }
     }
 }

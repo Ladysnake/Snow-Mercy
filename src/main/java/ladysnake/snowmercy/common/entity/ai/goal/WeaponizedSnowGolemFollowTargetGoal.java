@@ -2,11 +2,11 @@ package ladysnake.snowmercy.common.entity.ai.goal;
 
 import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 
 import java.util.function.Predicate;
 
-public class WeaponizedSnowGolemFollowTargetGoal extends FollowTargetGoal<LivingEntity> {
+public class WeaponizedSnowGolemFollowTargetGoal extends ActiveTargetGoal<LivingEntity> {
     public final int requiredHead;
 
     public WeaponizedSnowGolemFollowTargetGoal(WeaponizedSnowGolemEntity mob, Class targetClass, boolean checkVisibility, int requiredHead) {

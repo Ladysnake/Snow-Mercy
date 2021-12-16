@@ -5,7 +5,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.biome.source.BiomeAccessType;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,7 +20,7 @@ public abstract class BiomeAccessMixin {
     World world;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void init(BiomeAccess.Storage storage, long seed, BiomeAccessType type, CallbackInfo ci) {
+    private void init(BiomeAccess.Storage storage, long seed, CallbackInfo ci) {
         this.world = storage instanceof World ? ((World)storage) : null;
     }
 

@@ -42,7 +42,7 @@ public enum WeaponizedGolemType {
 
     WeaponizedGolemType(String id) {
         this.id = SnowMercy.id(id);
-        this.textureLocation = SnowMercy.id("textures/" + id + ".png");
+        this.textureLocation = SnowMercy.id("textures/entity/" + id + ".png");
     }
 
     public Identifier getId() {

@@ -25,15 +25,15 @@ public class SnowGolemHeadEntityModel extends WeaponizedSnowGolemEntityModel<Sno
         ModelPartData modelPartData = modelData.getRoot();
         Dilation dilation = new Dilation(-0.5F);
 
-        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 7.0F, 8.0F, dilation), ModelTransform.pivot(0.0F, 4.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 7.0F, 8.0F, dilation), ModelTransform.pivot(0.0F, 24.0f, 0.0F));
         modelPartData.getChild(EntityModelPartNames.HEAD).addChild("tnt", ModelPartBuilder.create().uv(42, 3).mirrored(true).cuboid(-0.5F, -28.0F, -0.75F, 1.0F, 3.0F, 2.0F, new Dilation(-0.5F, -0.5F, -0.5F)).uv(48, 0).cuboid(-2.0F, -26.0F, -2.0F, 4.0F, 6.0F, 4.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 14.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild("rockets_head", ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)).uv(34, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), ModelTransform.of(0.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        modelPartData.addChild("rockets_head", ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)).uv(34, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), ModelTransform.of(0.0F, 24.0f, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild("mortars_head", ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        modelPartData.addChild("mortars_head", ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 24.0f, 0.0F, 0.0F, 0.0F, 0.0F));
         modelPartData.getChild("mortars_head").addChild("helmet_r1", ModelPartBuilder.create().uv(32, 0).mirrored(true).cuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F), ModelTransform.of(0.0F, -4.0F, 0.0F, -0.1309F, 0.0F, 0.0F));
 
-        modelPartData.addChild("saw_head", ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        modelPartData.addChild("saw_head", ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 24.0f, 0.0F, 0.0F, 0.0F, 0.0F));
         modelPartData.getChild("saw_head").addChild("headsaw_r1", ModelPartBuilder.create().uv(37, 34).mirrored(true).cuboid(-6.0F, 0.0F, -5.5F, 12.0F, 1.0F, 12.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(-1.0F, -7.0F, -0.5F, 0.0F, 0.0F, 1.1781F));
 
         return TexturedModelData.of(modelData, 128, 64);

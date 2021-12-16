@@ -112,10 +112,10 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
 
             BlockState blockState = Blocks.SNOW.getDefaultState();
 
-            for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+            for (int l = 0; l < 4; ++l) {
+                i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
                 j = MathHelper.floor(this.getY());
-                k = MathHelper.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockPos = new BlockPos(i, j, k);
                 if (this.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(this.world, blockPos)) {
                     this.world.setBlockState(blockPos, blockState);
@@ -132,16 +132,18 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
                 SnowGolemHeadEntity entity = new SnowGolemHeadEntity(world, this.getGolemType(), this.getX(), eyeHeight, this.getZ());
                 LivingEntity livingEntity = ((LivingEntity) source.getAttacker());
 
-                if (livingEntity.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) livingEntity.getMainHandStack().getItem()).getAttackDamage() && random.nextInt(11) <= amount) {
-                    this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
-                    this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    entity.setProperties(livingEntity, livingEntity.getPitch(), livingEntity.getYaw(), 0.0F, Math.min(10, amount), Math.min(10, amount));
-                    world.spawnEntity(entity);
+                if (livingEntity.getMainHandStack().getItem() instanceof ShovelItem && amount >= ((ShovelItem) livingEntity.getMainHandStack().getItem()).getAttackDamage()) {
+                    if (!this.world.isClient) {
+                        this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
+                        this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                        entity.setProperties(livingEntity, this.getPitch(), this.getYaw(), this.getRoll(), Math.min(10, amount), Math.min(10, amount));
+                        world.spawnEntity(entity);
 
-                    if (source.getAttacker() instanceof PlayerEntity) {
-                        ((PlayerEntity) source.getAttacker()).spawnSweepAttackParticles();
+                        if (source.getAttacker() instanceof PlayerEntity) {
+                            ((PlayerEntity) source.getAttacker()).spawnSweepAttackParticles();
+                        }
+                        ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX(), eyeHeight, this.getZ(), 40, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.1f);
                     }
-                    ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.SNOW_BLOCK, 1)), this.getX(), eyeHeight, this.getZ(), 40, random.nextGaussian() / 20f, 0.2D + random.nextGaussian() / 20f, random.nextGaussian() / 20f, 0.1f);
 
                     this.setHead(0);
                     return super.damage(source, 0.0f);

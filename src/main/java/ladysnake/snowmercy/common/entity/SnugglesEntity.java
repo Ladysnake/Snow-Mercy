@@ -2,15 +2,16 @@ package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.common.entity.ai.goal.FollowAndBlowGoal;
 import ladysnake.snowmercy.common.world.PuffExplosion;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -54,16 +55,22 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
             ServerWorld world = (ServerWorld) this.getEntityWorld();
 
             float power = 3.0f;
-            Explosion.DestructionType destructionType;
-            if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-                destructionType = Explosion.DestructionType.DESTROY;
-            } else {
-                destructionType = Explosion.DestructionType.NONE;
-            }
+            Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
 
-            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 3f, destructionType, true);
+            Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 3f, destructionType, false);
             explosion.collectBlocksAndDamageEntities();
             explosion.affectWorld(false);
+
+            for (int i = 0; i < 250; i++) {
+                FallingBlockEntity entity = new FallingBlockEntity(world, this.getX(), this.getY() + 0.5, this.getZ(), Blocks.POWDER_SNOW.getDefaultState());
+                entity.timeFalling = 1;
+                entity.dropItem = false;
+                entity.setPos(this.getX(), this.getY(), this.getZ());
+                entity.updateTrackedPosition(this.getX(), this.getY() + 0.5f, this.getZ());
+                entity.setVelocity(random.nextGaussian(), random.nextGaussian(), random.nextGaussian());
+                world.spawnEntity(entity);
+
+            }
 
             Iterator<ServerPlayerEntity> var14 = world.getPlayers().iterator();
             if (destructionType == Explosion.DestructionType.NONE) {

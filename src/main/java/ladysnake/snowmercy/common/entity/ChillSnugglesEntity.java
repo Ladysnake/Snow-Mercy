@@ -8,7 +8,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -26,12 +25,7 @@ public class ChillSnugglesEntity extends SnugglesEntity {
             ServerWorld world = (ServerWorld) this.getEntityWorld();
 
             float power = 3.0f;
-            Explosion.DestructionType destructionType;
-            if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-                destructionType = Explosion.DestructionType.DESTROY;
-            } else {
-                destructionType = Explosion.DestructionType.NONE;
-            }
+            Explosion.DestructionType destructionType = Explosion.DestructionType.NONE;
 
             Explosion explosion = new PuffExplosion(world, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), power, 3f, destructionType, false);
             explosion.collectBlocksAndDamageEntities();
@@ -40,7 +34,7 @@ public class ChillSnugglesEntity extends SnugglesEntity {
             for (int i = 0; i < 250; i++) {
                 IcicleEntity entity = new IcicleEntity(world, this);
                 entity.setPos(this.getX(), this.getY(), this.getZ());
-                entity.updateTrackedPosition(this.getX(), this.getY()+0.5f, this.getZ());
+                entity.updateTrackedPosition(this.getX(), this.getY() + 0.5f, this.getZ());
                 entity.setVelocity(random.nextGaussian(), random.nextGaussian(), random.nextGaussian());
                 world.spawnEntity(entity);
             }

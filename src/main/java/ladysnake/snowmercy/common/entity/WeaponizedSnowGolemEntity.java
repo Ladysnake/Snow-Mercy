@@ -136,7 +136,7 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
                     if (!this.world.isClient) {
                         this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 0.5f);
                         this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                        entity.setProperties(livingEntity, this.getPitch(), this.getYaw(), this.getRoll(), Math.min(10, amount), Math.min(10, amount));
+                        entity.setProperties(livingEntity, livingEntity.getPitch(), livingEntity.getYaw(), livingEntity.getRoll(), Math.min(10, amount), Math.min(10, amount));
                         world.spawnEntity(entity);
 
                         if (source.getAttacker() instanceof PlayerEntity) {

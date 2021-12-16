@@ -1,0 +1,10 @@
+{
+  "music_disc.jingle_bells": {
+    "sounds": [
+      {
+        "name": "snowmercy:jingle_bells",
+        "stream": true
+      }
+    ]
+  }
+}

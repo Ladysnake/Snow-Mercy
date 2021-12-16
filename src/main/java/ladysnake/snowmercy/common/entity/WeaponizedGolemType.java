@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public enum WeaponizedGolemType {
-    SAWMAN("sawman"), SNUGGLES("mister_snuggles"), ROCKETS("aftermarket_snowman"), MORTARS("ice_mortar"), CHILL_SNUGGLES("mister_chill_snuggles");
+    SAWMAN("sawman"), SNUGGLES("mister_snuggles"), ROCKETS("aftermarket_snowman"), MORTARS("ice_mortar"), CHILL_SNUGGLES("mister_chill_snuggles"), BOOMBOX("iceboombox");
 
     public static final WeaponizedGolemType DEFAULT = SNUGGLES;
 

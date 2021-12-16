@@ -17,6 +17,7 @@ public class SnowMercyEntities {
     public static EntityType<RocketsEntity> ROCKETS;
     public static EntityType<MortarsEntity> MORTARS;
     public static EntityType<SawmanEntity> SAWMAN;
+    public static EntityType<IceboomboxEntity> BOOMBOX;
     public static EntityType<SnowGolemHeadEntity> SNOW_GOLEM_HEAD;
 
     public static EntityType<IcicleEntity> ICICLE;
@@ -29,6 +30,8 @@ public class SnowMercyEntities {
         ROCKETS = register("aftermarket_snowman", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RocketsEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
         MORTARS = register("ice_mortar", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MortarsEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
         SAWMAN = register("sawman", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SawmanEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
+        BOOMBOX = register("iceboombox", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, IceboomboxEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
+
         SNOW_GOLEM_HEAD = register("snow_golem_head", FabricEntityTypeBuilder.<SnowGolemHeadEntity>create(SpawnGroup.MONSTER, SnowGolemHeadEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.6f)).trackRangeBlocks(8).build());
 
         ICICLE = register("icicle", FabricEntityTypeBuilder.<IcicleEntity>create(SpawnGroup.MISC, IcicleEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
@@ -38,6 +41,7 @@ public class SnowMercyEntities {
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.ROCKETS, RocketsEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.MORTARS, MortarsEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SAWMAN, SawmanEntity.createEntityAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.BOOMBOX, IceboomboxEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntity.createEntityAttributes());
     }
 

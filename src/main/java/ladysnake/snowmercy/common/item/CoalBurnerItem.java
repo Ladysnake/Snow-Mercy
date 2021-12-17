@@ -69,12 +69,12 @@ public class CoalBurnerItem extends RangedWeaponItem implements Vanishable {
                 for (int i = 0; i < user.getInventory().size(); i++) {
                     ItemStack itemStack = user.getInventory().getStack(i);
                     if (itemStack.getItem() == Items.COAL || itemStack.getItem() == Items.CHARCOAL) {
-                        if (!user.isCreative() && remainingUseTicks % 40 == 0 || remainingUseTicks == this.getMaxUseTime(stack)) {
+                        if (!user.isCreative() && (remainingUseTicks % 40 == 0 || remainingUseTicks == this.getMaxUseTime(stack))) {
                             itemStack.decrement(1);
                         }
                         break;
                     } else if (itemStack.getItem() == Items.BLAZE_POWDER) {
-                        if (!user.isCreative() && remainingUseTicks % 10 == 0 || remainingUseTicks == this.getMaxUseTime(stack)) {
+                        if (!user.isCreative()) {
                             itemStack.decrement(1);
                         }
                         extraHot = true;

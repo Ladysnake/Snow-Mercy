@@ -52,7 +52,7 @@ public class CoalBurnerItem extends RangedWeaponItem implements Vanishable {
             for (int i = 0; i < user.getInventory().size(); i++) {
                 ItemStack itemStack = user.getInventory().getStack(i);
                 if (itemStack.getItem() == Items.COAL || itemStack.getItem() == Items.CHARCOAL) {
-                    if (!user.isCreative()) {
+                    if (!user.isCreative() && user.getRandom().nextInt(8) == 0) {
                         itemStack.decrement(1);
                     }
                     break;

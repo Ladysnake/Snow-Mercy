@@ -21,6 +21,7 @@ public class SnowMercyEntities {
     public static EntityType<SnowGolemHeadEntity> SNOW_GOLEM_HEAD;
 
     public static EntityType<IcicleEntity> ICICLE;
+    public static EntityType<BurningCoalEntity> BURNING_COAL;
 
     public static void init() {
         TrackedDataHandlerRegistry.register(WeaponizedGolemType.TRACKED_DATA_HANDLER);
@@ -35,6 +36,7 @@ public class SnowMercyEntities {
         SNOW_GOLEM_HEAD = register("snow_golem_head", FabricEntityTypeBuilder.<SnowGolemHeadEntity>create(SpawnGroup.MONSTER, SnowGolemHeadEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.6f)).trackRangeBlocks(8).build());
 
         ICICLE = register("icicle", FabricEntityTypeBuilder.<IcicleEntity>create(SpawnGroup.MISC, IcicleEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
+        BURNING_COAL = register("burning_coal", FabricEntityTypeBuilder.<BurningCoalEntity>create(SpawnGroup.MISC, BurningCoalEntity::new).dimensions(EntityDimensions.changing(1.0f, 1.0f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
 
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNUGGLES, SnugglesEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.CHILL_SNUGGLES, SnugglesEntity.createEntityAttributes());

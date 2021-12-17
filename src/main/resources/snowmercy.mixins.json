@@ -8,6 +8,7 @@
     "FrozenTemperatureMixin"
   ],
   "client": [
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,5 +1,6 @@
 package ladysnake.snowmercy.client;
 
+import ladysnake.snowmercy.client.render.entity.BurningCoalEntityRenderer;
 import ladysnake.snowmercy.client.render.entity.IcicleEntityRenderer;
 import ladysnake.snowmercy.client.render.entity.SnowGolemHeadEntityRenderer;
 import ladysnake.snowmercy.client.render.entity.WeaponizedSnowGolemEntityRenderer;
@@ -18,6 +19,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistr
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.entity.EndCrystalEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.sound.AbstractBeeSoundInstance;
 import net.minecraft.client.sound.AggressiveBeeSoundInstance;
@@ -43,6 +45,7 @@ public class SnowMercyClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SNOW_GOLEM_HEAD_MODEL_LAYER, SnowGolemHeadEntityModel::getTexturedModelData);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.ICICLE, IcicleEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.BURNING_COAL, BurningCoalEntityRenderer::new);
 
         ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof IceboomboxEntity) {

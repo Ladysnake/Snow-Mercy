@@ -1,6 +1,7 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.common.entity.ai.goal.SalvoProjectileAttackGoal;
+import ladysnake.snowmercy.mixin.FireworkRocketEntityInvoker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -29,7 +30,7 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         explosion.putBoolean("Flicker", false);
         explosion.putBoolean("Trail", true);
         explosion.putInt("Type", 0);
-        explosion.putIntArray("Colors", new int[] {15790320});
+        explosion.putIntArray("Colors", new int[]{15790320});
         explosions.add(explosion);
         FIREWORKS.getOrCreateSubNbt("Fireworks").put("Explosions", explosions);
 
@@ -69,6 +70,14 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
 
     @Override
     public boolean damage(DamageSource source, float amount) {
+        if (this.isAlive() && (source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE)) {
+            FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(world, FIREWORKS, this, this.getX() + random.nextGaussian() / 10f, this.getEyeY() + random.nextGaussian() / 10f, this.getZ() + random.nextGaussian() / 10f, true);
+            fireworkRocketEntity.setVelocity(0, 0, 0, 0, 0);
+            world.spawnEntity(fireworkRocketEntity);
+            ((FireworkRocketEntityInvoker) fireworkRocketEntity).invokeExplodeAndRemove();
+            this.kill();
+        }
+
         return super.damage(source, amount);
     }
 }

@@ -30,7 +30,7 @@ public class IceboomboxEntity extends WeaponizedSnowGolemEntity {
     }
 
     public static DefaultAttributeContainer.Builder createEntityAttributes() {
-        return WeaponizedSnowGolemEntity.createEntityAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0d);
+        return WeaponizedSnowGolemEntity.createEntityAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.0d).add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0d);
     }
 
     @Override

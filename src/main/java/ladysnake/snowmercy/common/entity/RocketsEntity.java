@@ -34,7 +34,6 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         FIREWORKS.getOrCreateSubNbt("Fireworks").put("Explosions", explosions);
 
         ItemStack stackInHand = FIREWORKS.copy();
-        stackInHand.setCount(1 + this.getRandom().nextInt(3));
         this.equipStack(EquipmentSlot.MAINHAND, stackInHand);
         this.setEquipmentDropChance(EquipmentSlot.MAINHAND, 0.25F);
     }
@@ -63,8 +62,13 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
 
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-        for (int i = 0; i <= lootingMultiplier; i++) {
-            super.dropEquipment(source, lootingMultiplier, allowDrops);
-        }
+        ItemStack droppedStack = this.getMainHandStack();
+        droppedStack.setCount(random.nextInt(3 + lootingMultiplier));
+        this.dropStack(droppedStack);
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        return super.damage(source, amount);
     }
 }

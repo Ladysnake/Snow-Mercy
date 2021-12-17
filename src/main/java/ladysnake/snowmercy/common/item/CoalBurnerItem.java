@@ -44,52 +44,62 @@ public class CoalBurnerItem extends RangedWeaponItem implements Vanishable {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack itemStack = user.getStackInHand(hand);
         if ((user.isCreative() || user.getInventory().containsAny(ImmutableSet.of(Items.COAL, Items.CHARCOAL, Items.BLAZE_POWDER))) && !user.isSubmergedInWater()) {
-            boolean extraHot = false;
+            user.setCurrentHand(hand);
+            user.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0f, 0.5f);
+            user.playSound(SoundEvents.BLOCK_FIRE_AMBIENT, 1.0f, 1.0f);
+            return TypedActionResult.consume(itemStack);
+        }
+        user.playSound(SoundEvents.BLOCK_LEVER_CLICK, 1.0f, 0.8f);
+        return TypedActionResult.fail(itemStack);
 
-            user.getStackInHand(hand).damage(1, user, p -> p.sendToolBreakStatus(hand));
 
-            for (int i = 0; i < user.getInventory().size(); i++) {
-                ItemStack itemStack = user.getInventory().getStack(i);
-                if (itemStack.getItem() == Items.COAL || itemStack.getItem() == Items.CHARCOAL) {
-                    if (!user.isCreative() && user.getRandom().nextInt(8) == 0) {
-                        itemStack.decrement(1);
+    }
+
+    @Override
+    public void usageTick(World world, LivingEntity entity, ItemStack stack, int remainingUseTicks) {
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity user = (PlayerEntity) entity;
+            if ((user.isCreative() || user.getInventory().containsAny(ImmutableSet.of(Items.COAL, Items.CHARCOAL, Items.BLAZE_POWDER))) && !user.isSubmergedInWater()) {
+                boolean extraHot = false;
+
+                stack.damage(1, user, p -> p.sendToolBreakStatus(user.getMainHandStack().equals(stack) ? Hand.MAIN_HAND : Hand.OFF_HAND));
+
+                for (int i = 0; i < user.getInventory().size(); i++) {
+                    ItemStack itemStack = user.getInventory().getStack(i);
+                    if (itemStack.getItem() == Items.COAL || itemStack.getItem() == Items.CHARCOAL) {
+                        if (!user.isCreative() && remainingUseTicks % 40 == 0 || remainingUseTicks == this.getMaxUseTime(stack)) {
+                            itemStack.decrement(1);
+                        }
+                        break;
+                    } else if (itemStack.getItem() == Items.BLAZE_POWDER) {
+                        if (!user.isCreative() && remainingUseTicks % 10 == 0 || remainingUseTicks == this.getMaxUseTime(stack)) {
+                            itemStack.decrement(1);
+                        }
+                        extraHot = true;
+                        break;
                     }
-                    break;
-                } else if (itemStack.getItem() == Items.BLAZE_POWDER) {
-                    if (!user.isCreative()) {
-                        itemStack.decrement(1);
-                    }
-                    extraHot = true;
-                    break;
+                }
+
+                if (!world.isClient) {
+                    BurningCoalEntity burningCoalEntity = new BurningCoalEntity(world, user);
+                    burningCoalEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 1.0f);
+                    burningCoalEntity.setExtraHot(extraHot);
+                    world.spawnEntity(burningCoalEntity);
+                }
+
+                if (remainingUseTicks % 5 == 0) {
+                    user.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0f, 0.5f);
+                    user.playSound(SoundEvents.BLOCK_FIRE_AMBIENT, 1.0f, 1.0f);
                 }
             }
-
-            if (!world.isClient) {
-                BurningCoalEntity burningCoalEntity = new BurningCoalEntity(world, user);
-                burningCoalEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 1.0f);
-                burningCoalEntity.setExtraHot(extraHot);
-                world.spawnEntity(burningCoalEntity);
-            }
-
-            user.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0f, 0.8f);
-
-            return TypedActionResult.pass(user.getStackInHand(hand));
-        } else {
-            user.playSound(SoundEvents.BLOCK_LEVER_CLICK, 1.0f, 1.5f);
-
-            return TypedActionResult.fail(user.getStackInHand(hand));
         }
     }
 
     @Override
-    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-
-    }
-
-    @Override
     public int getMaxUseTime(ItemStack stack) {
-        return Integer.MAX_VALUE;
+        return 999999990;
     }
 
     @Override

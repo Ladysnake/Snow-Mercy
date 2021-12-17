@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
 public class BurningCoalEntity extends ThrownEntity {
@@ -103,6 +104,14 @@ public class BurningCoalEntity extends ThrownEntity {
         // burn entities in contact
         for (Entity entity : world.getOtherEntities(this.getOwner(), this.getBoundingBox().expand(BURN_RADIUS))) {
             entity.setOnFireFor((int) (10 * Math.sqrt(entity.getBlockPos().getSquaredDistance(this.getBlockPos()))));
+        }
+
+        // burn icicles
+        for (Entity entity : world.getOtherEntities(this.getOwner(), this.getBoundingBox().expand(MELT_RADIUS))) {
+            if (entity instanceof IcicleEntity && !world.isClient) {
+                    ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, entity.getX(), entity.getY(), entity.getZ(), 10, random.nextGaussian()/5f, random.nextGaussian()/5f, random.nextGaussian()/5f, 0);
+                    entity.discard();
+            }
         }
     }
 

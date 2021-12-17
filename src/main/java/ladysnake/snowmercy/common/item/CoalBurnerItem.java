@@ -100,7 +100,9 @@ public class CoalBurnerItem extends RangedWeaponItem implements Vanishable {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslatableText("item.snowmercy.coal_burner.tooltip").setStyle(EMPTY.withColor(Formatting.DARK_AQUA)));
+            tooltip.add(new TranslatableText("item.snowmercy.coal_burner.tooltip1").setStyle(EMPTY.withColor(Formatting.DARK_AQUA)));
+            tooltip.add(new TranslatableText("item.snowmercy.coal_burner.tooltip2").setStyle(EMPTY.withColor(Formatting.DARK_AQUA).withFormatting(Formatting.ITALIC)));
+            tooltip.add(new TranslatableText("item.snowmercy.coal_burner.tooltip3").setStyle(EMPTY.withColor(Formatting.DARK_AQUA).withFormatting(Formatting.ITALIC)));
         } else {
             tooltip.add(new TranslatableText("tip.snowmercy.sneak_tooltip").setStyle(EMPTY.withColor(Formatting.GRAY)));
         }

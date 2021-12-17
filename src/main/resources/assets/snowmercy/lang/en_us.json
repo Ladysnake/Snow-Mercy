@@ -1,6 +1,9 @@
 {
+  "tip.snowmercy.sneak_tooltip": "[Shift]: show tooltip",
   "item.snowmercy.frozen_compass": "Frozen Compass",
   "item.snowmercy.frozen_compass.tooltip": "Use on a Lodestone to start a Snow Mercy invasion",
+  "item.snowmercy.skillotine": "Skillotine",
+  "item.snowmercy.skillotine.tooltip": "50% ski, 50% shovel, 200% beheading efficiency!",
   "block.snowmercy.frozen_lodestone": "Frozen Lodestone",
   "entity.snowmercy.mister_snuggles": "Mister Snuggles",
   "entity.snowmercy.mister_chill_snuggles": "Mister Chill Snuggles",

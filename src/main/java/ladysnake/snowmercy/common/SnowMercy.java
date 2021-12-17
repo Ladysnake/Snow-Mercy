@@ -50,7 +50,8 @@ public class SnowMercy implements ModInitializer {
                 .add(20, SnowMercyEntities.MORTARS)
                 .add(20, SnowMercyEntities.ROCKETS)
                 .add(5, SnowMercyEntities.SNUGGLES)
-                .add(1, SnowMercyEntities.CHILL_SNUGGLES);
+                .add(1, SnowMercyEntities.CHILL_SNUGGLES)
+                .add(1, SnowMercyEntities.BOOMBOX);
 
         ServerTickEvents.END_SERVER_TICK.register(server -> server.getWorlds().forEach(world -> {
             if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {

@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -104,6 +105,7 @@ public class BurningCoalEntity extends ThrownEntity {
         // burn entities in contact
         for (Entity entity : world.getOtherEntities(this.getOwner(), this.getBoundingBox().expand(BURN_RADIUS))) {
             entity.setOnFireFor((int) (10 * Math.sqrt(entity.getBlockPos().getSquaredDistance(this.getBlockPos()))));
+            entity.damage(DamageSource.IN_FIRE, 2f);
         }
 
         // burn icicles

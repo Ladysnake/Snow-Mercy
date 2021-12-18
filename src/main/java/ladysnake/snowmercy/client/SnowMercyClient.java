@@ -1,10 +1,8 @@
 package ladysnake.snowmercy.client;
 
-import ladysnake.snowmercy.client.render.entity.BurningCoalEntityRenderer;
-import ladysnake.snowmercy.client.render.entity.IcicleEntityRenderer;
-import ladysnake.snowmercy.client.render.entity.SnowGolemHeadEntityRenderer;
-import ladysnake.snowmercy.client.render.entity.WeaponizedSnowGolemEntityRenderer;
+import ladysnake.snowmercy.client.render.entity.*;
 import ladysnake.snowmercy.client.render.entity.model.SawmanEntityModel;
+import ladysnake.snowmercy.client.render.entity.model.SledgeEntityModel;
 import ladysnake.snowmercy.client.render.entity.model.SnowGolemHeadEntityModel;
 import ladysnake.snowmercy.client.render.entity.model.WeaponizedSnowGolemEntityModel;
 import ladysnake.snowmercy.client.sound.BoomboxMovingSoundInstance;
@@ -31,6 +29,7 @@ import java.util.function.Function;
 
 public class SnowMercyClient implements ClientModInitializer {
     public static final EntityModelLayer SNOW_GOLEM_HEAD_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("snow_golem_head"), "main");
+    public static final EntityModelLayer SLEDGE_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("sledge"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -43,9 +42,11 @@ public class SnowMercyClient implements ClientModInitializer {
         registerRenderer(WeaponizedGolemType.BOOMBOX, WeaponizedSnowGolemEntityModel::boomboxModelData);
 
         EntityModelLayerRegistry.registerModelLayer(SNOW_GOLEM_HEAD_MODEL_LAYER, SnowGolemHeadEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(SLEDGE_MODEL_LAYER, SledgeEntityModel::getTexturedModelData);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.ICICLE, IcicleEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.BURNING_COAL, BurningCoalEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SLEDGE, SledgeEntityRenderer::new);
 
         ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof IceboomboxEntity) {

@@ -6,9 +6,11 @@
   "mixins": [
     "BiomeAccessMixin",
     "FireworkRocketEntityInvoker",
-    "FrozenTemperatureMixin"
+    "FrozenTemperatureMixin",
+    "PowderSnowBlockMixin"
   ],
   "client": [
+    "ClientPlayerEntityMixin",
     "PlayerEntityRendererMixin"
   ],
   "injectors": {

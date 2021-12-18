@@ -75,6 +75,7 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
             fireworkRocketEntity.setVelocity(0, 0, 0, 0, 0);
             world.spawnEntity(fireworkRocketEntity);
             ((FireworkRocketEntityInvoker) fireworkRocketEntity).invokeExplodeAndRemove();
+            this.setInvisible(true);
             this.kill();
         }
 

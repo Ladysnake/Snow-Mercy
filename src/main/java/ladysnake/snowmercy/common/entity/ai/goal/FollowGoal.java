@@ -1,6 +1,5 @@
 package ladysnake.snowmercy.common.entity.ai.goal;
 
-import ladysnake.snowmercy.common.entity.SnugglesEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -11,9 +10,9 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import java.util.EnumSet;
 
 public class FollowGoal extends Goal {
-    protected PathAwareEntity mob;
     private final double speed;
     private final boolean pauseWhenMobIdle;
+    protected PathAwareEntity mob;
     private Path path;
     private double targetX;
     private double targetY;
@@ -62,7 +61,7 @@ public class FollowGoal extends Goal {
         } else if (!this.mob.isInWalkTargetRange(livingEntity.getBlockPos())) {
             return false;
         } else {
-            return !(livingEntity instanceof PlayerEntity) || !livingEntity.isSpectator() && !((PlayerEntity)livingEntity).isCreative();
+            return !(livingEntity instanceof PlayerEntity) || !livingEntity.isSpectator() && !((PlayerEntity) livingEntity).isCreative();
         }
     }
 

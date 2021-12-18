@@ -19,9 +19,11 @@ public class SnowMercyEntities {
     public static EntityType<SawmanEntity> SAWMAN;
     public static EntityType<IceboomboxEntity> BOOMBOX;
     public static EntityType<SnowGolemHeadEntity> SNOW_GOLEM_HEAD;
+    public static EntityType<HeadmasterEntity> HEADMASTER;
 
     public static EntityType<IcicleEntity> ICICLE;
     public static EntityType<BurningCoalEntity> BURNING_COAL;
+    public static EntityType<FreezingWindEntity> FREEZING_WIND;
     public static EntityType<SledgeEntity> SLEDGE;
 
     public static void init() {
@@ -35,9 +37,11 @@ public class SnowMercyEntities {
         BOOMBOX = register("iceboombox", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, IceboomboxEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
 
         SNOW_GOLEM_HEAD = register("snow_golem_head", FabricEntityTypeBuilder.<SnowGolemHeadEntity>create(SpawnGroup.MONSTER, SnowGolemHeadEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.6f)).trackRangeBlocks(8).build());
+        HEADMASTER = register("headmaster", FabricEntityTypeBuilder.<HeadmasterEntity>create(SpawnGroup.MONSTER, HeadmasterEntity::new).dimensions(EntityDimensions.changing(2.0f, 4.0f)).trackRangeBlocks(8).build());
 
         ICICLE = register("icicle", FabricEntityTypeBuilder.<IcicleEntity>create(SpawnGroup.MISC, IcicleEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
         BURNING_COAL = register("burning_coal", FabricEntityTypeBuilder.<BurningCoalEntity>create(SpawnGroup.MISC, BurningCoalEntity::new).dimensions(EntityDimensions.changing(1.0f, 1.0f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
+        FREEZING_WIND = register("freezing_wind", FabricEntityTypeBuilder.<FreezingWindEntity>create(SpawnGroup.MISC, FreezingWindEntity::new).dimensions(EntityDimensions.changing(1.0f, 1.0f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
         SLEDGE = register("hammersledge", FabricEntityTypeBuilder.<SledgeEntity>create(SpawnGroup.MISC, SledgeEntity::new).dimensions(EntityDimensions.changing(1.375f, 0.5625f)).trackRangeBlocks(10).build());
 
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNUGGLES, SnugglesEntity.createEntityAttributes());
@@ -47,6 +51,7 @@ public class SnowMercyEntities {
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SAWMAN, SawmanEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.BOOMBOX, IceboomboxEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntity.createEntityAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.HEADMASTER, HeadmasterEntity.createHeadmasterAttributes());
     }
 
     private static <T extends Entity> EntityType<T> register(String s, EntityType<T> entityType) {

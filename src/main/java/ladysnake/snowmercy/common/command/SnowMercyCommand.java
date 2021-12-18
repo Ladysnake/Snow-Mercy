@@ -8,7 +8,7 @@ import net.minecraft.server.command.ServerCommandSource;
 
 public class SnowMercyCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register((LiteralArgumentBuilder)((LiteralArgumentBuilder) CommandManager
+        dispatcher.register((LiteralArgumentBuilder) ((LiteralArgumentBuilder) CommandManager
                 .literal("snowmercy").requires((serverCommandSource) -> serverCommandSource.hasPermissionLevel(2)))
                 .then((CommandManager.literal("start").executes((commandContext) -> executeStart(commandContext.getSource()))))
                 .then(CommandManager.literal("stop").executes((commandContext) -> executeStop(commandContext.getSource()))));

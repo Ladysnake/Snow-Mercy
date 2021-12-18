@@ -18,8 +18,8 @@ import net.minecraft.util.math.Vec3f;
 
 @Environment(value = EnvType.CLIENT)
 public class SledgeEntityRenderer extends EntityRenderer<SledgeEntity> {
-    public SledgeEntityModel model;
     public static final Identifier TEXTURE = new Identifier(SnowMercy.MODID, "textures/entity/hammersledge.png");
+    public SledgeEntityModel model;
 
     public SledgeEntityRenderer(EntityRendererFactory.Context context) {
         super(context);

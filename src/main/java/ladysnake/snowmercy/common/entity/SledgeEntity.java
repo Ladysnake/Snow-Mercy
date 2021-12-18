@@ -44,15 +44,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SledgeEntity extends Entity {
+    public static final int field_30697 = 0;
+    public static final int field_30698 = 1;
+    public static final double field_30699 = 0.7853981852531433;
+    public static final int field_30700 = 60;
     private static final TrackedData<Integer> DAMAGE_WOBBLE_TICKS = DataTracker.registerData(SledgeEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> DAMAGE_WOBBLE_SIDE = DataTracker.registerData(SledgeEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Float> DAMAGE_WOBBLE_STRENGTH = DataTracker.registerData(SledgeEntity.class, TrackedDataHandlerRegistry.FLOAT);
-    public static final int field_30697 = 0;
-    public static final int field_30698 = 1;
     private static final int field_30695 = 60;
     private static final double field_30696 = (double) 0.3926991f;
-    public static final double field_30699 = 0.7853981852531433;
-    public static final int field_30700 = 60;
     private float velocityDecay;
     private float ticksUnderwater;
     private float yawVelocity;
@@ -88,6 +88,10 @@ public class SledgeEntity extends Entity {
         this.prevZ = z;
     }
 
+    public static boolean canCollide(Entity entity, Entity other) {
+        return (other.isCollidable() || other.isPushable()) && !entity.isConnectedThroughVehicle(other);
+    }
+
     @Override
     protected float getEyeHeight(EntityPose pose, EntityDimensions dimensions) {
         return dimensions.height;
@@ -108,10 +112,6 @@ public class SledgeEntity extends Entity {
     @Override
     public boolean collidesWith(Entity other) {
         return SledgeEntity.canCollide(this, other);
-    }
-
-    public static boolean canCollide(Entity entity, Entity other) {
-        return (other.isCollidable() || other.isPushable()) && !entity.isConnectedThroughVehicle(other);
     }
 
     @Override
@@ -596,28 +596,28 @@ public class SledgeEntity extends Entity {
         }
     }
 
-    public void setDamageWobbleStrength(float wobbleStrength) {
-        this.dataTracker.set(DAMAGE_WOBBLE_STRENGTH, Float.valueOf(wobbleStrength));
-    }
-
     public float getDamageWobbleStrength() {
         return this.dataTracker.get(DAMAGE_WOBBLE_STRENGTH).floatValue();
     }
 
-    public void setDamageWobbleTicks(int wobbleTicks) {
-        this.dataTracker.set(DAMAGE_WOBBLE_TICKS, wobbleTicks);
+    public void setDamageWobbleStrength(float wobbleStrength) {
+        this.dataTracker.set(DAMAGE_WOBBLE_STRENGTH, Float.valueOf(wobbleStrength));
     }
 
     public int getDamageWobbleTicks() {
         return this.dataTracker.get(DAMAGE_WOBBLE_TICKS);
     }
 
-    public void setDamageWobbleSide(int side) {
-        this.dataTracker.set(DAMAGE_WOBBLE_SIDE, side);
+    public void setDamageWobbleTicks(int wobbleTicks) {
+        this.dataTracker.set(DAMAGE_WOBBLE_TICKS, wobbleTicks);
     }
 
     public int getDamageWobbleSide() {
         return this.dataTracker.get(DAMAGE_WOBBLE_SIDE);
+    }
+
+    public void setDamageWobbleSide(int side) {
+        this.dataTracker.set(DAMAGE_WOBBLE_SIDE, side);
     }
 
     @Override

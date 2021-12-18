@@ -29,12 +29,12 @@ public class BurningCoalEntity extends ThrownEntity {
         super(SnowMercyEntities.BURNING_COAL, x, y, z, world);
     }
 
-    public void setExtraHot(boolean extraHot) {
-        isExtraHot = extraHot;
-    }
-
     public boolean isExtraHot() {
         return isExtraHot;
+    }
+
+    public void setExtraHot(boolean extraHot) {
+        isExtraHot = extraHot;
     }
 
     @Override
@@ -110,7 +110,7 @@ public class BurningCoalEntity extends ThrownEntity {
 
         // burn icicles
         for (Entity entity : world.getOtherEntities(this.getOwner(), this.getBoundingBox().expand(MELT_RADIUS))) {
-            if (entity instanceof IcicleEntity && !world.isClient) {
+            if ((entity instanceof IcicleEntity || entity instanceof FreezingWindEntity) && !world.isClient) {
                 ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, entity.getX(), entity.getY(), entity.getZ(), 10, random.nextGaussian() / 5f, random.nextGaussian() / 5f, random.nextGaussian() / 5f, 0);
                 entity.discard();
             }

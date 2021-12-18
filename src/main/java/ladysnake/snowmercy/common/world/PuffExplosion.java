@@ -70,10 +70,6 @@ public class PuffExplosion extends Explosion {
         this.spawnPuff = spawnPuff;
     }
 
-    private ExplosionBehavior chooseBehavior(Entity entity) {
-        return entity == null ? field_25818 : new EntityExplosionBehavior(entity);
-    }
-
     public static float getExposure(Vec3d source, Entity entity) {
         Box box = entity.getBoundingBox();
         double d = 1.0D / ((box.maxX - box.minX) * 2.0D + 1.0D);
@@ -85,9 +81,9 @@ public class PuffExplosion extends Explosion {
             int i = 0;
             int j = 0;
 
-            for(float k = 0.0F; k <= 1.0F; k = (float)((double)k + d)) {
-                for(float l = 0.0F; l <= 1.0F; l = (float)((double)l + e)) {
-                    for(float m = 0.0F; m <= 1.0F; m = (float)((double)m + f)) {
+            for (float k = 0.0F; k <= 1.0F; k = (float) ((double) k + d)) {
+                for (float l = 0.0F; l <= 1.0F; l = (float) ((double) l + e)) {
+                    for (float m = 0.0F; m <= 1.0F; m = (float) ((double) m + f)) {
                         double n = MathHelper.lerp(k, box.minX, box.maxX);
                         double o = MathHelper.lerp(l, box.minY, box.maxY);
                         double p = MathHelper.lerp(m, box.minZ, box.maxZ);
@@ -101,10 +97,32 @@ public class PuffExplosion extends Explosion {
                 }
             }
 
-            return (float)i / (float)j;
+            return (float) i / (float) j;
         } else {
             return 0.0F;
         }
+    }
+
+    private static void method_24023(ObjectArrayList<Pair<ItemStack, BlockPos>> objectArrayList, ItemStack itemStack, BlockPos blockPos) {
+        int i = objectArrayList.size();
+
+        for (int j = 0; j < i; ++j) {
+            Pair<ItemStack, BlockPos> pair = objectArrayList.get(j);
+            ItemStack itemStack2 = pair.getFirst();
+            if (ItemEntity.canMerge(itemStack2, itemStack)) {
+                ItemStack itemStack3 = ItemEntity.merge(itemStack2, itemStack, 16);
+                objectArrayList.set(j, Pair.of(itemStack3, pair.getSecond()));
+                if (itemStack.isEmpty()) {
+                    return;
+                }
+            }
+        }
+
+        objectArrayList.add(Pair.of(itemStack, blockPos));
+    }
+
+    private ExplosionBehavior chooseBehavior(Entity entity) {
+        return entity == null ? field_25818 : new EntityExplosionBehavior(entity);
     }
 
     public void collectBlocksAndDamageEntities() {
@@ -112,13 +130,13 @@ public class PuffExplosion extends Explosion {
 
         int k;
         int l;
-        for(int j = 0; j < 16; ++j) {
-            for(k = 0; k < 16; ++k) {
-                for(l = 0; l < 16; ++l) {
+        for (int j = 0; j < 16; ++j) {
+            for (k = 0; k < 16; ++k) {
+                for (l = 0; l < 16; ++l) {
                     if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
-                        double d = (float)j / 15.0F * 2.0F - 1.0F;
-                        double e = (float)k / 15.0F * 2.0F - 1.0F;
-                        double f = (float)l / 15.0F * 2.0F - 1.0F;
+                        double d = (float) j / 15.0F * 2.0F - 1.0F;
+                        double e = (float) k / 15.0F * 2.0F - 1.0F;
+                        double f = (float) l / 15.0F * 2.0F - 1.0F;
                         double g = Math.sqrt(d * d + e * e + f * f);
                         d /= g;
                         e /= g;
@@ -128,7 +146,7 @@ public class PuffExplosion extends Explosion {
                         double n = this.y;
                         double o = this.z;
 
-                        for(; h > 0.0F; h -= 0.22500001F) {
+                        for (; h > 0.0F; h -= 0.22500001F) {
                             BlockPos blockPos = new BlockPos(m, n, o);
                             BlockState blockState = this.world.getBlockState(blockPos);
                             FluidState fluidState = this.world.getFluidState(blockPos);
@@ -165,12 +183,12 @@ public class PuffExplosion extends Explosion {
 
         this.affectedBlocks.addAll(set);
         float q = this.power * 2.0F;
-        k = MathHelper.floor(this.x - (double)q - 1.0D);
-        l = MathHelper.floor(this.x + (double)q + 1.0D);
-        int t = MathHelper.floor(this.y - (double)q - 1.0D);
-        int u = MathHelper.floor(this.y + (double)q + 1.0D);
-        int v = MathHelper.floor(this.z - (double)q - 1.0D);
-        int w = MathHelper.floor(this.z + (double)q + 1.0D);
+        k = MathHelper.floor(this.x - (double) q - 1.0D);
+        l = MathHelper.floor(this.x + (double) q + 1.0D);
+        int t = MathHelper.floor(this.y - (double) q - 1.0D);
+        int u = MathHelper.floor(this.y + (double) q + 1.0D);
+        int v = MathHelper.floor(this.z - (double) q - 1.0D);
+        int w = MathHelper.floor(this.z + (double) q + 1.0D);
         List<Entity> list = this.world.getOtherEntities(this.entity, new Box(k, t, v, l, u, w));
         Vec3d vec3d = new Vec3d(this.x, this.y, this.z);
 
@@ -259,24 +277,6 @@ public class PuffExplosion extends Explosion {
         }
     }
 
-    private static void method_24023(ObjectArrayList<Pair<ItemStack, BlockPos>> objectArrayList, ItemStack itemStack, BlockPos blockPos) {
-        int i = objectArrayList.size();
-
-        for(int j = 0; j < i; ++j) {
-            Pair<ItemStack, BlockPos> pair = objectArrayList.get(j);
-            ItemStack itemStack2 = pair.getFirst();
-            if (ItemEntity.canMerge(itemStack2, itemStack)) {
-                ItemStack itemStack3 = ItemEntity.merge(itemStack2, itemStack, 16);
-                objectArrayList.set(j, Pair.of(itemStack3, pair.getSecond()));
-                if (itemStack.isEmpty()) {
-                    return;
-                }
-            }
-        }
-
-        objectArrayList.add(Pair.of(itemStack, blockPos));
-    }
-
     public DamageSource getDamageSource() {
         return this.damageSource;
     }
@@ -285,19 +285,19 @@ public class PuffExplosion extends Explosion {
         return this.affectedPlayers;
     }
 
-   
+
     public LivingEntity getCausingEntity() {
         if (this.entity == null) {
             return null;
         } else if (this.entity instanceof TntEntity) {
-            return ((TntEntity)this.entity).getCausingEntity();
+            return ((TntEntity) this.entity).getCausingEntity();
         } else if (this.entity instanceof LivingEntity) {
-            return (LivingEntity)this.entity;
+            return (LivingEntity) this.entity;
         } else {
             if (this.entity instanceof ProjectileEntity) {
-                Entity entity = ((ProjectileEntity)this.entity).getOwner();
+                Entity entity = ((ProjectileEntity) this.entity).getOwner();
                 if (entity instanceof LivingEntity) {
-                    return (LivingEntity)entity;
+                    return (LivingEntity) entity;
                 }
             }
 

@@ -13,8 +13,6 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -23,20 +21,21 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.LightType;
+import software.bernie.geckolib3.GeckoLib;
 
 public class SnowMercy implements ModInitializer {
     public static final String MODID = "snowmercy";
+    private static final RandomSpawnCollection<EntityType<? extends LivingEntity>> SPAWN_CANDIDATES = new RandomSpawnCollection<>();
+    public static SoundEvent JINGLE_BELLS = new SoundEvent(new Identifier("snowmercy:music_disc.jingle_bells"));
 
     public static Identifier id(String path) {
         return new Identifier(MODID, path);
     }
 
-    private static final RandomSpawnCollection<EntityType<? extends LivingEntity>> SPAWN_CANDIDATES = new RandomSpawnCollection<>();
-
-    public static SoundEvent JINGLE_BELLS = new SoundEvent(new Identifier("snowmercy:music_disc.jingle_bells"));
-
     @Override
     public void onInitialize() {
+        GeckoLib.initialize();
+
         Registry.register(Registry.SOUND_EVENT, JINGLE_BELLS.getId(), JINGLE_BELLS);
 
         SnowMercyBlocks.init();

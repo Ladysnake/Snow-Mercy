@@ -34,7 +34,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -46,6 +45,10 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
 
     public WeaponizedSnowGolemEntity(EntityType<? extends WeaponizedSnowGolemEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    public static DefaultAttributeContainer.Builder createEntityAttributes() {
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48);
     }
 
     public abstract WeaponizedGolemType getGolemType();
@@ -80,10 +83,6 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
 
     public void setHead(int head) {
         this.dataTracker.set(HEAD, head);
-    }
-
-    public static DefaultAttributeContainer.Builder createEntityAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48);
     }
 
     @Override
@@ -253,6 +252,11 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
 
     @Override
     public boolean canFreeze() {
+        return false;
+    }
+
+    @Override
+    public boolean isFreezing() {
         return false;
     }
 }

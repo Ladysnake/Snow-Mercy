@@ -4,12 +4,8 @@ import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class WeaponizedSnowGolemEntityModel<T extends WeaponizedSnowGolemEntity> extends SinglePartEntityModel<T> {

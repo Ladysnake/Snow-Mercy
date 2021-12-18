@@ -8,7 +8,6 @@ import ladysnake.snowmercy.common.item.SledgeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.registry.Registry;
 

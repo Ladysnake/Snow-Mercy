@@ -22,6 +22,7 @@ repositories {
 		name = 'Ladysnake Mods'
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 	}
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 dependencies {
@@ -39,8 +40,9 @@ dependencies {
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_components_version}"
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_components_version}"
 
-	// Includes Vanguard as a Jar-in-Jar dependency
-	include "io.github.ladysnake:vanguard:${vanguard_version}"
+	// Geckolib
+	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.21'
+
 }
 
 processResources {

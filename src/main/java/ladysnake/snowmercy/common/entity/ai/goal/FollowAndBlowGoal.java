@@ -11,9 +11,9 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import java.util.EnumSet;
 
 public class FollowAndBlowGoal extends Goal {
-    protected PathAwareEntity mob;
     private final double speed;
     private final boolean pauseWhenMobIdle;
+    protected PathAwareEntity mob;
     private Path path;
     private double targetX;
     private double targetY;
@@ -62,7 +62,7 @@ public class FollowAndBlowGoal extends Goal {
         } else if (!this.mob.isInWalkTargetRange(livingEntity.getBlockPos())) {
             return false;
         } else {
-            return !(livingEntity instanceof PlayerEntity) || !livingEntity.isSpectator() && !((PlayerEntity)livingEntity).isCreative();
+            return !(livingEntity instanceof PlayerEntity) || !livingEntity.isSpectator() && !((PlayerEntity) livingEntity).isCreative();
         }
     }
 

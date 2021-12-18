@@ -32,17 +32,15 @@ public enum WeaponizedGolemType {
     };
 
     private static final Map<Identifier, WeaponizedGolemType> types = Arrays.stream(values()).collect(Collectors.toMap(WeaponizedGolemType::getId, Function.identity()));
-
-    public static WeaponizedGolemType byId(Identifier id) {
-        return types.getOrDefault(id, DEFAULT);
-    }
-
     private final Identifier id;
     private final Identifier textureLocation;
-
     WeaponizedGolemType(String id) {
         this.id = SnowMercy.id(id);
         this.textureLocation = SnowMercy.id("textures/entity/" + id + ".png");
+    }
+
+    public static WeaponizedGolemType byId(Identifier id) {
+        return types.getOrDefault(id, DEFAULT);
     }
 
     public Identifier getId() {

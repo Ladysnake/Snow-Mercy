@@ -29,8 +29,8 @@ public class MortarsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         for (int i = 0; i < 20; i++) {
             IcicleEntity entity = new IcicleEntity(world, this);
             entity.setPos(this.getX(), this.getY(), this.getZ());
-            entity.updateTrackedPosition(this.getX(), this.getY()+0.5f, this.getZ());
-            entity.setVelocity((target.getX()-this.getX())/50f+random.nextGaussian()/10f, 2f+random.nextGaussian()/10f, (target.getZ()-this.getZ())/50f+random.nextGaussian()/10f);
+            entity.updateTrackedPosition(this.getX(), this.getY() + 0.5f, this.getZ());
+            entity.setVelocity((target.getX() - this.getX()) / 50f + random.nextGaussian() / 10f, 2f + random.nextGaussian() / 10f, (target.getZ() - this.getZ()) / 50f + random.nextGaussian() / 10f);
             world.spawnEntity(entity);
         }
     }

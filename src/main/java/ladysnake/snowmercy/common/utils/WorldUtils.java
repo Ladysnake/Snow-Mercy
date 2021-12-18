@@ -22,6 +22,7 @@ public class WorldUtils {
     /**
      * Retrieves a list of all loaded Chunks in the given world.
      * Accomplished by iterating over all connected players and storing each chunk within the server render distance from them.
+     *
      * @param world world to retrieve loaded chunks from
      * @return a list of loaded chunks in the given world
      */
@@ -33,16 +34,16 @@ public class WorldUtils {
             ChunkPos playerChunkPos = new ChunkPos(player.getBlockPos());
             WorldChunk chunk = world.getChunk(playerChunkPos.x, playerChunkPos.z);
 
-            if(!loadedChunks.contains(chunk)) {
+            if (!loadedChunks.contains(chunk)) {
                 loadedChunks.add(chunk);
             }
 
-            for(int x = -renderDistance; x <= renderDistance; x++) {
-                for(int z = -renderDistance; z <= renderDistance; z++) {
+            for (int x = -renderDistance; x <= renderDistance; x++) {
+                for (int z = -renderDistance; z <= renderDistance; z++) {
                     ChunkPos offsetChunkPos = new ChunkPos(playerChunkPos.x + x, playerChunkPos.z + z);
                     WorldChunk offsetChunk = world.getChunk(offsetChunkPos.x, offsetChunkPos.z);
 
-                    if(!loadedChunks.contains(offsetChunk)) {
+                    if (!loadedChunks.contains(offsetChunk)) {
                         loadedChunks.add(offsetChunk);
                     }
                 }

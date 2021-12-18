@@ -57,7 +57,7 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
         Vec3d vec3d2 = this.getRotationVec(1.0F);
         Vec3f vector3f = new Vec3f(vec3d2);
         vector3f.rotate(quaternion);
-        fireworkRocketEntity.setVelocity(vector3f.getX(), vector3f.getY(), vector3f.getZ(), 3f, 3f);
+        fireworkRocketEntity.setVelocity(vector3f.getX(), vector3f.getY(), vector3f.getZ(), 3f, 5f);
         world.spawnEntity(fireworkRocketEntity);
     }
 

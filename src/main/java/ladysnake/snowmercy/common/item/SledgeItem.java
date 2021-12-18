@@ -1,12 +1,17 @@
 package ladysnake.snowmercy.common.item;
 
 import ladysnake.snowmercy.common.entity.SledgeEntity;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -20,6 +25,8 @@ import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
 import java.util.function.Predicate;
+
+import static net.minecraft.text.Style.EMPTY;
 
 public class SledgeItem extends Item {
     private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::collides);
@@ -64,6 +71,15 @@ public class SledgeItem extends Item {
             return TypedActionResult.success(itemStack, world.isClient());
         }
         return TypedActionResult.pass(itemStack);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        if (Screen.hasShiftDown()) {
+            tooltip.add(new TranslatableText("item.snowmercy.skillotine.tooltip").setStyle(EMPTY.withColor(Formatting.DARK_AQUA)));
+        } else {
+            tooltip.add(new TranslatableText("tip.snowmercy.sneak_tooltip").setStyle(EMPTY.withColor(Formatting.GRAY)));
+        }
     }
 }
 

@@ -26,6 +26,7 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -276,7 +277,7 @@ public class SledgeEntity extends Entity {
             if (currentVelocity > 0.5f) {
                 for (LivingEntity roadkill : world.getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(1f), livingEntity -> livingEntity.isAlive() && !this.getPassengerList().contains(livingEntity))) {
                     if (roadkill instanceof WeaponizedSnowGolemEntity) {
-                            ((ServerWorld)world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Blocks.SNOW_BLOCK)), roadkill.getX(), roadkill.getY(), roadkill.getZ(), 200, random.nextGaussian()/3f, random.nextGaussian()+1/3f, random.nextGaussian()/3f, 0.2f);
+                        ((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Blocks.SNOW_BLOCK)), roadkill.getX(), roadkill.getY(), roadkill.getZ(), 200, random.nextGaussian() / 3f, random.nextGaussian() + 1 / 3f, random.nextGaussian() / 3f, 0.2f);
                         roadkill.kill();
                     } else {
                         roadkill.damage(SnowMercyDamageSources.ramming(this.getPrimaryPassenger()), (float) (currentVelocity * 10f));
@@ -284,6 +285,25 @@ public class SledgeEntity extends Entity {
                 }
             }
         }
+
+        if (this.world.isClient && Math.sqrt(this.getVelocity().getX() * this.getVelocity().getX() + this.getVelocity().getZ() * this.getVelocity().getZ()) > 0.05f) {
+            if (this.age % 20 == 0) {
+                this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, this.getSoundCategory(), 0.95f + this.random.nextFloat() * 0.05f, 0.95f + this.random.nextFloat() * 0.05f, false);
+            }
+            if (this.age % 5 == 0) {
+                this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_POWDER_SNOW_STEP, this.getSoundCategory(), 0.95f + this.random.nextFloat() * 0.05f, 0.8f, false);
+            }
+            float h = MathHelper.cos(this.getYaw() * ((float) Math.PI / 180)) * (.2f + 0.21f * .5f);
+            float j = MathHelper.sin(this.getYaw() * ((float) Math.PI / 180)) * (.2f + 0.21f * .5f);
+            this.world.addParticle(ParticleTypes.FIREWORK, this.getX() + (double) h, this.getY() + .2f, this.getZ() + (double) j, 0.0, 0.0, 0.0);
+            this.world.addParticle(ParticleTypes.FIREWORK, this.getX() - (double) h, this.getY() + .2f, this.getZ() - (double) j, 0.0, 0.0, 0.0);
+        }
+
+
+    }
+
+    public int method_33588() {
+        return this.getId() * 3;
     }
 
     private void method_7555() {

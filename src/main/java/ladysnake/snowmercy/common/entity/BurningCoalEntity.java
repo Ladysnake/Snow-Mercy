@@ -103,7 +103,7 @@ public class BurningCoalEntity extends ThrownEntity {
         }
 
         // burn entities in contact
-        for (Entity entity : world.getOtherEntities(this.getOwner(), this.getBoundingBox().expand(BURN_RADIUS))) {
+        for (Entity entity : world.getOtherEntities(this, this.getBoundingBox().expand(BURN_RADIUS), entity -> entity instanceof LivingEntity && entity != this.getOwner())) {
             entity.setOnFireFor((int) (10 * Math.sqrt(entity.getBlockPos().getSquaredDistance(this.getBlockPos()))));
             entity.damage(DamageSource.IN_FIRE, 2f);
         }

@@ -6,7 +6,6 @@ import ladysnake.snowmercy.common.SnowMercy;
 import ladysnake.snowmercy.common.entity.SledgeEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

@@ -65,7 +65,7 @@ public class IcicleEntity extends PersistentProjectileEntity {
             this.discard();
         }
 
-        if (this.isOnFire()) {
+        if (this.isOnFire() && !world.isClient) {
             ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY(), this.getZ(), 8, random.nextGaussian() / 5f, random.nextGaussian() / 5f, random.nextGaussian() / 5f, 0);
             this.discard();
         }

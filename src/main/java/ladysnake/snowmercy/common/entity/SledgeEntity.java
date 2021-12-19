@@ -433,22 +433,41 @@ public class SledgeEntity extends Entity {
         double f = 0.0;
         this.velocityDecay = 0.05f;
 
-        boolean isOnIceOrSnow = false;
+        boolean isOnSnow = false;
+        boolean isOnIce = false;
+
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 for (int y = -1; y <= 0; y++) {
                     BlockPos checkedPos = getBlockPos().add(x, y, z);
-                    if (this.world.getBlockState(checkedPos).getMaterial() == Material.SNOW_BLOCK || this.world.getBlockState(checkedPos).getMaterial() == Material.SNOW_LAYER || this.world.getBlockState(checkedPos).getMaterial() == Material.ICE || this.world.getBlockState(checkedPos).getMaterial() == Material.DENSE_ICE) {
-                        isOnIceOrSnow = true;
+                    if (this.world.getBlockState(checkedPos).getMaterial() == Material.SNOW_BLOCK || this.world.getBlockState(checkedPos).getMaterial() == Material.SNOW_LAYER) {
+                        isOnSnow = true;
+                    }
+                }
+            }
+        }
+
+        if (!isOnSnow) {
+            for (int x = -1; x <= 1; x++) {
+                for (int z = -1; z <= 1; z++) {
+                    for (int y = -1; y <= 0; y++) {
+                        BlockPos checkedPos = getBlockPos().add(x, y, z);
+                        if (this.world.getBlockState(checkedPos).getMaterial() == Material.ICE || this.world.getBlockState(checkedPos).getMaterial() == Material.DENSE_ICE) {
+                            isOnIce = true;
+                        }
                     }
                 }
             }
         }
 
         if (this.location == Location.IN_AIR) {
-            this.velocityDecay = 0.9f;
-        } else if (this.location == Location.ON_LAND && isOnIceOrSnow) {
             this.velocityDecay = 0.95f;
+        } else if (this.location == Location.ON_LAND) {
+            if (isOnIce) {
+                this.velocityDecay = 0.99f;
+            } else if (isOnSnow) {
+                this.velocityDecay = 0.95f;
+            }
             if (this.getPrimaryPassenger() instanceof PlayerEntity) {
                 this.field_7714 /= 2.0f;
             }

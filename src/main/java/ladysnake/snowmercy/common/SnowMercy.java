@@ -23,8 +23,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.LightType;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.GeckoLib;
 
@@ -36,6 +38,9 @@ public class SnowMercy implements ModInitializer {
     public static Identifier id(String path) {
         return new Identifier(MODID, path);
     }
+
+    public static final Identifier WINTER_MURDERLAND_ID = new Identifier(MODID, "winter_murderland");
+    public static final RegistryKey<World> WINTER_MURDERLAND = RegistryKey.of(Registry.WORLD_KEY, SnowMercy.WINTER_MURDERLAND_ID);
 
     @Override
     public void onInitialize() {

@@ -76,7 +76,7 @@ public class IcicleEntity extends PersistentProjectileEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
 
-        if (!(entity instanceof WeaponizedSnowGolemEntity || entity instanceof HeadmasterEntity || entity instanceof PolarBearerEntity || entity instanceof TundrabidEntity || entity instanceof IceballEntity)) {
+        if (!(entity.isInvulnerable() || entity instanceof WeaponizedSnowGolemEntity || entity instanceof HeadmasterEntity || entity instanceof PolarBearerEntity || entity instanceof TundrabidEntity || entity instanceof IceballEntity)) {
             Entity entity2 = this.getOwner();
             DamageSource damageSource2;
             if (entity2 == null) {

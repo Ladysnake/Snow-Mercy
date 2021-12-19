@@ -121,7 +121,7 @@ public class SnowGolemHeadEntity extends WeaponizedSnowGolemEntity {
         super.onPlayerCollision(player);
 
         double speed = Math.sqrt(this.getVelocity().getX() * this.getVelocity().getX() + this.getVelocity().getY() * this.getVelocity().getY() + this.getVelocity().getZ() * this.getVelocity().getZ());
-        
+
         if (speed > 0.5f) {
             player.damage(DamageSource.mobProjectile(this, this), (float) speed);
         }

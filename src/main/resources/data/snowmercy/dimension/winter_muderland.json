@@ -1,0 +1,97 @@
+{
+  "type": "minecraft:overworld",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 0,
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "minecraft:frozen_ocean",
+          "parameters": {
+            "temperature": -0.8,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0.8
+          }
+        },
+        {
+          "biome": "minecraft:snowy_taiga",
+          "parameters": {
+            "temperature": -0.1,
+            "humidity": 0.52,
+            "continentalness": 0.1,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0.35
+          }
+        },
+        {
+          "biome": "minecraft:snowy_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0.5,
+            "continentalness": 0.2,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0.2
+          }
+        },
+        {
+          "biome": "minecraft:ice_spikes",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0.5,
+            "continentalness": 0.4,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "minecraft:grove",
+          "parameters": {
+            "temperature": -0.1,
+            "humidity": 0.45,
+            "continentalness": 0.3,
+            "erosion": 0,
+            "weirdness": 0.2,
+            "depth": 0,
+            "offset": 0.2
+          }
+        },
+        {
+          "biome": "minecraft:snowy_slopes",
+          "parameters": {
+            "temperature": -0.2,
+            "humidity": 0.5,
+            "continentalness": 0.5,
+            "erosion": 0,
+            "weirdness": 0.4,
+            "depth": 0,
+            "offset": 0.2
+          }
+        },
+        {
+          "biome": "minecraft:frozen_peaks",
+          "parameters": {
+            "temperature": -0.3,
+            "humidity": 0.55,
+            "continentalness": 0.8,
+            "erosion": 0,
+            "weirdness": 0.5,
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

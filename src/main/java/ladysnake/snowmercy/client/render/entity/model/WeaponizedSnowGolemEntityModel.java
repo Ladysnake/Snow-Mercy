@@ -83,22 +83,21 @@ public class WeaponizedSnowGolemEntityModel<T extends WeaponizedSnowGolemEntity>
     public static TexturedModelData mortarsModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-
-        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().mirrored(true).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-        modelPartData.addChild("upper_body", ModelPartBuilder.create().uv(0, 16).mirrored(true).cuboid(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-        modelPartData.addChild("lower_body", ModelPartBuilder.create().uv(0, 36).mirrored(true).cuboid(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-
-        modelPartData.getChild(EntityModelPartNames.HEAD).addChild("helmet_r1", ModelPartBuilder.create().uv(32, 0).mirrored(true).cuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F), ModelTransform.of(0.0F, -4.0F, 0.0F, -0.1309F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").addChild("mortar", ModelPartBuilder.create(), ModelTransform.of(0.0F, -2.0F, -6.0F, 0.0F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("launcher_r1", ModelPartBuilder.create().uv(48, 38).mirrored(true).cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 14.0F, 8.0F, new Dilation(-0.5F, -0.5F, -0.5F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.3054F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("icicle", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(-1.5F, -5.0F, 0.0F, 0.3054F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("cube_r1", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("icicle2", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(1.5F, -5.0F, 0.0F, 0.3054F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("cube_r2", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("icicle3", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(-1.5F, -4.0F, -3.0F, 0.3054F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("cube_r3", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("icicle4", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(1.5F, -4.0F, -3.0F, 0.3054F, 0.0F, 0.0F));
-        modelPartData.getChild("upper_body").getChild("mortar").addChild("cube_r4", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F)).mirrored(false), ModelTransform.pivot(0.0F, 4.0F, 0.0F));
+        ModelPartData helmet_r1 = head.addChild("helmet_r1", ModelPartBuilder.create().uv(32, 0).mirrored().cuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, -4.0F, 0.0F, -0.1309F, 0.0F, 0.0F));
+        ModelPartData upper_body = modelPartData.addChild("upper_body", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new Dilation(-0.5F)).mirrored(false), ModelTransform.pivot(0.0F, 13.0F, 0.0F));
+        ModelPartData mortar = upper_body.addChild("mortar", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -2.0F, -6.0F));
+        ModelPartData launcher_r1 = mortar.addChild("launcher_r1", ModelPartBuilder.create().uv(48, 38).mirrored().cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 14.0F, 8.0F, new Dilation(-0.5F)).mirrored(false), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.3054F, 0.0F, 0.0F));
+        ModelPartData icicle = mortar.addChild("icicle", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, -5.0F, 0.0F, 0.3054F, 0.0F, 0.0F));
+        ModelPartData cube_r1 = icicle.addChild("cube_r1", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        ModelPartData icicle2 = mortar.addChild("icicle2", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(1.5F, -5.0F, 0.0F, 0.3054F, 0.0F, 0.0F));
+        ModelPartData cube_r2 = icicle2.addChild("cube_r2", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        ModelPartData icicle3 = mortar.addChild("icicle3", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, -4.0F, -3.0F, 0.3054F, 0.0F, 0.0F));
+        ModelPartData cube_r3 = icicle3.addChild("cube_r3", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        ModelPartData icicle4 = mortar.addChild("icicle4", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(1.5F, -4.0F, -3.0F, 0.3054F, 0.0F, 0.0F));
+        ModelPartData cube_r4 = icicle4.addChild("cube_r4", ModelPartBuilder.create().uv(80, 49).cuboid(-1.5F, -5.5F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        ModelPartData lower_body = modelPartData.addChild("lower_body", ModelPartBuilder.create().uv(0, 36).mirrored().cuboid(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, new Dilation(-0.5F)).mirrored(false), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 128, 64);
     }

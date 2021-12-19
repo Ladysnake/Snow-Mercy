@@ -4,9 +4,9 @@
   "package": "ladysnake.snowmercy.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BiomeAccessMixin",
     "FireworkRocketEntityInvoker",
-    "FrozenTemperatureMixin",
+    "FoxEntityInvoker",
+    "FoxEntityMixin",
     "PowderSnowBlockMixin"
   ],
   "client": [

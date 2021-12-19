@@ -42,7 +42,7 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
     @Override
     protected void initGoals() {
         super.initGoals();
-        this.goalSelector.add(1, new SalvoProjectileAttackGoal(this, 1.25D, 120, 32f, 1, 3));
+        this.goalSelector.add(1, new SalvoProjectileAttackGoal(this, 1.25D, 120, 16f, 1, 3));
     }
 
     @Override

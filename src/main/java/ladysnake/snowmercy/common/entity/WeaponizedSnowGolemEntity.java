@@ -259,4 +259,8 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     public boolean isFreezing() {
         return false;
     }
+
+    @Override
+    protected void addPowderSnowSlowIfNeeded() {
+    }
 }

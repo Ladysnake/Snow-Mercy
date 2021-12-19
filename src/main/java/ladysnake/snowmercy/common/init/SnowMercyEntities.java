@@ -1,17 +1,24 @@
 package ladysnake.snowmercy.common.init;
 
+import ladysnake.snowmercy.common.entity.PolarBearerEntity;
 import ladysnake.snowmercy.common.SnowMercy;
 import ladysnake.snowmercy.common.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.registry.Registry;
 
 public class SnowMercyEntities {
+    public static EntityType<PolarBearerEntity> POLAR_BEARER;
+    public static EntityType<TundrabidEntity> TUNDRABID;
+    public static EntityType<IceballEntity> ICEBALL;
+
     public static EntityType<SnugglesEntity> SNUGGLES;
     public static EntityType<ChillSnugglesEntity> CHILL_SNUGGLES;
     public static EntityType<RocketsEntity> ROCKETS;
@@ -28,6 +35,10 @@ public class SnowMercyEntities {
 
     public static void init() {
         TrackedDataHandlerRegistry.register(WeaponizedGolemType.TRACKED_DATA_HANDLER);
+
+        POLAR_BEARER = register("polar_bearer", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, PolarBearerEntity::new).specificSpawnBlocks(Blocks.POWDER_SNOW).dimensions(EntityDimensions.changing(1.4f, 1.4f)).trackRangeBlocks(10).build());
+        TUNDRABID = register("tundrabid", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TundrabidEntity::new).dimensions(EntityDimensions.changing(0.6F, 0.7F)).trackRangeBlocks(8).build());
+        ICEBALL = register("iceball", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, IceballEntity::new).dimensions(EntityDimensions.changing(2.04f, 2.04f)).trackRangeBlocks(10).build());
 
         SNUGGLES = register("mister_snuggles", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SnugglesEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
         CHILL_SNUGGLES = register("mister_chill_snuggles", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ChillSnugglesEntity::new).dimensions(EntityDimensions.changing(0.7F, 1.9F)).trackRangeBlocks(8).build());
@@ -52,6 +63,9 @@ public class SnowMercyEntities {
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.BOOMBOX, IceboomboxEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.HEADMASTER, HeadmasterEntity.createHeadmasterAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.POLAR_BEARER, PolarBearerEntity.createPolarBearAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.TUNDRABID, TundrabidEntity.createFoxAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.ICEBALL, HostileEntity.createHostileAttributes());
     }
 
     private static <T extends Entity> EntityType<T> register(String s, EntityType<T> entityType) {

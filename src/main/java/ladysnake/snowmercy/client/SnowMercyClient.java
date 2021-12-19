@@ -17,6 +17,9 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistr
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.entity.FoxEntityRenderer;
+import net.minecraft.client.render.entity.PolarBearEntityRenderer;
+import net.minecraft.client.render.entity.SlimeEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.EntityType;
 
@@ -44,7 +47,6 @@ public class SnowMercyClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
         registerRenderer(WeaponizedGolemType.SAWMAN, SawmanEntityModel::new, SawmanEntityModel::getTexturedModelData);
         registerRenderer(WeaponizedGolemType.ROCKETS, WeaponizedSnowGolemEntityModel::rocketsModelData);
         registerRenderer(WeaponizedGolemType.SNUGGLES, WeaponizedSnowGolemEntityModel::snugglesModelData);
@@ -62,6 +64,10 @@ public class SnowMercyClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.BURNING_COAL, InvisibleThrownEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.FREEZING_WIND, InvisibleThrownEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SLEDGE, SledgeEntityRenderer::new);
+
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.POLAR_BEARER, PolarBearEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.TUNDRABID, FoxEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.ICEBALL, IceballEntityRenderer::new);
 
         ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof IceboomboxEntity) {

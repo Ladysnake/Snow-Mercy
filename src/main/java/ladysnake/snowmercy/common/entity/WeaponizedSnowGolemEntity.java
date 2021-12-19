@@ -4,6 +4,7 @@ import ladysnake.snowmercy.common.entity.ai.goal.WeaponizedSnowGolemFollowTarget
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -56,12 +57,11 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
     @Override
     protected void initGoals() {
         // hostile (1) goals = target weaponized snowmen with a pumpkin (2) + snow golems + players
-        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, WeaponizedSnowGolemEntity.class, 10, true, false, 1, livingEntity -> ((WeaponizedSnowGolemEntity) livingEntity).getHead() == 2));
+        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, WeaponizedSnowGolemEntity.class, 10, true, false, 1, livingEntity -> ((WeaponizedSnowGolemEntity) livingEntity).getHead() != 1));
         this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, SnowGolemEntity.class, 100, true, false, 1, livingEntity -> !(livingEntity instanceof WeaponizedSnowGolemEntity)));
-        this.targetSelector.add(2, new WeaponizedSnowGolemFollowTargetGoal(this, PlayerEntity.class, true, 1));
-        // friendly (2) goals = target weaponized snowmen with a normal face (1) + hostile entities
-        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, WeaponizedSnowGolemEntity.class, 10, true, false, 2, livingEntity -> ((WeaponizedSnowGolemEntity) livingEntity).getHead() == 1));
-        this.targetSelector.add(2, new WeaponizedSnowGolemFollowTargetGoal(this, MobEntity.class, 10, true, false, 2, (livingEntity) -> livingEntity instanceof Monster));
+        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, PlayerEntity.class, true, 1));
+        // headless (0) goals = target any living entity
+        this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, LivingEntity.class, 10, true, false, 0, Entity::isAttackable));
         // common goals
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0D, 1.0000001E-5F));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));

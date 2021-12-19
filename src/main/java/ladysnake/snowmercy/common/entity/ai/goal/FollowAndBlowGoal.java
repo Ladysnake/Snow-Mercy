@@ -118,6 +118,6 @@ public class FollowAndBlowGoal extends Goal {
     }
 
     protected double getSquaredMaxAttackDistance(LivingEntity entity) {
-        return this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + entity.getWidth();
+        return this.mob.getWidth() * 3.0F * this.mob.getWidth() * 3.0F + entity.getWidth();
     }
 }

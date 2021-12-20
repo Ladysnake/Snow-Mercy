@@ -25,4 +25,10 @@ public class TundrabidEntity extends FoxEntity {
     @Override
     protected void addPowderSnowSlowIfNeeded() {
     }
+
+    @Override
+    public boolean isPersistent() {
+        return true;
+    }
+
 }

@@ -3,7 +3,6 @@ package ladysnake.snowmercy.common.entity;
 import ladysnake.snowmercy.common.entity.ai.goal.DeployHeadsGoal;
 import ladysnake.snowmercy.common.entity.ai.goal.HeadmasterMinigunAttackGoal;
 import ladysnake.snowmercy.common.entity.ai.goal.ReviveSurgeGoal;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -143,7 +142,7 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable {
 
     public void attack(LivingEntity target, float pullProgress) {
         FreezingWindEntity entity = new FreezingWindEntity(this.world, this);
-        entity.setPos(this.getX(), this.getY()+2f, this.getZ());
+        entity.setPos(this.getX(), this.getY() + 2f, this.getZ());
 
         Vec3d vec3d = this.getOppositeRotationVector(1.0F);
         Quaternion quaternion = new Quaternion(new Vec3f(vec3d), 0f, true);
@@ -179,6 +178,11 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable {
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_IRON_GOLEM_DEATH;
+    }
+
+    @Override
+    public boolean isPersistent() {
+        return true;
     }
 
     public boolean isShooting() {

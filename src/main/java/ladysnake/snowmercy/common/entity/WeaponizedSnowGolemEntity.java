@@ -17,7 +17,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -96,6 +95,11 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
         }
 
         FrostWalkerEnchantment.freezeWater(this, this.world, this.getBlockPos(), 0);
+    }
+
+    @Override
+    public boolean isPersistent() {
+        return true;
     }
 
     @Override

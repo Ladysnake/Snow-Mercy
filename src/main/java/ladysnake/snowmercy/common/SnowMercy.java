@@ -1,46 +1,36 @@
 package ladysnake.snowmercy.common;
 
-import ladysnake.snowmercy.cca.SnowMercyComponents;
 import ladysnake.snowmercy.common.command.SnowMercyCommand;
-import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
+import ladysnake.snowmercy.common.entity.IcePillarEntity;
 import ladysnake.snowmercy.common.init.SnowMercyBlocks;
 import ladysnake.snowmercy.common.init.SnowMercyEntities;
 import ladysnake.snowmercy.common.init.SnowMercyItems;
+import ladysnake.snowmercy.common.init.SnowMercyWaves;
 import ladysnake.snowmercy.common.utils.RandomSpawnCollection;
-import ladysnake.snowmercy.common.utils.WorldUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.ProjectileDamageSource;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.LightType;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.GeckoLib;
 
 public class SnowMercy implements ModInitializer {
     public static final String MODID = "snowmercy";
+    public static final Identifier WINTER_MURDERLAND_ID = new Identifier(MODID, "winter_murderland");
+    public static final RegistryKey<World> WINTER_MURDERLAND = RegistryKey.of(Registry.WORLD_KEY, SnowMercy.WINTER_MURDERLAND_ID);
     private static final RandomSpawnCollection<EntityType<? extends LivingEntity>> SPAWN_CANDIDATES = new RandomSpawnCollection<>();
     public static SoundEvent JINGLE_BELLS = new SoundEvent(new Identifier("snowmercy:music_disc.jingle_bells"));
 
     public static Identifier id(String path) {
         return new Identifier(MODID, path);
     }
-
-    public static final Identifier WINTER_MURDERLAND_ID = new Identifier(MODID, "winter_murderland");
-    public static final RegistryKey<World> WINTER_MURDERLAND = RegistryKey.of(Registry.WORLD_KEY, SnowMercy.WINTER_MURDERLAND_ID);
 
     @Override
     public void onInitialize() {
@@ -56,47 +46,30 @@ public class SnowMercy implements ModInitializer {
                 SnowMercyCommand.register(commandDispatcher)
         );
 
-        SPAWN_CANDIDATES
-                .add(25, SnowMercyEntities.SAWMAN)
-                .add(20, SnowMercyEntities.MORTARS)
-                .add(20, SnowMercyEntities.ROCKETS)
-                .add(5, SnowMercyEntities.SNUGGLES)
-                .add(1, SnowMercyEntities.CHILL_SNUGGLES)
-                .add(1, SnowMercyEntities.BOOMBOX);
+        SnowMercyWaves.resetWaves();
 
-        ServerTickEvents.END_SERVER_TICK.register(server -> server.getWorlds().forEach(world -> {
-            if (SnowMercyComponents.SNOWMERCY.get(world).isEventOngoing() && world.random.nextInt(5 * 20) == 0) {
-                WorldUtils.getLoadedChunks(world).forEach(chunk -> {
-                    ChunkPos pos = chunk.getPos();
-                    if (world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, new Box(pos.getStartPos(), pos.getStartPos().add(16, 256, 16)), e -> true).size() < 1) {
-                        int randomX = world.random.nextInt(16);
-                        int randomZ = world.random.nextInt(16);
-                        ChunkPos chunkPos = chunk.getPos();
+        // spawn sculk catalysts around players
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            server.getWorlds().forEach(world -> {
+                for (ServerPlayerEntity player : world.getPlayers()) {
+                    if (world.getEntitiesByClass(IcePillarEntity.class, player.getBoundingBox().expand(200f), icePillarEntity -> true).isEmpty()) {
+                        int radius = 50;
 
-                        int yMax = world.getTopY(Heightmap.Type.MOTION_BLOCKING, chunkPos.getStartX() + randomX, chunkPos.getStartZ() + randomZ);
-                        int y = 1;
+                        BlockPos placePos = player.getBlockPos().add(Math.round(world.random.nextGaussian() * radius), 64, Math.round(world.random.nextGaussian() * radius));
 
-                        if (world.random.nextBoolean()) {
-                            y = yMax;
+                        while (placePos.getY() > 1 &&
+                                !(world.getBlockState(placePos).isSolidBlock(world, placePos))) {
+                            placePos = placePos.add(0, -1, 0);
                         }
 
-                        for (; y <= yMax; y++) {
-                            BlockPos spawnPos = new BlockPos(chunkPos.getStartX() + randomX, y, chunkPos.getStartZ() + randomZ);
-
-                            LivingEntity entity = SPAWN_CANDIDATES.next(world.getRandom()).create(world);
-
-                            if (entity != null && !world.getBlockState(spawnPos).isSolidBlock(world, spawnPos) && world.getBlockState(spawnPos.add(0, -1, 0)).isSolidBlock(world, spawnPos.add(0, -1, 0)) && world.getLightLevel(LightType.BLOCK, spawnPos) <= 5) {
-                                entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                                entity.updateTrackedPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                                entity.updatePosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                                world.spawnEntity(entity);
-
-                                break;
-                            }
+                        if (world.getBlockState(placePos.add(0, 5, 0)).isAir()) {
+                            IcePillarEntity icePillarEntity = SnowMercyEntities.ICE_PILLAR.create(world);
+                            icePillarEntity.refreshPositionAndAngles(placePos.getX(), placePos.getY()+5, placePos.getZ(), 0, 0);
+                            world.spawnEntity(icePillarEntity);
                         }
                     }
-                });
-            }
-        }));
+                }
+            });
+        });
     }
 }

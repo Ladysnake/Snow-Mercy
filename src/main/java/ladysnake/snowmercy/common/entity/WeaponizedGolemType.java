@@ -34,6 +34,7 @@ public enum WeaponizedGolemType {
     private static final Map<Identifier, WeaponizedGolemType> types = Arrays.stream(values()).collect(Collectors.toMap(WeaponizedGolemType::getId, Function.identity()));
     private final Identifier id;
     private final Identifier textureLocation;
+
     WeaponizedGolemType(String id) {
         this.id = SnowMercy.id(id);
         this.textureLocation = SnowMercy.id("textures/entity/" + id + ".png");

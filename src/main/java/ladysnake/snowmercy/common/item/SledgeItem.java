@@ -76,7 +76,7 @@ public class SledgeItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslatableText("item.snowmercy.skillotine.tooltip").setStyle(EMPTY.withColor(Formatting.DARK_AQUA)));
+            tooltip.add(new TranslatableText("item.snowmercy.hammersledge.tooltip").setStyle(EMPTY.withColor(Formatting.DARK_AQUA)));
         } else {
             tooltip.add(new TranslatableText("tip.snowmercy.sneak_tooltip").setStyle(EMPTY.withColor(Formatting.GRAY)));
         }

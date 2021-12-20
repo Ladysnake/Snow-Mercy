@@ -83,7 +83,7 @@ public class WeaponizedSnowGolemEntityModel<T extends WeaponizedSnowGolemEntity>
     public static TexturedModelData mortarsModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        
+
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.5F)).mirrored(false), ModelTransform.pivot(0.0F, 4.0F, 0.0F));
         ModelPartData helmet_r1 = head.addChild("helmet_r1", ModelPartBuilder.create().uv(32, 0).mirrored().cuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, -4.0F, 0.0F, -0.1309F, 0.0F, 0.0F));
         ModelPartData upper_body = modelPartData.addChild("upper_body", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new Dilation(-0.5F)).mirrored(false), ModelTransform.pivot(0.0F, 13.0F, 0.0F));

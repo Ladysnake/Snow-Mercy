@@ -30,7 +30,7 @@
   "commands.snowmercy.stop": "Snow Mercy invasion stopped",
 
   "info.snowmercy.start": "This is no time to chill, a Snow Mercy army is invading!",
-  "info.snowmercy.stop": "The Snow Mercy army is retreating!",
+  "info.snowmercy.stop": "Wave completed!",
   "info.snowmercy.ongoing": "A Snow Mercy invasion is already happening!",
 
   "death.attack.icicle": "%1$s was iced by %2$s",

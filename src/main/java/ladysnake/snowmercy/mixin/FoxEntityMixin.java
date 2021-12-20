@@ -36,7 +36,7 @@ public abstract class FoxEntityMixin extends AnimalEntity {
     protected void initGoals(CallbackInfo callbackInfo) {
         if ((Object) this instanceof TundrabidEntity) {
             this.targetSelector.add(4, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, false, false, Entity::isAttackable));
-            this.targetSelector.add(4, new ActiveTargetGoal<>(this, WeaponizedSnowGolemEntity.class, 10, false, false, livingEntity -> livingEntity instanceof WeaponizedSnowGolemEntity && ((WeaponizedSnowGolemEntity) livingEntity).getHead() == 1));
+            this.targetSelector.add(4, new ActiveTargetGoal<>(this, WeaponizedSnowGolemEntity.class, 10, false, false, livingEntity -> livingEntity instanceof WeaponizedSnowGolemEntity && ((WeaponizedSnowGolemEntity) livingEntity).getHead() != 1));
         }
     }
 

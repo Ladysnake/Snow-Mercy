@@ -44,7 +44,7 @@ public class IcicleEntity extends PersistentProjectileEntity {
         super.onCollision(hitResult);
 
         if (hitResult.getType() != HitResult.Type.MISS && !this.world.isClient) {
-            ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY(), this.getZ(), 8, random.nextGaussian() / 20f, random.nextGaussian() / 20f, random.nextGaussian() / 20f, random.nextGaussian() / 20f);
+            ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY(), this.getZ(), 8, random.nextGaussian() / 20f, random.nextGaussian() / 20f, random.nextGaussian() / 20f, random.nextGaussian() / 10f);
         }
     }
 

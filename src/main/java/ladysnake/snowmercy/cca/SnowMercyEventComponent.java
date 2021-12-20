@@ -1,6 +1,7 @@
 package ladysnake.snowmercy.cca;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import ladysnake.snowmercy.common.init.SnowMercyWaves;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -12,7 +13,21 @@ import static net.minecraft.text.Style.EMPTY;
 
 public class SnowMercyEventComponent implements AutoSyncedComponent {
     private boolean isEventOngoing;
+    private int eventWave;
     private World world;
+
+    public int getEventWave() {
+        return this.eventWave;
+    }
+
+    public void setEventWave(int wave) {
+        if (wave <= 10 && wave >= 0) {
+            this.eventWave = wave;
+        } else {
+            SnowMercyWaves.resetWaves();
+            this.eventWave = 0;
+        }
+    }
 
     public boolean isEventOngoing() {
         return this.isEventOngoing;
@@ -43,11 +58,13 @@ public class SnowMercyEventComponent implements AutoSyncedComponent {
 
     @Override
     public void readFromNbt(NbtCompound compoundTag) {
-        this.isEventOngoing = compoundTag.getBoolean("SnowMercy");
+        this.isEventOngoing = compoundTag.getBoolean("SnowMercyOngoing");
+        this.eventWave = compoundTag.getInt("SnowMercyWave");
     }
 
     @Override
     public void writeToNbt(NbtCompound compoundTag) {
-        compoundTag.putBoolean("SnowMercy", this.isEventOngoing);
+        compoundTag.putBoolean("SnowMercyOngoing", this.isEventOngoing);
+        compoundTag.putInt("SnowMercyWave", this.eventWave);
     }
 }

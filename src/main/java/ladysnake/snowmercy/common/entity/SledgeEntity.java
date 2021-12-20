@@ -464,7 +464,7 @@ public class SledgeEntity extends Entity {
             this.velocityDecay = 0.95f;
         } else if (this.location == Location.ON_LAND) {
             if (isOnIce) {
-                this.velocityDecay = 0.99f;
+                this.velocityDecay = 0.975f;
             } else if (isOnSnow) {
                 this.velocityDecay = 0.95f;
             }

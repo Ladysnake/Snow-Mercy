@@ -645,7 +645,7 @@ public class SledgeEntity extends Entity {
 
     @Override
     protected boolean canAddPassenger(Entity passenger) {
-        return this.getPassengerList().size() < 1;
+        return this.getPassengerList().size() < 2;
     }
 
     @Override

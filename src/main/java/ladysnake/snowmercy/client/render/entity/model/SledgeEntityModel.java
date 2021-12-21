@@ -17,16 +17,16 @@ public class SledgeEntityModel extends SinglePartEntityModel<SledgeEntity> {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData sledge = modelPartData.addChild("sledge", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -4.0F, -8.0F, 8.0F, 4.0F, 16.0F)
-                .uv(0, 20).cuboid(-4.0F, -5.001F, -4.0F, 8.0F, 1.0F, 12.0F)
-                .uv(0, 49).cuboid(-7.001F, -4.0F, -3.0F, 3.0F, 3.0F, 12.0F)
-                .uv(0, 49).cuboid(4.001F, -4.0F, -3.0F, 3.0F, 3.0F, 12.0F)
-                .uv(22, 29).cuboid(5.5F, -4.0F, 9.0F, 0.0F, 3.0F, 4.0F)
-                .uv(22, 29).cuboid(-5.5F, -4.0F, 9.0F, 0.0F, 3.0F, 4.0F), ModelTransform.pivot(0.0F, 5.90F, -4.0F));
+        ModelPartData sledge = modelPartData.addChild("sledge", ModelPartBuilder.create().uv(0, 0).cuboid(-10.0F, 0.0F, -6.0F, 12.0F, 4.0F, 23.0F)
+                .uv(0, 27).cuboid(-10.0F, -1.001F, -2.0F, 12.0F, 1.0F, 19.0F)
+                .uv(0, 58).cuboid(-13.001F, 0.0F, -1.0F, 3.0F, 3.0F, 12.0F)
+                .uv(0, 58).cuboid(2.001F, 0.0F, -1.0F, 3.0F, 3.0F, 12.0F)
+                .uv(22, 63).cuboid(3.5F, 0.0F, 11.0F, 0.0F, 3.0F, 4.0F)
+                .uv(22, 63).cuboid(-11.5F, 0.0F, 11.0F, 0.0F, 3.0F, 4.0F), ModelTransform.pivot(4.0F, 1.90F, -6.0F));
 
-        sledge.addChild("cube_r1", ModelPartBuilder.create().uv(0, 33).cuboid(-4.0F, -5.0F, 0.0F, 8.0F, 5.0F, 6.0F, new Dilation(0.001F)), ModelTransform.of(0.0F, 0.0F, -8.0F, 0.7418F, 0.0F, 0.0F));
+        sledge.addChild("cube_r1", ModelPartBuilder.create().uv(0, 47).cuboid(-7.0F, -5.0F, 0.0F, 14.0F, 5.0F, 6.0F, new Dilation(0.001F)), ModelTransform.of(-4.0F, 4.0F, -6.0F, 0.7418F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return TexturedModelData.of(modelData, 128, 128);
     }
 
     @Override

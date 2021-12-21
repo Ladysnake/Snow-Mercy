@@ -1,7 +1,7 @@
 package ladysnake.snowmercy.client.sound;
 
-import ladysnake.snowmercy.common.SnowMercy;
 import ladysnake.snowmercy.common.entity.IceboomboxEntity;
+import ladysnake.snowmercy.common.init.SnowMercySoundEvents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.sound.MovingSoundInstance;
@@ -14,7 +14,7 @@ public class BoomboxMovingSoundInstance extends MovingSoundInstance {
     private float distance = 0.0f;
 
     public BoomboxMovingSoundInstance(IceboomboxEntity iceboombox) {
-        super(SnowMercy.JINGLE_BELLS, SoundCategory.HOSTILE);
+        super(SnowMercySoundEvents.JINGLE_BELLS, SoundCategory.HOSTILE);
 
         this.iceboombox = iceboombox;
         this.repeat = true;

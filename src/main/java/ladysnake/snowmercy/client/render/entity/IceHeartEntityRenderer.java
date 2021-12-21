@@ -23,10 +23,10 @@ import java.util.List;
 
 @Environment(value = EnvType.CLIENT)
 public class IceHeartEntityRenderer extends EntityRenderer<IceHeartEntity> {
-    private static final Identifier TEXTURE = new Identifier(SnowMercy.MODID, "textures/entity/heart_of_ice.png");
-    private IceHeartEntityModel<IceHeartEntity> model;
     public static final Identifier BEAM_TEXTURE = new Identifier(SnowMercy.MODID, "textures/entity/ice_heart_beam.png");
     public static final int MAX_BEAM_HEIGHT = 1024;
+    private static final Identifier TEXTURE = new Identifier(SnowMercy.MODID, "textures/entity/heart_of_ice.png");
+    private IceHeartEntityModel<IceHeartEntity> model;
 
     public IceHeartEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -34,43 +34,6 @@ public class IceHeartEntityRenderer extends EntityRenderer<IceHeartEntity> {
         this.shadowOpacity = 0;
 
         this.model = new IceHeartEntityModel(context.getPart(SnowMercyClient.HEART_OF_ICE_MODEL_LAYER));
-    }
-
-    public void render(IceHeartEntity iceHeartEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-
-        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-        VertexConsumer vertexConsumer2 = immediate.getBuffer(RenderLayer.getEntityCutoutNoCull(this.getTexture(iceHeartEntity)));
-
-        this.model.setAngles(iceHeartEntity, 0, 0, 0, 0, 0);
-        this.model.render(matrixStack, vertexConsumer2, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0f);
-        immediate.draw();
-
-        super.render(iceHeartEntity, f, g, matrixStack, vertexConsumerProvider, i);
-
-        long l = iceHeartEntity.getWorld().getTime();
-        List<BeaconBlockEntity.BeamSegment> list = new ArrayList<>();
-        list.add(new BeaconBlockEntity.BeamSegment(new float[]{1.0f, 1.0f, 1.0f}));
-        int k = 0;
-        for (int m = 0; m < list.size(); ++m) {
-            BeaconBlockEntity.BeamSegment beamSegment = list.get(m);
-            renderBeam(iceHeartEntity, matrixStack, vertexConsumerProvider, f, l, k, m == list.size() - 1 ? 1024 : beamSegment.getHeight(), beamSegment.getColor());
-            k += beamSegment.getHeight();
-        }
-    }
-
-    @Override
-    public Identifier getTexture(IceHeartEntity entity) {
-        return TEXTURE;
-    }
-
-    @Override
-    protected int getBlockLight(IceHeartEntity entity, BlockPos pos) {
-        return 15;
-    }
-
-    @Override
-    public boolean shouldRender(IceHeartEntity entity, Frustum frustum, double x, double y, double z) {
-        return true;
     }
 
     private static void renderBeam(IceHeartEntity iceHeartEntity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, float tickDelta, long worldTime, int yOffset, int maxY, float[] color) {
@@ -148,6 +111,50 @@ public class IceHeartEntityRenderer extends EntityRenderer<IceHeartEntity> {
      */
     private static void renderBeamVertex(Matrix4f positionMatrix, Matrix3f normalMatrix, VertexConsumer vertices, float red, float green, float blue, float alpha, int y, float x, float z, float u, float v) {
         vertices.vertex(positionMatrix, x, y, z).color(red, green, blue, alpha).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(normalMatrix, 0.0f, 1.0f, 0.0f).next();
+    }
+
+    public void render(IceHeartEntity iceHeartEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+
+        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        VertexConsumer vertexConsumer2 = immediate.getBuffer(RenderLayer.getEntityCutoutNoCull(this.getTexture(iceHeartEntity)));
+
+        float g1 = 1.0f;
+        float b1 = 1.0f;
+        long l = iceHeartEntity.getWorld().getTime();
+        if (iceHeartEntity.isActive()) {
+            g1 = (float) Math.abs(Math.cos(l / 10f));
+            b1 = (float) Math.abs(Math.cos(l / 10f));
+        }
+
+        this.model.setAngles(iceHeartEntity, 0, 0, 0, 0, 0);
+        this.model.render(matrixStack, vertexConsumer2, i, OverlayTexture.DEFAULT_UV, 1.0f, g1, b1, 1.0f);
+        immediate.draw();
+
+        super.render(iceHeartEntity, f, g, matrixStack, vertexConsumerProvider, i);
+
+        List<BeaconBlockEntity.BeamSegment> list = new ArrayList<>();
+        list.add(new BeaconBlockEntity.BeamSegment(new float[]{1.0f, 1.0f, 1.0f}));
+        int k = 0;
+        for (int m = 0; m < list.size(); ++m) {
+            BeaconBlockEntity.BeamSegment beamSegment = list.get(m);
+            renderBeam(iceHeartEntity, matrixStack, vertexConsumerProvider, f, l, k, m == list.size() - 1 ? 1024 : beamSegment.getHeight(), beamSegment.getColor());
+            k += beamSegment.getHeight();
+        }
+    }
+
+    @Override
+    public Identifier getTexture(IceHeartEntity entity) {
+        return TEXTURE;
+    }
+
+    @Override
+    protected int getBlockLight(IceHeartEntity entity, BlockPos pos) {
+        return 15;
+    }
+
+    @Override
+    public boolean shouldRender(IceHeartEntity entity, Frustum frustum, double x, double y, double z) {
+        return true;
     }
 
 }

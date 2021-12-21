@@ -33,9 +33,9 @@ public class IceHeartEntityModel<T extends Entity> extends EntityModel<T> {
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.heart.yaw = yaw+=0.001f;
-        this.heart.pitch = pitch+=0.001f;
-        this.heart.roll = roll+=0.001f;
+        this.heart.yaw = yaw += 0.001f;
+        this.heart.pitch = pitch += 0.001f;
+        this.heart.roll = roll += 0.001f;
 //        this.heart.setPivot(0f, (float) (89f+Math.sin(entity.age/50f)*10f), 0f);
     }
 

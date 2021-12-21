@@ -1,6 +1,7 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.cca.SnowMercyComponents;
+import ladysnake.snowmercy.common.init.SnowMercySoundEvents;
 import ladysnake.snowmercy.common.init.SnowMercyWaves;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -67,6 +68,10 @@ public class IceHeartEntity extends Entity {
             this.setActive(false);
         }
 
+        if (world.getTime() % 65 == 0) {
+            this.playSound(SnowMercySoundEvents.HEART_OF_ICE_AMBIENT, 1.0f, 1.0f);
+        }
+
         if (this.isActive()) {
             this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + random.nextGaussian() / 3f, this.getY() + random.nextFloat() * 6f, this.getZ() + random.nextGaussian() / 3f, 0, 0, 0);
 
@@ -86,7 +91,7 @@ public class IceHeartEntity extends Entity {
                     BlockPos offsetPos = this.getBlockPos().add(this.getX(), this.getY(), this.getZ());
                     for (int y = -10; y < 10; y++) {
                         if (world.getBlockState(offsetPos.add(0, y, 0)).isAir()) {
-                            ennemy.setPosition(offsetPos.getX(), offsetPos.getY()+y, offsetPos.getZ());
+                            ennemy.setPosition(offsetPos.getX(), offsetPos.getY() + y, offsetPos.getZ());
                             ennemy.setPersistent();
                             world.spawnEntity(ennemy);
                             break;
@@ -98,7 +103,7 @@ public class IceHeartEntity extends Entity {
                         SnowMercyComponents.SNOWMERCY.get(this.world).stopEvent(world);
                         SnowMercyComponents.SNOWMERCY.get(this.world).setEventWave(wave + 1);
 
-                        this.setInvisible(true);
+                        this.discard();
                         this.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 0.5f);
                         ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY(), this.getZ(), 200, random.nextGaussian() / 3f, this.getY() + random.nextFloat() * 6f, this.getZ() + random.nextGaussian() / 3f, random.nextGaussian() / 10f);
                     }

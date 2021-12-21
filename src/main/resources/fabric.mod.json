@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "snowmercy",
   "version": "${version}",
-
   "name": "Snow Mercy",
   "description": "Invade your world with ruthless modified combat snowmen, and make your own!",
   "authors": [
@@ -12,10 +11,8 @@
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/snow-mercy",
     "sources": "https://github.com/doctor4t/snow-mercy"
   },
-
   "license": "Code: GNU GPLv3; Art: ARR",
   "icon": "assets/snowmercy/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -31,7 +28,6 @@
   "mixins": [
     "snowmercy.mixins.json"
   ],
-
   "custom": {
     "cardinal-components": [
       "snowmercy:snowmercy"
@@ -40,7 +36,6 @@
       "curse-project-id": "429949"
     }
   },
-
   "depends": {
     "fabricloader": "*",
     "fabric": "*",

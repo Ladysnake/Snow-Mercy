@@ -1,6 +1,5 @@
 {
   "tip.snowmercy.sneak_tooltip": "[Shift]: show tooltip",
-
   "item.snowmercy.frozen_compass": "Frozen Compass",
   "item.snowmercy.frozen_compass.tooltip": "Use on a Lodestone to start a Snow Mercy invasion",
   "item.snowmercy.skillotine": "Skillotine",
@@ -11,9 +10,7 @@
   "item.snowmercy.coal_burner.tooltip3": "Use with blaze powder is ill-advised",
   "item.snowmercy.hammersledge": "Hammersledge",
   "item.snowmercy.hammersledge.tooltip": "Great for snow gliding and snowman roadkills",
-
   "block.snowmercy.frozen_lodestone": "Frozen Lodestone",
-
   "entity.snowmercy.mister_snuggles": "Mister Snuggles",
   "entity.snowmercy.mister_chill_snuggles": "Mister Chill Snuggles",
   "entity.snowmercy.sawman": "Sawman",
@@ -25,14 +22,11 @@
   "entity.snowmercy.iceball": "Iceball",
   "entity.snowmercy.tundrabid": "Tundrabid",
   "entity.snowmercy.icicle": "Icicle",
-
   "commands.snowmercy.start": "Snow Mercy invasion started",
   "commands.snowmercy.stop": "Snow Mercy invasion stopped",
-
   "info.snowmercy.start": "This is no time to chill, a Snow Mercy army is invading!",
   "info.snowmercy.stop": "Wave completed!",
   "info.snowmercy.ongoing": "A Snow Mercy invasion is already happening!",
-
   "death.attack.icicle": "%1$s was iced by %2$s",
   "death.attack.ramming": "%1$s was rammed by %2$s"
 }

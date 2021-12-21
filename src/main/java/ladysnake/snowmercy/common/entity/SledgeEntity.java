@@ -460,8 +460,6 @@ public class SledgeEntity extends Entity {
             float j = MathHelper.sin(this.getYaw() * ((float) Math.PI / 180)) * 0.35f;
 
 
-
-
             this.world.addParticle(ParticleTypes.FIREWORK, this.getX() + (double) h, this.getY() + .2f, this.getZ() + (double) j, 0.0, 0.0, 0.0);
             this.world.addParticle(ParticleTypes.FIREWORK, this.getX() - (double) h, this.getY() + .2f, this.getZ() - (double) j, 0.0, 0.0, 0.0);
         }

@@ -85,21 +85,21 @@ public class BurningCoalEntity extends ThrownEntity {
                                 if (random.nextInt(5) == 0) {
                                     if (world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.AIR || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.SNOW || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.POWDER_SNOW || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.SNOW_BLOCK) {
                                         world.setBlockState(this.getBlockPos().add(x, y, z), Blocks.FIRE.getDefaultState());
-                                        ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX()+x, this.getY()+y, this.getZ()+z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
+                                        ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX() + x, this.getY() + y, this.getZ() + z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
                                     }
                                     if (world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.ICE || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.FROSTED_ICE || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.PACKED_ICE || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.BLUE_ICE) {
                                         world.setBlockState(this.getBlockPos().add(x, y, z), Blocks.WATER.getDefaultState());
-                                        ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX()+x, this.getY()+y, this.getZ()+z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
+                                        ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX() + x, this.getY() + y, this.getZ() + z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
                                     }
                                 }
                             } else {
                                 if (world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.SNOW || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.POWDER_SNOW) {
                                     world.setBlockState(this.getBlockPos().add(x, y, z), Blocks.AIR.getDefaultState());
-                                    ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX()+x, this.getY()+y, this.getZ()+z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
+                                    ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX() + x, this.getY() + y, this.getZ() + z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
                                 }
                                 if (world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.ICE || world.getBlockState(this.getBlockPos().add(x, y, z)).getBlock() == Blocks.FROSTED_ICE) {
                                     world.setBlockState(this.getBlockPos().add(x, y, z), Blocks.WATER.getDefaultState());
-                                    ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX()+x, this.getY()+y, this.getZ()+z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
+                                    ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX() + x, this.getY() + y, this.getZ() + z, 16, random.nextGaussian() / 2f, random.nextGaussian() / 2f, random.nextGaussian() / 2f, 0);
                                 }
                             }
                         }
@@ -113,14 +113,6 @@ public class BurningCoalEntity extends ThrownEntity {
             entity.setOnFireFor((int) (10 * Math.sqrt(entity.getBlockPos().getSquaredDistance(this.getBlockPos()))));
             entity.damage(DamageSource.IN_FIRE, 2f);
         }
-
-        // burn icicles
-//        for (Entity entity : world.getOtherEntities(this.getOwner(), this.getBoundingBox().expand(MELT_RADIUS))) {
-//            if ((entity instanceof IcicleEntity || entity instanceof FreezingWindEntity) && !world.isClient) {
-//                ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, entity.getX(), entity.getY(), entity.getZ(), 8, random.nextGaussian() / 5f, random.nextGaussian() / 5f, random.nextGaussian() / 5f, 0);
-//                entity.discard();
-//            }
-//        }
     }
 
     @Override

@@ -25,10 +25,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class IcePillarEntity extends Entity {
-    private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IcePillarEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+public class IceHeartEntity extends Entity {
+    private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IceHeartEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-    public IcePillarEntity(EntityType<?> type, World world) {
+    public IceHeartEntity(EntityType<?> type, World world) {
         super(type, world);
     }
 
@@ -62,8 +62,6 @@ public class IcePillarEntity extends Entity {
         super.tick();
 
         this.age++;
-
-        this.setYaw(this.getYaw() + 1);
 
         if (!SnowMercyComponents.SNOWMERCY.get(this.world).isEventOngoing()) {
             this.setActive(false);

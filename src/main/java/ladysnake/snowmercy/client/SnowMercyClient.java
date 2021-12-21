@@ -24,7 +24,7 @@ import java.util.function.Function;
 public class SnowMercyClient implements ClientModInitializer {
     public static final EntityModelLayer SNOW_GOLEM_HEAD_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("snow_golem_head"), "main");
     public static final EntityModelLayer SLEDGE_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("sledge"), "main");
-    public static final EntityModelLayer ICE_PILLAR_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("ice_pillar"), "main");
+    public static final EntityModelLayer HEART_OF_ICE_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("heart_of_ice"), "main");
 
     public static void registerRenderer(
             WeaponizedGolemType entityType,
@@ -53,7 +53,7 @@ public class SnowMercyClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(SNOW_GOLEM_HEAD_MODEL_LAYER, SnowGolemHeadEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(SLEDGE_MODEL_LAYER, SledgeEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ICE_PILLAR_MODEL_LAYER, IcePillarEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HEART_OF_ICE_MODEL_LAYER, IceHeartEntityModel::getTexturedModelData);
 
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.HEADMASTER, HeadmasterEntityRenderer::new);
@@ -62,7 +62,7 @@ public class SnowMercyClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.BURNING_COAL, InvisibleThrownEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.FREEZING_WIND, InvisibleThrownEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SLEDGE, SledgeEntityRenderer::new);
-        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.ICE_PILLAR, IcePillarEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.HEART_OF_ICE, IceHeartEntityRenderer::new);
 
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.POLAR_BEARER, PolarBearEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.TUNDRABID, FoxEntityRenderer::new);

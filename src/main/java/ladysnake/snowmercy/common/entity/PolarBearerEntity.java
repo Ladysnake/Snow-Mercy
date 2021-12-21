@@ -13,7 +13,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class PolarBearerEntity extends PolarBearEntity {
+public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy {
     public PolarBearerEntity(EntityType<? extends PolarBearEntity> entityType, World world) {
         super(entityType, world);
 

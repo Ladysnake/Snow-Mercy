@@ -34,7 +34,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class HeadmasterEntity extends HostileEntity implements IAnimatable {
+public class HeadmasterEntity extends HostileEntity implements IAnimatable, SnowMercyEnemy {
     private static final TrackedData<Boolean> SHOOTING = DataTracker.registerData(HeadmasterEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> TURRET_TRANSITION = DataTracker.registerData(HeadmasterEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> TURRET_MODE = DataTracker.registerData(HeadmasterEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -46,7 +46,7 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable {
     }
 
     public static DefaultAttributeContainer.Builder createHeadmasterAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f).add(EntityAttributes.GENERIC_MAX_HEALTH, 100f).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f).add(EntityAttributes.GENERIC_MAX_HEALTH, 200f).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f);
     }
 
     @Override

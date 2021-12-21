@@ -68,9 +68,9 @@ public class ReviveSurgeGoal extends Goal {
                     headmaster.world.spawnEntity(golem);
                 }
 
-                for (LivingEntity livingEntity : headmaster.world.getEntitiesByClass(LivingEntity.class, this.headmaster.getBoundingBox().expand(16f), LivingEntity::canFreeze)) {
-                    livingEntity.setFrozenTicks(1000);
-                }
+//                for (LivingEntity livingEntity : headmaster.world.getEntitiesByClass(LivingEntity.class, this.headmaster.getBoundingBox().expand(16f), LivingEntity::canFreeze)) {
+//                    livingEntity.setFrozenTicks(1000);
+//                }
             }
 
             this.stop();

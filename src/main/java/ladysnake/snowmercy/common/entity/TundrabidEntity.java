@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.world.World;
 
-public class TundrabidEntity extends FoxEntity {
+public class TundrabidEntity extends FoxEntity implements SnowMercyEnemy {
     public TundrabidEntity(EntityType<? extends FoxEntity> entityType, World world) {
         super(entityType, world);
 

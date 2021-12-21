@@ -24,8 +24,8 @@ public class DeployHeadsGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        // if not enough hostile snowmen around (<5)
-        return !headmaster.isTurret() && headmaster.world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, this.headmaster.getBoundingBox().expand(16f), weaponizedSnowGolemEntity -> weaponizedSnowGolemEntity.isAlive() && weaponizedSnowGolemEntity.getHead() == 1).size() < 3;
+        // if not enough hostile snowmen around (<15)
+        return headmaster.world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, this.headmaster.getBoundingBox().expand(16f), weaponizedSnowGolemEntity -> weaponizedSnowGolemEntity.isAlive() && weaponizedSnowGolemEntity.getHead() == 1).size() < 15;
     }
 
     @Override

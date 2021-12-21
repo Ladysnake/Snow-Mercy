@@ -59,7 +59,11 @@ public class FreezingWindEntity extends ThrownEntity {
             world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + random.nextGaussian() / 5f, this.getY() + .5 + random.nextGaussian() / 5f, this.getZ() + random.nextGaussian() / 5f, 0, 0, 0);
         }
 
-        // melt snow and ice
+        if (this.isOnFire()) {
+            this.discard();
+        }
+
+        // make snow and ice
         for (int x = -SNOW_RADIUS; x <= SNOW_RADIUS; x++) {
             for (int y = -SNOW_RADIUS; y <= SNOW_RADIUS; y++) {
                 for (int z = -SNOW_RADIUS; z <= SNOW_RADIUS; z++) {
@@ -76,7 +80,7 @@ public class FreezingWindEntity extends ThrownEntity {
             }
         }
 
-        // burn entities in contact
+        // freeze entities in contact
         for (Entity entity : world.getOtherEntities(this, this.getBoundingBox().expand(FREEZE_RADIUS), entity -> entity instanceof LivingEntity && entity != this.getOwner())) {
             entity.setFrozenTicks(entity.getFrozenTicks() + (int) (10 * Math.sqrt(entity.getBlockPos().getSquaredDistance(this.getBlockPos()))));
             entity.setFireTicks(0);
@@ -89,6 +93,11 @@ public class FreezingWindEntity extends ThrownEntity {
 
     @Override
     public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    public boolean doesRenderOnFire() {
         return false;
     }
 }

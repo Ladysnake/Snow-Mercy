@@ -14,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-public class IceballEntity extends SlimeEntity {
+public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
     public static final ItemStackParticleEffect PARTICLE = new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.ICE));
 
     public IceballEntity(EntityType<? extends SlimeEntity> entityType, World world) {

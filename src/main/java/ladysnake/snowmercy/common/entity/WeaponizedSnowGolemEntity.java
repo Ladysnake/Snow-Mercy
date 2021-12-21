@@ -38,7 +38,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity {
+public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity implements SnowMercyEnemy {
     private static final TrackedData<Integer> HEAD = DataTracker.registerData(WeaponizedSnowGolemEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private int ageHeadless = 0;

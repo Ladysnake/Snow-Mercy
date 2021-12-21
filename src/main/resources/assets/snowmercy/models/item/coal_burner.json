@@ -24,13 +24,5 @@
             "translation": [ -9, 0, -5],
             "scale": [ 1.5, 1.5, 1.5 ]
         }
-    },
-    "overrides": [
-        {
-            "predicate": {
-                "pulling": 1
-            },
-            "model": "snowmercy:item/coal_burner_using"
-        }
-    ]
+    }
 }

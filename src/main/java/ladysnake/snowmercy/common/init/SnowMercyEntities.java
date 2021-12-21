@@ -31,7 +31,7 @@ public class SnowMercyEntities {
     public static EntityType<BurningCoalEntity> BURNING_COAL;
     public static EntityType<FreezingWindEntity> FREEZING_WIND;
     public static EntityType<SledgeEntity> SLEDGE;
-    public static EntityType<IcePillarEntity> ICE_PILLAR;
+    public static EntityType<IceHeartEntity> HEART_OF_ICE;
 
     public static void init() {
         TrackedDataHandlerRegistry.register(WeaponizedGolemType.TRACKED_DATA_HANDLER);
@@ -54,7 +54,7 @@ public class SnowMercyEntities {
         BURNING_COAL = register("burning_coal", FabricEntityTypeBuilder.<BurningCoalEntity>create(SpawnGroup.MISC, BurningCoalEntity::new).dimensions(EntityDimensions.changing(1.0f, 1.0f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
         FREEZING_WIND = register("freezing_wind", FabricEntityTypeBuilder.<FreezingWindEntity>create(SpawnGroup.MISC, FreezingWindEntity::new).dimensions(EntityDimensions.changing(1.0f, 1.0f)).trackRangeBlocks(4).trackedUpdateRate(20).build());
         SLEDGE = register("hammersledge", FabricEntityTypeBuilder.<SledgeEntity>create(SpawnGroup.MISC, SledgeEntity::new).dimensions(EntityDimensions.changing(1.375f, 0.5625f)).trackRangeBlocks(10).build());
-        ICE_PILLAR = register("ice_pillar", FabricEntityTypeBuilder.<IcePillarEntity>create(SpawnGroup.MISC, IcePillarEntity::new).dimensions(EntityDimensions.changing(1.4f, 5.5f)).trackRangeBlocks(64).build());
+        HEART_OF_ICE = register("heart_of_ice", FabricEntityTypeBuilder.<IceHeartEntity>create(SpawnGroup.MISC, IceHeartEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).trackRangeBlocks(10).build());
 
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNUGGLES, SnugglesEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.CHILL_SNUGGLES, SnugglesEntity.createEntityAttributes());

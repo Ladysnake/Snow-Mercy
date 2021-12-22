@@ -70,14 +70,14 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (this.isAlive() && (source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE)) {
-            FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(world, FIREWORKS, this, this.getX() + random.nextGaussian() / 10f, this.getEyeY() + random.nextGaussian() / 10f, this.getZ() + random.nextGaussian() / 10f, true);
-            fireworkRocketEntity.setVelocity(0, 0, 0, 0, 0);
-            world.spawnEntity(fireworkRocketEntity);
-            ((FireworkRocketEntityInvoker) fireworkRocketEntity).invokeExplodeAndRemove();
-            this.setInvisible(true);
-            this.kill();
-        }
+//        if (this.isAlive() && (source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE)) {
+//            FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(world, FIREWORKS, this, this.getX() + random.nextGaussian() / 10f, this.getEyeY() + random.nextGaussian() / 10f, this.getZ() + random.nextGaussian() / 10f, true);
+//            fireworkRocketEntity.setVelocity(0, 0, 0, 0, 0);
+//            world.spawnEntity(fireworkRocketEntity);
+//            ((FireworkRocketEntityInvoker) fireworkRocketEntity).invokeExplodeAndRemove();
+//            this.setInvisible(true);
+//            this.kill();
+//        }
 
         return super.damage(source, amount);
     }

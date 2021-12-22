@@ -62,7 +62,7 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
     public void tick() {
         super.tick();
 
-        int eventWave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave();
+        int eventWave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave() + 1;
         if (this.getSize() < eventWave) {
             this.setSize(eventWave, true);
         }

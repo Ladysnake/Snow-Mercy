@@ -64,7 +64,7 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         ItemStack droppedStack = this.getMainHandStack();
-        droppedStack.setCount(random.nextInt(3 + lootingMultiplier));
+        droppedStack.setCount(random.nextInt(6 * lootingMultiplier));
         this.dropStack(droppedStack);
     }
 

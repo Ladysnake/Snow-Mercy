@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SnowMercyWaves {
     public static final ArrayList<ArrayList<WaveSpawnEntry>> WAVES = new ArrayList<>();
 
-    public static void resetWaves() {
+    public static void init() {
         WAVES.clear();
         for (int i = 1; i <= 10; i++) {
             WAVES.add(new ArrayList<>());

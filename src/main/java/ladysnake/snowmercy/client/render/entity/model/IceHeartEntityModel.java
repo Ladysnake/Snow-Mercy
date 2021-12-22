@@ -15,9 +15,7 @@ import java.util.Random;
 public class IceHeartEntityModel<T extends Entity> extends EntityModel<T> {
     private final ModelPart heart;
     private float yaw = 0;
-
     private float pitch = 0;
-
     private float roll = 0;
 
 

@@ -37,7 +37,7 @@ public class SnowMercy implements ModInitializer {
                 SnowMercyCommand.register(commandDispatcher)
         );
 
-        SnowMercyWaves.resetWaves();
+        SnowMercyWaves.init();
 
         // spawn sculk catalysts around players
 //        ServerTickEvents.END_SERVER_TICK.register(server -> {

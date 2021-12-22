@@ -4,6 +4,7 @@ import ladysnake.snowmercy.client.render.entity.*;
 import ladysnake.snowmercy.client.render.entity.model.*;
 import ladysnake.snowmercy.client.sound.BoomboxMovingSoundInstance;
 import ladysnake.snowmercy.common.SnowMercy;
+import ladysnake.snowmercy.common.entity.GiftPackageEntity;
 import ladysnake.snowmercy.common.entity.IceboomboxEntity;
 import ladysnake.snowmercy.common.entity.WeaponizedGolemType;
 import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
@@ -25,6 +26,7 @@ public class SnowMercyClient implements ClientModInitializer {
     public static final EntityModelLayer SNOW_GOLEM_HEAD_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("snow_golem_head"), "main");
     public static final EntityModelLayer SLEDGE_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("sledge"), "main");
     public static final EntityModelLayer HEART_OF_ICE_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("heart_of_ice"), "main");
+    public static final EntityModelLayer GIFT_PACKAGE_MODEL_LAYER = new EntityModelLayer(SnowMercy.id("gift_package"), "main");
 
     public static void registerRenderer(
             WeaponizedGolemType entityType,
@@ -51,10 +53,6 @@ public class SnowMercyClient implements ClientModInitializer {
         registerRenderer(WeaponizedGolemType.CHILL_SNUGGLES, WeaponizedSnowGolemEntityModel::snugglesModelData);
         registerRenderer(WeaponizedGolemType.BOOMBOX, WeaponizedSnowGolemEntityModel::boomboxModelData);
 
-        EntityModelLayerRegistry.registerModelLayer(SNOW_GOLEM_HEAD_MODEL_LAYER, SnowGolemHeadEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(SLEDGE_MODEL_LAYER, SledgeEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(HEART_OF_ICE_MODEL_LAYER, IceHeartEntityModel::getTexturedModelData);
-
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.HEADMASTER, HeadmasterEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.ICICLE, IcicleEntityRenderer::new);
@@ -63,10 +61,16 @@ public class SnowMercyClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.FREEZING_WIND, InvisibleThrownEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.SLEDGE, SledgeEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.HEART_OF_ICE, IceHeartEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.GIFT_PACKAGE, GiftPackageEntityRenderer::new);
 
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.POLAR_BEARER, PolarBearEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.TUNDRABID, FoxEntityRenderer::new);
         EntityRendererRegistry.INSTANCE.register(SnowMercyEntities.ICEBALL, IceballEntityRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(SNOW_GOLEM_HEAD_MODEL_LAYER, SnowGolemHeadEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(SLEDGE_MODEL_LAYER, SledgeEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HEART_OF_ICE_MODEL_LAYER, IceHeartEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(GIFT_PACKAGE_MODEL_LAYER, GiftPackageEntityModel::getTexturedModelData);
 
         ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof IceboomboxEntity) {

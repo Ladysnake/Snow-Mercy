@@ -1,6 +1,7 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.cca.SnowMercyComponents;
+import ladysnake.snowmercy.common.init.SnowMercyEntities;
 import ladysnake.snowmercy.common.init.SnowMercySoundEvents;
 import ladysnake.snowmercy.common.init.SnowMercyWaves;
 import net.minecraft.block.Blocks;
@@ -31,6 +32,7 @@ import java.util.List;
 public class IceHeartEntity extends Entity {
     private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IceHeartEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final int SPAWN_RADIUS = 100;
+    public static final int GIFT_SPAWN_RADIUS = 20;
 
     public IceHeartEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -75,6 +77,18 @@ public class IceHeartEntity extends Entity {
             this.setActive(true);
         }
 
+        int wave = SnowMercyComponents.SNOWMERCY.get(this.world).getEventWave();
+
+        for (int i = 0; i < wave + 1; i++) {
+            double r = GIFT_SPAWN_RADIUS * Math.sqrt(random.nextFloat());
+            double theta = random.nextFloat() * 2 * Math.PI;
+
+            GiftPackageEntity giftPackageEntity = new GiftPackageEntity(SnowMercyEntities.GIFT_PACKAGE, world);
+            giftPackageEntity.setPosition(this.getX() + r * Math.cos(theta), this.getY() + 60, this.getZ() + r * Math.sin(theta));
+            world.spawnEntity(giftPackageEntity);
+        }
+
+
         return super.damage(source, amount);
     }
 
@@ -99,8 +113,8 @@ public class IceHeartEntity extends Entity {
         }
 
         if (this.isActive()) {
-            this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY()+.25, this.getZ(), random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
-            this.world.addParticle(ParticleTypes.END_ROD, this.getX(), this.getY()+.25, this.getZ(), random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
+            this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY() + .25, this.getZ(), random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
+            this.world.addParticle(ParticleTypes.END_ROD, this.getX(), this.getY() + .25, this.getZ(), random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
 
             if (!world.isClient && this.age % 5 == 0) {
                 int wave = SnowMercyComponents.SNOWMERCY.get(this.world).getEventWave();
@@ -120,8 +134,8 @@ public class IceHeartEntity extends Entity {
                     float z = (float) (this.getZ() + (Math.sin(angle) * SPAWN_RADIUS));
 
                     if (enemy instanceof IceballEntity) {
-                        x = (float) (this.getX() + (Math.cos(angle) * (SPAWN_RADIUS/5f)));
-                        z = (float) (this.getZ() + (Math.sin(angle) * (SPAWN_RADIUS/5f)));
+                        x = (float) (this.getX() + (Math.cos(angle) * (SPAWN_RADIUS / 5f)));
+                        z = (float) (this.getZ() + (Math.sin(angle) * (SPAWN_RADIUS / 5f)));
                     }
 
                     BlockPos offsetPos = new BlockPos(x, this.getY(), z);
@@ -138,6 +152,7 @@ public class IceHeartEntity extends Entity {
                 } else {
                     // if there are no ennemies left to spawn, check if all have been defeated
                     if (enemiesLeft.size() <= 10) {
+
                         SnowMercyComponents.SNOWMERCY.get(this.world).setEventWave(wave + 1);
 
                         this.discard();

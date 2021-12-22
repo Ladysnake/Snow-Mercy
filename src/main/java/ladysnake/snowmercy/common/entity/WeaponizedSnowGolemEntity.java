@@ -160,7 +160,7 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity implemen
                 this.setInvisible(true);
                 this.setSilent(true);
                 this.setGlowing(false);
-                ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY(), this.getZ(), 50, random.nextGaussian() / 2f, random.nextFloat() *2f, random.nextGaussian() / 2f, 0);
+                ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY(), this.getZ(), 30, random.nextGaussian() / 2f, random.nextFloat() *2f, random.nextGaussian() / 2f, 0);
                 this.kill();
             }
         }

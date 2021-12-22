@@ -26,14 +26,14 @@ public class IceHeartEntityRenderer extends EntityRenderer<IceHeartEntity> {
     public static final Identifier BEAM_TEXTURE = new Identifier(SnowMercy.MODID, "textures/entity/ice_heart_beam.png");
     public static final int MAX_BEAM_HEIGHT = 1024;
     private static final Identifier TEXTURE = new Identifier(SnowMercy.MODID, "textures/entity/heart_of_ice.png");
-    private IceHeartEntityModel<IceHeartEntity> model;
+    private final IceHeartEntityModel<IceHeartEntity> model;
 
     public IceHeartEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
         this.shadowRadius = 0;
         this.shadowOpacity = 0;
 
-        this.model = new IceHeartEntityModel(context.getPart(SnowMercyClient.HEART_OF_ICE_MODEL_LAYER));
+        this.model = new IceHeartEntityModel<>(context.getPart(SnowMercyClient.HEART_OF_ICE_MODEL_LAYER));
     }
 
     private static void renderBeam(IceHeartEntity iceHeartEntity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, float tickDelta, long worldTime, int yOffset, int maxY, float[] color) {

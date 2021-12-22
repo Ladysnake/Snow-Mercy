@@ -67,7 +67,7 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
             this.setSize(eventWave, true);
         }
 
-        if (this.onGround && this.getTarget() != null && Math.sqrt(this.getTarget().getBlockPos().getSquaredDistance(this.getBlockPos())) <= eventWave * eventWave) {
+        if (this.onGround && this.getTarget() != null && Math.sqrt(this.getTarget().getBlockPos().getSquaredDistance(this.getBlockPos())) <= this.getSize() * 3f) {
             for (int j = 0; j < eventWave * 8; ++j) {
                 float f = this.random.nextFloat() * ((float) Math.PI * 2);
                 float g = this.random.nextFloat() * 0.5f + 0.5f;

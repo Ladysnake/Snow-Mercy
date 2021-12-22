@@ -2,13 +2,11 @@ package ladysnake.snowmercy.common.init;
 
 import ladysnake.snowmercy.common.SnowMercy;
 import ladysnake.snowmercy.common.entity.*;
+import ladysnake.snowmercy.common.utils.RandomSpawnCollection;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.*;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.registry.Registry;

@@ -67,7 +67,7 @@ public class IceHeartEntity extends Entity {
 
     @Override
     public boolean doesRenderOnFire() {
-        return super.doesRenderOnFire();
+        return false;
     }
 
     @Override
@@ -76,18 +76,6 @@ public class IceHeartEntity extends Entity {
             this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 10.0f, 2.0f);
             this.setActive(true);
         }
-
-        int wave = SnowMercyComponents.SNOWMERCY.get(this.world).getEventWave();
-
-        for (int i = 0; i < wave + 1; i++) {
-            double r = GIFT_SPAWN_RADIUS * Math.sqrt(random.nextFloat());
-            double theta = random.nextFloat() * 2 * Math.PI;
-
-            GiftPackageEntity giftPackageEntity = new GiftPackageEntity(SnowMercyEntities.GIFT_PACKAGE, world);
-            giftPackageEntity.setPosition(this.getX() + r * Math.cos(theta), this.getY() + 60, this.getZ() + r * Math.sin(theta));
-            world.spawnEntity(giftPackageEntity);
-        }
-
 
         return super.damage(source, amount);
     }
@@ -100,6 +88,11 @@ public class IceHeartEntity extends Entity {
     @Override
     public boolean isCollidable() {
         return true;
+    }
+
+    @Override
+    public boolean isOnFire() {
+        return false;
     }
 
     @Override
@@ -122,7 +115,7 @@ public class IceHeartEntity extends Entity {
                 // check if there are enemies left to spawn
                 List<MobEntity> enemiesLeft = world.getEntitiesByClass(MobEntity.class, this.getBoundingBox().expand(100f, 30f, 100f), entity -> entity instanceof SnowMercyEnemy);
                 SnowMercyWaves.WAVES.get(wave).removeIf(waveSpawnEntry -> waveSpawnEntry.count <= 0);
-                if (!SnowMercyWaves.WAVES.get(wave).isEmpty() && enemiesLeft.size() < 100) {
+                if (!SnowMercyWaves.WAVES.get(wave).isEmpty() && enemiesLeft.size() < 50    ) {
                     int i = random.nextInt(SnowMercyWaves.WAVES.get(wave).size());
 
                     MobEntity enemy = SnowMercyWaves.WAVES.get(wave).get(i).entityType.create(this.world);
@@ -152,6 +145,14 @@ public class IceHeartEntity extends Entity {
                 } else {
                     // if there are no ennemies left to spawn, check if all have been defeated
                     if (enemiesLeft.size() <= 10) {
+                        for (int i = 0; i < wave + 1; i++) {
+                            double r = GIFT_SPAWN_RADIUS * Math.sqrt(random.nextFloat());
+                            double theta = random.nextFloat() * 2 * Math.PI;
+
+                            GiftPackageEntity giftPackageEntity = new GiftPackageEntity(SnowMercyEntities.GIFT_PACKAGE, world);
+                            giftPackageEntity.setPosition(this.getX() + r * Math.cos(theta), this.getY() + 60, this.getZ() + r * Math.sin(theta));
+                            world.spawnEntity(giftPackageEntity);
+                        }
 
                         SnowMercyComponents.SNOWMERCY.get(this.world).setEventWave(wave + 1);
 

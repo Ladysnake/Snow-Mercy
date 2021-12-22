@@ -9,7 +9,7 @@
   "item.snowmercy.coal_burner.tooltip2": "Approved use with coal and charcoal",
   "item.snowmercy.coal_burner.tooltip3": "Use with blaze powder is ill-advised",
   "item.snowmercy.hammersledge": "Hammersledge",
-  "item.snowmercy.hammersledge.tooltip": "Great for snow sleighing, even better for snowman slaying",
+  "item.snowmercy.hammersledge.tooltip": "Great for sleighing, even better for snowman slaying",
   "item.snowmercy.firework_launcher": "Firework Launcher",
   "item.snowmercy.bootleg_ice_skaters": "Bootleg Ice Skaters",
   "block.snowmercy.frozen_lodestone": "Frozen Lodestone",
@@ -27,7 +27,7 @@
   "commands.snowmercy.start": "Snow Mercy invasion started",
   "commands.snowmercy.stop": "Snow Mercy invasion stopped",
   "info.snowmercy.start": "This is no time to chill, a Snow Mercy army is invading!",
-  "info.snowmercy.stop": "Wave completed!",
+  "info.snowmercy.stop": "Wave cleared!",
   "info.snowmercy.ongoing": "A Snow Mercy invasion is already happening!",
   "death.attack.icicle": "%1$s was iced by %2$s",
   "death.attack.ramming": "%1$s was rammed by %2$s"

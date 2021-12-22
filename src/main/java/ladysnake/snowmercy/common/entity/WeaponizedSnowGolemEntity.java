@@ -156,11 +156,11 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity implemen
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (!world.isClient) {
-            if (source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE) {
+            if ((source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE) && this.isAlive()) {
                 this.setInvisible(true);
                 this.setSilent(true);
                 this.setGlowing(false);
-                ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY(), this.getZ(), 30, random.nextGaussian() / 2f, random.nextFloat() *2f, random.nextGaussian() / 2f, 0);
+                ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY(), this.getZ(), 10, random.nextGaussian() / 2f, random.nextFloat() * 2f, random.nextGaussian() / 2f, 0);
                 this.kill();
             }
         }

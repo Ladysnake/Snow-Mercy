@@ -97,6 +97,11 @@ public class GiftPackageEntity extends Entity {
     }
 
     @Override
+    public boolean isInvulnerable() {
+        return true;
+    }
+
+    @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
         this.playSound(SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, 1.0f, 1.5f);
         for (int i = 0; i < 50; i++) {

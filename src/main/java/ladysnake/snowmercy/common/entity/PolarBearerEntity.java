@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy {
     public PolarBearerEntity(EntityType<? extends PolarBearEntity> entityType, World world) {
         super(entityType, world);
+        this.stepHeight = 1f;
 
     }
 

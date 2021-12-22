@@ -24,8 +24,8 @@ public class DeployHeadsGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        // if not enough hostile snowmen around (<15)
-        return headmaster.world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, this.headmaster.getBoundingBox().expand(16f), weaponizedSnowGolemEntity -> weaponizedSnowGolemEntity.isAlive() && weaponizedSnowGolemEntity.getHead() == 1).size() < 15;
+        // if not enough hostile snowmen around (<=10)
+        return headmaster.world.getEntitiesByClass(WeaponizedSnowGolemEntity.class, this.headmaster.getBoundingBox().expand(20f), weaponizedSnowGolemEntity -> weaponizedSnowGolemEntity.isAlive() && weaponizedSnowGolemEntity.getHead() == 1).size() <= 10;
     }
 
     @Override
@@ -56,14 +56,19 @@ public class DeployHeadsGoal extends Goal {
         if (!headmaster.world.isClient) {
             if (timer++ % 10 == 0) {
                 for (int i = 0; i < 1 + random.nextInt(3); i++) {
-                    int chosenHead = random.nextInt(6);
+                    int chosenHead = random.nextInt(72);
                     WeaponizedGolemType golemType = WeaponizedGolemType.SAWMAN;
-                    switch (chosenHead) {
-                        case 1 -> golemType = WeaponizedGolemType.SNUGGLES;
-                        case 2 -> golemType = WeaponizedGolemType.ROCKETS;
-                        case 3 -> golemType = WeaponizedGolemType.MORTARS;
-                        case 4 -> golemType = WeaponizedGolemType.CHILL_SNUGGLES;
-                        case 5 -> golemType = WeaponizedGolemType.BOOMBOX;
+
+                    if (chosenHead >= 25 && chosenHead < 45) {
+                        golemType = WeaponizedGolemType.MORTARS;
+                    } else if (chosenHead >= 45 && chosenHead < 65) {
+                        golemType = WeaponizedGolemType.ROCKETS;
+                    } else if (chosenHead >= 65 && chosenHead < 70) {
+                        golemType = WeaponizedGolemType.SNUGGLES;
+                    } else if (chosenHead == 70) {
+                        golemType = WeaponizedGolemType.CHILL_SNUGGLES;
+                    } else if (chosenHead == 71) {
+                        golemType = WeaponizedGolemType.BOOMBOX;
                     }
 
                     SnowGolemHeadEntity entity = new SnowGolemHeadEntity(headmaster.world, golemType, headmaster.getX(), headmaster.getY() + 3, headmaster.getZ());

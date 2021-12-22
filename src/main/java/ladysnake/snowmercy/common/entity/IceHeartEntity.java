@@ -4,6 +4,7 @@ import ladysnake.snowmercy.cca.SnowMercyComponents;
 import ladysnake.snowmercy.common.init.SnowMercyEntities;
 import ladysnake.snowmercy.common.init.SnowMercySoundEvents;
 import ladysnake.snowmercy.common.init.SnowMercyWaves;
+import ladysnake.snowmercy.common.init.WaveSpawnEntry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,13 +22,21 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+import static net.minecraft.text.Style.EMPTY;
 
 public class IceHeartEntity extends Entity {
     private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IceHeartEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -72,9 +81,26 @@ public class IceHeartEntity extends Entity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (!this.isActive()) {
+        if (!this.isActive() && !world.isClient) {
             this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 10.0f, 2.0f);
             this.setActive(true);
+
+            int wave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave()+1;
+
+            world.getPlayers().forEach(serverPlayerEntity -> {
+                MutableText waveText = new TranslatableText("info.snowmercy.wave_start", world.getRegistryKey().getValue().getPath()).append(wave +": ");
+                int i = 0;
+                for (WaveSpawnEntry waveSpawnEntry : SnowMercyWaves.WAVES.get(wave)) {
+                    if (i > 0) {
+                        waveText.append(", ");
+                    }
+                    waveText.append(waveSpawnEntry.entityType.getName());
+                    i++;
+                }
+
+                serverPlayerEntity.sendMessage(waveText.setStyle(EMPTY.withColor(Formatting.AQUA)), false);
+                serverPlayerEntity.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, SoundCategory.MASTER, 1.0f, 2.0f);
+            });
         }
 
         return super.damage(source, amount);
@@ -155,6 +181,11 @@ public class IceHeartEntity extends Entity {
                         }
 
                         SnowMercyComponents.SNOWMERCY.get(this.world).setEventWave(wave + 1);
+
+                        world.getPlayers().forEach(serverPlayerEntity -> {
+                            serverPlayerEntity.sendMessage(
+                                    new TranslatableText("info.snowmercy.wave_cleared", world.getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false);
+                        });
 
                         this.discard();
                         this.playSound(SoundEvents.ENTITY_PLAYER_HURT_FREEZE, 1.0f, 1.2f);

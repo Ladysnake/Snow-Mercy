@@ -32,11 +32,6 @@ public class SnowMercy implements ModInitializer {
         SnowMercyEntities.init();
         SnowMercyFeatures.init();
         SnowMercySoundEvents.init();
-
-        CommandRegistrationCallback.EVENT.register((commandDispatcher, b) ->
-                SnowMercyCommand.register(commandDispatcher)
-        );
-
         SnowMercyWaves.init();
 
         // spawn sculk catalysts around players

@@ -1,5 +1,6 @@
 package ladysnake.snowmercy.common.entity;
 
+import ladysnake.snowmercy.cca.SnowMercyComponents;
 import ladysnake.snowmercy.common.entity.ai.goal.GoToHeartGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -60,14 +61,18 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
     @Override
     public void tick() {
         super.tick();
-        int i = this.getSize();
 
-        if (this.onGround && this.getTarget() != null && Math.sqrt(this.getTarget().getBlockPos().getSquaredDistance(this.getBlockPos())) <= i * 2f) {
-            for (int j = 0; j < i * 8; ++j) {
+        int eventWave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave();
+        if (this.getSize() < eventWave) {
+            this.setSize(eventWave, true);
+        }
+
+        if (this.onGround && this.getTarget() != null && Math.sqrt(this.getTarget().getBlockPos().getSquaredDistance(this.getBlockPos())) <= eventWave * eventWave) {
+            for (int j = 0; j < eventWave * 8; ++j) {
                 float f = this.random.nextFloat() * ((float) Math.PI * 2);
                 float g = this.random.nextFloat() * 0.5f + 0.5f;
-                float h = MathHelper.sin(f) * (float) i * 0.5f * g;
-                float k = MathHelper.cos(f) * (float) i * 0.5f * g;
+                float h = MathHelper.sin(f) * (float) eventWave * 0.5f * g;
+                float k = MathHelper.cos(f) * (float) eventWave * 0.5f * g;
                 this.world.addParticle(this.getParticles(), this.getX() + (double) h, this.getY(), this.getZ() + (double) k, 0.0, 0.0, 0.0);
             }
             this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);

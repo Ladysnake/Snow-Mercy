@@ -22,6 +22,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LightType;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
@@ -98,18 +99,19 @@ public class IceHeartEntity extends Entity {
         }
 
         if (this.isActive()) {
-            this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + random.nextGaussian() / 5f, this.getY() + random.nextFloat() / 2f, this.getZ() + random.nextGaussian() / 5f, random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
+            this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY()+.25, this.getZ(), random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
+            this.world.addParticle(ParticleTypes.END_ROD, this.getX(), this.getY()+.25, this.getZ(), random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
 
             if (!world.isClient && this.age % 5 == 0) {
                 int wave = SnowMercyComponents.SNOWMERCY.get(this.world).getEventWave();
 
                 // check if there are enemies left to spawn
+                List<MobEntity> enemiesLeft = world.getEntitiesByClass(MobEntity.class, this.getBoundingBox().expand(100f, 30f, 100f), entity -> entity instanceof SnowMercyEnemy);
                 SnowMercyWaves.WAVES.get(wave).removeIf(waveSpawnEntry -> waveSpawnEntry.count <= 0);
-                if (!SnowMercyWaves.WAVES.get(wave).isEmpty()) {
+                if (!SnowMercyWaves.WAVES.get(wave).isEmpty() && enemiesLeft.size() < 100) {
                     int i = random.nextInt(SnowMercyWaves.WAVES.get(wave).size());
 
                     MobEntity enemy = SnowMercyWaves.WAVES.get(wave).get(i).entityType.create(this.world);
-                    SnowMercyWaves.WAVES.get(wave).get(i).count--;
 
                     enemy.initialize((ServerWorldAccess) world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);
 
@@ -124,26 +126,31 @@ public class IceHeartEntity extends Entity {
 
                     BlockPos offsetPos = new BlockPos(x, this.getY(), z);
                     for (int groundOffset = -10; groundOffset < 10; groundOffset++) {
-                        if ((world.getBlockState(offsetPos.add(0, groundOffset, 0)).isAir() || world.getBlockState(offsetPos.add(0, groundOffset, 0)).getBlock() == Blocks.SNOW) && world.isSkyVisible(offsetPos.add(0, groundOffset, 0)) && world.getBlockState(offsetPos.add(0, groundOffset - 1, 0)).isFullCube(world, offsetPos.add(0, groundOffset - 1, 0))) {
+                        if ((world.getBlockState(offsetPos.add(0, groundOffset, 0)).isAir() || world.getBlockState(offsetPos.add(0, groundOffset, 0)).getBlock() == Blocks.SNOW) && world.getLightLevel(LightType.SKY, offsetPos.add(0, groundOffset, 0)) >= 15f && (world.getBlockState(offsetPos.add(0, groundOffset - 1, 0)).isSolidBlock(world, offsetPos.add(0, groundOffset - 1, 0)) || world.getBlockState(offsetPos.add(0, groundOffset - 1, 0)).getBlock() == Blocks.ICE)) {
                             enemy.setPosition(offsetPos.getX(), offsetPos.getY() + groundOffset, offsetPos.getZ());
                             enemy.setPersistent();
                             world.spawnEntity(enemy);
+                            SnowMercyWaves.WAVES.get(wave).get(i).count--;
                             break;
                         }
                     }
+
                 } else {
                     // if there are no ennemies left to spawn, check if all have been defeated
-                    List<MobEntity> enemiesLeft = world.getEntitiesByClass(MobEntity.class, this.getBoundingBox().expand(100f, 30f, 100f), entity -> entity instanceof SnowMercyEnemy);
-                    if (enemiesLeft.isEmpty()) {
+                    if (enemiesLeft.size() <= 10) {
                         SnowMercyComponents.SNOWMERCY.get(this.world).setEventWave(wave + 1);
 
                         this.discard();
                         this.playSound(SoundEvents.ENTITY_PLAYER_HURT_FREEZE, 1.0f, 1.2f);
                         this.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 1.2f);
-                        ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY() + .25, this.getZ(), 200, 0, 0, 0, random.nextGaussian() / 10f);
-                    } else if (enemiesLeft.size() < 10) {
+                        ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY() + .25, this.getZ(), 200, 0, 0, 0, random.nextGaussian() / 5f);
+                    } else {
                         for (MobEntity mobEntity : enemiesLeft) {
-                            mobEntity.setGlowing(true);
+                            if (Math.sqrt(this.squaredDistanceTo(mobEntity)) > 80f) {
+                                mobEntity.setGlowing(true);
+                            } else {
+                                mobEntity.setGlowing(false);
+                            }
                         }
                     }
                 }

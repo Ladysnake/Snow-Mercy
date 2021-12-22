@@ -20,12 +20,14 @@ public class FollowGoal extends Goal {
     private int updateCountdownTicks;
     private int field_24667;
     private long lastUpdateTime;
+    private final int minDistance;
 
-    public FollowGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
+    public FollowGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle, int minDistance) {
         this.mob = mob;
         this.speed = speed;
         this.pauseWhenMobIdle = pauseWhenMobIdle;
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        this.minDistance = minDistance;
     }
 
     public boolean canStart() {
@@ -83,7 +85,7 @@ public class FollowGoal extends Goal {
     }
 
     public void tick() {
-        if (Math.sqrt(this.mob.getBlockPos().getSquaredDistance(this.mob.getTarget().getBlockPos())) <= 4.0f) {
+        if (Math.sqrt(this.mob.getBlockPos().getSquaredDistance(this.mob.getTarget().getBlockPos())) <= minDistance) {
             this.stop();
         }
 

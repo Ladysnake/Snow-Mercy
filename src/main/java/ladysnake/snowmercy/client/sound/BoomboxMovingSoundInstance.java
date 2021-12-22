@@ -14,7 +14,7 @@ public class BoomboxMovingSoundInstance extends MovingSoundInstance {
     private float distance = 0.0f;
 
     public BoomboxMovingSoundInstance(IceboomboxEntity iceboombox) {
-        super(SnowMercySoundEvents.JINGLE_BELLS, SoundCategory.HOSTILE);
+        super(SnowMercySoundEvents.JINGLE_BELLS, SoundCategory.RECORDS);
 
         this.iceboombox = iceboombox;
         this.repeat = true;

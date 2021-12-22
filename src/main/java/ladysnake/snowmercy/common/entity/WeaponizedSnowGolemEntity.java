@@ -1,5 +1,6 @@
 package ladysnake.snowmercy.common.entity;
 
+import ladysnake.snowmercy.common.entity.ai.goal.GoToHeartGoal;
 import ladysnake.snowmercy.common.entity.ai.goal.WeaponizedSnowGolemFollowTargetGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -55,6 +56,9 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity implemen
 
     @Override
     protected void initGoals() {
+
+        this.targetSelector.add(1, new GoToHeartGoal(this, 1.0f, false, 20));
+
         // hostile (1) goals = target weaponized snowmen with a pumpkin (2) + snow golems + players
         this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, WeaponizedSnowGolemEntity.class, 10, true, false, 1, livingEntity -> ((WeaponizedSnowGolemEntity) livingEntity).getHead() != 1));
         this.targetSelector.add(1, new WeaponizedSnowGolemFollowTargetGoal(this, SnowGolemEntity.class, 100, true, false, 1, livingEntity -> !(livingEntity instanceof WeaponizedSnowGolemEntity)));

@@ -4,6 +4,7 @@
   "package": "ladysnake.snowmercy.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "EntityMixin",
     "FireworkRocketEntityInvoker",
     "FoxEntityInvoker",
     "FoxEntityMixin",

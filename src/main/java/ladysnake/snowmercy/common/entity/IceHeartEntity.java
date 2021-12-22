@@ -3,14 +3,15 @@ package ladysnake.snowmercy.common.entity;
 import ladysnake.snowmercy.cca.SnowMercyComponents;
 import ladysnake.snowmercy.common.init.SnowMercySoundEvents;
 import ladysnake.snowmercy.common.init.SnowMercyWaves;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class IceHeartEntity extends Entity {
     private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IceHeartEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final int SPAWN_RADIUS = 100;
 
     public IceHeartEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -40,12 +42,14 @@ public class IceHeartEntity extends Entity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-
+        if (nbt.contains("Active")) {
+            this.setActive(nbt.getBoolean("Active"));
+        }
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
-
+        nbt.putBoolean("Active", this.isActive());
     }
 
     @Override
@@ -59,21 +63,42 @@ public class IceHeartEntity extends Entity {
     }
 
     @Override
+    public boolean doesRenderOnFire() {
+        return super.doesRenderOnFire();
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if (!this.isActive()) {
+            this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 10.0f, 2.0f);
+            this.setActive(true);
+        }
+
+        return super.damage(source, amount);
+    }
+
+    @Override
+    public boolean collides() {
+        return true;
+    }
+
+    @Override
+    public boolean isCollidable() {
+        return true;
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
         this.age++;
-
-        if (!SnowMercyComponents.SNOWMERCY.get(this.world).isEventOngoing()) {
-            this.setActive(false);
-        }
 
         if (world.getTime() % 65 == 0) {
             this.playSound(SnowMercySoundEvents.HEART_OF_ICE_AMBIENT, 1.0f, 1.0f);
         }
 
         if (this.isActive()) {
-            this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + random.nextGaussian() / 3f, this.getY() + random.nextFloat() * 6f, this.getZ() + random.nextGaussian() / 3f, 0, 0, 0);
+            this.world.addParticle(ParticleTypes.SNOWFLAKE, this.getX() + random.nextGaussian() / 5f, this.getY() + random.nextFloat() / 2f, this.getZ() + random.nextGaussian() / 5f, random.nextGaussian() / 10f, random.nextGaussian() / 10f, random.nextGaussian() / 10f);
 
             if (!world.isClient && this.age % 5 == 0) {
                 int wave = SnowMercyComponents.SNOWMERCY.get(this.world).getEventWave();
@@ -83,41 +108,45 @@ public class IceHeartEntity extends Entity {
                 if (!SnowMercyWaves.WAVES.get(wave).isEmpty()) {
                     int i = random.nextInt(SnowMercyWaves.WAVES.get(wave).size());
 
-                    MobEntity ennemy = SnowMercyWaves.WAVES.get(wave).get(i).entityType.create(this.world);
+                    MobEntity enemy = SnowMercyWaves.WAVES.get(wave).get(i).entityType.create(this.world);
                     SnowMercyWaves.WAVES.get(wave).get(i).count--;
 
-                    ennemy.initialize((ServerWorldAccess) world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.JOCKEY, null, null);
+                    enemy.initialize((ServerWorldAccess) world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);
 
-                    BlockPos offsetPos = this.getBlockPos().add(this.getX(), this.getY(), this.getZ());
-                    for (int y = -10; y < 10; y++) {
-                        if (world.getBlockState(offsetPos.add(0, y, 0)).isAir()) {
-                            ennemy.setPosition(offsetPos.getX(), offsetPos.getY() + y, offsetPos.getZ());
-                            ennemy.setPersistent();
-                            world.spawnEntity(ennemy);
+                    var angle = Math.random() * Math.PI * 2;
+                    float x = (float) (this.getX() + (Math.cos(angle) * SPAWN_RADIUS));
+                    float z = (float) (this.getZ() + (Math.sin(angle) * SPAWN_RADIUS));
+
+                    if (enemy instanceof IceballEntity) {
+                        x = (float) (this.getX() + (Math.cos(angle) * (SPAWN_RADIUS/5f)));
+                        z = (float) (this.getZ() + (Math.sin(angle) * (SPAWN_RADIUS/5f)));
+                    }
+
+                    BlockPos offsetPos = new BlockPos(x, this.getY(), z);
+                    for (int groundOffset = -10; groundOffset < 10; groundOffset++) {
+                        if ((world.getBlockState(offsetPos.add(0, groundOffset, 0)).isAir() || world.getBlockState(offsetPos.add(0, groundOffset, 0)).getBlock() == Blocks.SNOW) && world.isSkyVisible(offsetPos.add(0, groundOffset, 0)) && world.getBlockState(offsetPos.add(0, groundOffset - 1, 0)).isFullCube(world, offsetPos.add(0, groundOffset - 1, 0))) {
+                            enemy.setPosition(offsetPos.getX(), offsetPos.getY() + groundOffset, offsetPos.getZ());
+                            enemy.setPersistent();
+                            world.spawnEntity(enemy);
                             break;
                         }
                     }
                 } else {
                     // if there are no ennemies left to spawn, check if all have been defeated
-                    if (world.getEntitiesByClass(MobEntity.class, this.getBoundingBox().expand(100f, 30f, 100f), entity -> entity instanceof WeaponizedSnowGolemEntity || entity instanceof HeadmasterEntity || entity instanceof PolarBearerEntity || entity instanceof TundrabidEntity || entity instanceof IceballEntity).isEmpty()) {
-                        SnowMercyComponents.SNOWMERCY.get(this.world).stopEvent(world);
+                    List<MobEntity> enemiesLeft = world.getEntitiesByClass(MobEntity.class, this.getBoundingBox().expand(100f, 30f, 100f), entity -> entity instanceof SnowMercyEnemy);
+                    if (enemiesLeft.isEmpty()) {
                         SnowMercyComponents.SNOWMERCY.get(this.world).setEventWave(wave + 1);
 
                         this.discard();
-                        this.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 0.5f);
-                        ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY(), this.getZ(), 200, random.nextGaussian() / 3f, this.getY() + random.nextFloat() * 6f, this.getZ() + random.nextGaussian() / 3f, random.nextGaussian() / 10f);
+                        this.playSound(SoundEvents.ENTITY_PLAYER_HURT_FREEZE, 1.0f, 1.2f);
+                        this.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 1.2f);
+                        ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY() + .25, this.getZ(), 200, 0, 0, 0, random.nextGaussian() / 10f);
+                    } else if (enemiesLeft.size() < 10) {
+                        for (MobEntity mobEntity : enemiesLeft) {
+                            mobEntity.setGlowing(true);
+                        }
                     }
                 }
-            }
-        } else if (!SnowMercyComponents.SNOWMERCY.get(this.world).isEventOngoing() && !this.isInvisible()) {
-            List<SnowballEntity> snowballs = this.world.getEntitiesByClass(SnowballEntity.class, this.getBoundingBox(), snowballEntity -> true);
-            if (!snowballs.isEmpty()) {
-                for (SnowballEntity snowball : snowballs) {
-                    snowball.discard();
-                }
-
-                this.setActive(true);
-                SnowMercyComponents.SNOWMERCY.get(this.world).startEvent(this.world);
             }
         }
     }

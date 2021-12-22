@@ -1,8 +1,6 @@
 package ladysnake.snowmercy.common.entity;
 
-import ladysnake.snowmercy.common.entity.ai.goal.DeployHeadsGoal;
-import ladysnake.snowmercy.common.entity.ai.goal.HeadmasterMinigunAttackGoal;
-import ladysnake.snowmercy.common.entity.ai.goal.ReviveSurgeGoal;
+import ladysnake.snowmercy.common.entity.ai.goal.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -42,7 +40,7 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable, Snow
 
     public HeadmasterEntity(EntityType<? extends HeadmasterEntity> entityType, World world) {
         super(entityType, world);
-        this.stepHeight = 1f;
+        this.stepHeight = 2f;
     }
 
     public static DefaultAttributeContainer.Builder createHeadmasterAttributes() {
@@ -52,7 +50,10 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable, Snow
     @Override
     protected void initGoals() {
         // common goals
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true, entity -> this.isTurret()));
+        this.targetSelector.add(1, new GoToHeartGoal(this, 1.0f, false, 20));
+        this.goalSelector.add(1, new FollowGoal(this, 1.0D, false, 10));
+
+        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true, entity -> true));
         this.goalSelector.add(2, new HeadmasterMinigunAttackGoal(this, 2.0D, 40, 8f, 20, 0));
 
         this.goalSelector.add(2, new DeployHeadsGoal(this));
@@ -100,14 +101,11 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable, Snow
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 BlockPos pos = this.getBlockPos().add(x, 0, z);
-                if (this.world.getBlockState(pos).getBlock() == Blocks.AIR && this.world.getBlockState(pos.add(0, -1, 0)).isSolidBlock(world, pos.add(0, -1, 0))) {
+                if (this.world.getBlockState(pos).getBlock() == Blocks.AIR && Blocks.SNOW.getDefaultState().canPlaceAt(this.world, pos)) {
                     world.setBlockState(pos, Blocks.SNOW.getDefaultState());
                 }
-                if (this.world.getBlockState(pos).getBlock() == Blocks.WATER) {
-                    world.setBlockState(pos, Blocks.FROSTED_ICE.getDefaultState());
-                }
-                if (this.world.getBlockState(pos).getBlock() == Blocks.POWDER_SNOW) {
-                    world.breakBlock(pos, false);
+                if (this.world.getBlockState(pos.add(0, -1, 0)).getBlock() == Blocks.WATER) {
+                    world.setBlockState(pos.add(0, -1, 0), Blocks.FROSTED_ICE.getDefaultState());
                 }
             }
         }

@@ -21,7 +21,7 @@ public class SnowMercyEventComponent implements AutoSyncedComponent {
     }
 
     public void setEventWave(int wave) {
-        if (wave <= 10 && wave >= 0) {
+        if (wave <= 9 && wave >= 0) {
             this.eventWave = wave;
         } else {
             SnowMercyWaves.resetWaves();

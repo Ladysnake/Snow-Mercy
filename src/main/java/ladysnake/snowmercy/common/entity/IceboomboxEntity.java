@@ -19,7 +19,7 @@ public class IceboomboxEntity extends WeaponizedSnowGolemEntity {
     @Override
     protected void initGoals() {
         super.initGoals();
-        this.goalSelector.add(1, new FollowGoal(this, 1.0D, false));
+        this.goalSelector.add(1, new FollowGoal(this, 1.0D, false, 4));
     }
 
     @Override

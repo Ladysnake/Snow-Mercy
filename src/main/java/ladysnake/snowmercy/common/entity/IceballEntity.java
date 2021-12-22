@@ -1,8 +1,13 @@
 package ladysnake.snowmercy.common.entity;
 
+import ladysnake.snowmercy.common.entity.ai.goal.GoToHeartGoal;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
@@ -19,6 +24,16 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
 
     public IceballEntity(EntityType<? extends SlimeEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Override
+    protected void initGoals() {
+        super.initGoals();
+        this.targetSelector.add(1, new GoToHeartGoal(this, 1.0f, false, 20));
+    }
+
+    public static DefaultAttributeContainer.Builder createIceballAttributes() {
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f);
     }
 
     @Override
@@ -47,7 +62,7 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
         super.tick();
         int i = this.getSize();
 
-        if (this.onGround && this.getTarget() != null && Math.sqrt(this.getTarget().getBlockPos().getSquaredDistance(this.getBlockPos())) <= i * 5f) {
+        if (this.onGround && this.getTarget() != null && Math.sqrt(this.getTarget().getBlockPos().getSquaredDistance(this.getBlockPos())) <= i * 2f) {
             for (int j = 0; j < i * 8; ++j) {
                 float f = this.random.nextFloat() * ((float) Math.PI * 2);
                 float g = this.random.nextFloat() * 0.5f + 0.5f;

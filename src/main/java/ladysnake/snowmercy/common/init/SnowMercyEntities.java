@@ -64,9 +64,9 @@ public class SnowMercyEntities {
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.BOOMBOX, IceboomboxEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.SNOW_GOLEM_HEAD, SnowGolemHeadEntity.createEntityAttributes());
         FabricDefaultAttributeRegistry.register(SnowMercyEntities.HEADMASTER, HeadmasterEntity.createHeadmasterAttributes());
-        FabricDefaultAttributeRegistry.register(SnowMercyEntities.POLAR_BEARER, PolarBearerEntity.createPolarBearAttributes());
-        FabricDefaultAttributeRegistry.register(SnowMercyEntities.TUNDRABID, TundrabidEntity.createFoxAttributes());
-        FabricDefaultAttributeRegistry.register(SnowMercyEntities.ICEBALL, HostileEntity.createHostileAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.POLAR_BEARER, PolarBearerEntity.createPolarBearerAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.TUNDRABID, TundrabidEntity.createTundrabidAttributes());
+        FabricDefaultAttributeRegistry.register(SnowMercyEntities.ICEBALL, IceballEntity.createIceballAttributes());
     }
 
     private static <T extends Entity> EntityType<T> register(String s, EntityType<T> entityType) {

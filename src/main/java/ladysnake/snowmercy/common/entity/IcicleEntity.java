@@ -76,7 +76,7 @@ public class IcicleEntity extends PersistentProjectileEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
 
-        if (!(entity.isInvulnerable() || entity instanceof SnowMercyEnemy)) {
+        if (!(entity.isInvulnerable() || entity instanceof SnowMercyEnemy || entity instanceof IceHeartEntity)) {
             Entity entity2 = this.getOwner();
             DamageSource damageSource2;
             if (entity2 == null) {

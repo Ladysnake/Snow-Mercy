@@ -1,12 +1,16 @@
 package ladysnake.snowmercy.common.entity;
 
+import ladysnake.snowmercy.common.entity.ai.goal.GoToHeartGoal;
 import ladysnake.snowmercy.common.init.SnowMercyEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.ServerWorldAccess;
@@ -21,6 +25,7 @@ public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy
 
     @Override
     protected void initGoals() {
+        this.targetSelector.add(1, new GoToHeartGoal(this, 1.0f, false, 20));
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AttackGoal());
         this.goalSelector.add(1, new PolarBearEscapeDangerGoal());
@@ -83,6 +88,10 @@ public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy
                 world.spawnEntity(rider);
             }
         }
+    }
+
+    public static DefaultAttributeContainer.Builder createPolarBearerAttributes() {
+        return PolarBearEntity.createPolarBearAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f);
     }
 
     @Override

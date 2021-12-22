@@ -149,7 +149,22 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity implemen
     }
 
     @Override
+    public boolean doesRenderOnFire() {
+        return false;
+    }
+
+    @Override
     public boolean damage(DamageSource source, float amount) {
+        if (!world.isClient) {
+            if (source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE) {
+                this.setInvisible(true);
+                this.setSilent(true);
+                this.setGlowing(false);
+                ((ServerWorld) world).spawnParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY(), this.getZ(), 50, random.nextGaussian() / 2f, random.nextFloat() *2f, random.nextGaussian() / 2f, 0);
+                this.kill();
+            }
+        }
+
         if (!(source.getAttacker() instanceof WeaponizedSnowGolemEntity)) {
             if (this.getHead() == 1 && !(this instanceof SnowGolemHeadEntity) && source.getAttacker() instanceof LivingEntity) {
                 double eyeHeight = this.getY() + this.getEyeHeight(this.getPose(), this.getDimensions(this.getPose())) - 0.3f;

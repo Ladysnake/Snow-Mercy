@@ -146,7 +146,7 @@ public class IceHeartEntity extends Entity {
                         ((ServerWorld) this.world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.PACKED_ICE, 1)), this.getX(), this.getY() + .25, this.getZ(), 200, 0, 0, 0, random.nextGaussian() / 5f);
                     } else {
                         for (MobEntity mobEntity : enemiesLeft) {
-                            if (Math.sqrt(this.squaredDistanceTo(mobEntity)) > 80f) {
+                            if (Math.sqrt(this.squaredDistanceTo(mobEntity)) > 80f && mobEntity.isAlive()) {
                                 mobEntity.setGlowing(true);
                             } else {
                                 mobEntity.setGlowing(false);

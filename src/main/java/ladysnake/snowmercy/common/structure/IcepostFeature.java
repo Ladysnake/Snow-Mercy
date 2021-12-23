@@ -38,7 +38,7 @@ public class IcepostFeature extends StructureFeature<DefaultFeatureConfig> {
         int x = chunkPos.x * 16;
         int z = chunkPos.z * 16;
 
-        if (!context.isBiomeValid(Heightmap.Type.WORLD_SURFACE)) {
+        if (!(context.isBiomeValid(Heightmap.Type.WORLD_SURFACE) && context.world().getBottomY() == -80 && context.world().getHeight() == 304)) {
             return Optional.empty();
         }
 

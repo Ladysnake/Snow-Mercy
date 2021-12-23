@@ -27,12 +27,12 @@ public final class SnowMercyFeatures {
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ICEPOST = ICEPOST.configure(DefaultFeatureConfig.INSTANCE);
 
     public static void init() {
-        PILLAR_BIOMES.add(BiomeKeys.SNOWY_PLAINS);
-        PILLAR_BIOMES.add(BiomeKeys.ICE_SPIKES);
-        PILLAR_BIOMES.add(BiomeKeys.SNOWY_TAIGA);
-        PILLAR_BIOMES.add(BiomeKeys.GROVE);
-        PILLAR_BIOMES.add(BiomeKeys.SNOWY_SLOPES);
-        PILLAR_BIOMES.add(BiomeKeys.FROZEN_PEAKS);
+        PILLAR_BIOMES.add(SnowMercyBiomeKeys.NORTHERN_SNOWY_PLAINS);
+        PILLAR_BIOMES.add(SnowMercyBiomeKeys.NORTHERN_ICE_SPIKES);
+        PILLAR_BIOMES.add(SnowMercyBiomeKeys.NORTHERN_SNOWY_TAIGA);
+        PILLAR_BIOMES.add(SnowMercyBiomeKeys.NORTHERN_GROVE);
+        PILLAR_BIOMES.add(SnowMercyBiomeKeys.NORTHERN_SNOWY_SLOPES);
+        PILLAR_BIOMES.add(SnowMercyBiomeKeys.NORTHERN_FROZEN_PEAKS);
 
         FabricStructureBuilder.create(new Identifier(SnowMercy.MODID, "icepost"), ICEPOST)
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)

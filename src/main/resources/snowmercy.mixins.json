@@ -8,7 +8,6 @@
     "FireworkRocketEntityInvoker",
     "FoxEntityInvoker",
     "FoxEntityMixin",
-    "HostileEntityMixin",
     "PowderSnowBlockMixin"
   ],
   "client": [

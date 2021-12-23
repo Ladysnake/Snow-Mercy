@@ -8,7 +8,7 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "minecraft:snowy_taiga",
+          "biome": "snowmercy:northern_snowy_taiga",
           "parameters": {
             "temperature": -0.1,
             "humidity": 0.45,
@@ -20,7 +20,7 @@
           }
         },
         {
-          "biome": "minecraft:snowy_plains",
+          "biome": "snowmercy:northern_snowy_plains",
           "parameters": {
             "temperature": 0,
             "humidity": 0.6,
@@ -32,7 +32,7 @@
           }
         },
         {
-          "biome": "minecraft:ice_spikes",
+          "biome": "snowmercy:northern_ice_spikes",
           "parameters": {
             "temperature": 0,
             "humidity": 0.5,
@@ -44,7 +44,7 @@
           }
         },
         {
-          "biome": "minecraft:grove",
+          "biome": "snowmercy:northern_grove",
           "parameters": {
             "temperature": -0.1,
             "humidity": 0.35,
@@ -56,7 +56,7 @@
           }
         },
         {
-          "biome": "minecraft:snowy_slopes",
+          "biome": "snowmercy:northern_snowy_slopes",
           "parameters": {
             "temperature": -0.3,
             "humidity": 0,
@@ -68,7 +68,7 @@
           }
         },
         {
-          "biome": "minecraft:frozen_peaks",
+          "biome": "snowmercy:northern_frozen_peaks",
           "parameters": {
             "temperature": -0.1,
             "humidity": 0,

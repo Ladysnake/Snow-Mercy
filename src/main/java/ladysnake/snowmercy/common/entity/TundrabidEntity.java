@@ -3,10 +3,12 @@ package ladysnake.snowmercy.common.entity;
 import ladysnake.snowmercy.common.entity.ai.goal.GoToHeartGoal;
 import ladysnake.snowmercy.mixin.FoxEntityInvoker;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.FoxEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class TundrabidEntity extends FoxEntity implements SnowMercyEnemy {
@@ -46,4 +48,8 @@ public class TundrabidEntity extends FoxEntity implements SnowMercyEnemy {
         return true;
     }
 
+    @Override
+    public boolean canTarget(LivingEntity target) {
+        return target instanceof PlayerEntity || target instanceof WeaponizedSnowGolemEntity;
+    }
 }

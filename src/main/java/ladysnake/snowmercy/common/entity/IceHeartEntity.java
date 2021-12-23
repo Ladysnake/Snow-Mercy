@@ -85,10 +85,10 @@ public class IceHeartEntity extends Entity {
             this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 10.0f, 2.0f);
             this.setActive(true);
 
-            int wave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave()+1;
+            int wave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave();
 
             world.getPlayers().forEach(serverPlayerEntity -> {
-                MutableText waveText = new TranslatableText("info.snowmercy.wave_start", world.getRegistryKey().getValue().getPath()).append(wave +": ");
+                MutableText waveText = new TranslatableText("info.snowmercy.wave_start", world.getRegistryKey().getValue().getPath()).append(wave+1 +": ");
                 int i = 0;
                 for (WaveSpawnEntry waveSpawnEntry : SnowMercyWaves.WAVES.get(wave)) {
                     if (i > 0) {

@@ -1,5 +1,28 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy 2.0 - 1.18.1
+- Added a new dimension, the Winter Murderland. Get to it by encasing 3 vertical powder snow in blue ice, and then letting yourself sink to the bottom
+- Added Iceposts structures. Found in the Winter Murderland, they contain a heart of ice. Break the heart to launch a Snow Mercy wave
+- Added a new wave system, with ten unique waves to beat to get gifts and leave the dimension
+- Added gifts that drop from the sky when finishing a wave
+- Added Iceboomboxes, a passive enemy snowman that will follow you around and play christmas music
+- Added Tundrabids, rabid tundra foxes
+- Added Iceballs, frozen slimes that will launch in the air when close enough to their target, and land to break into multiple icicles
+- Added Polar Bearers, polar bear riding aftermarket snowmen
+- Added the Headmaster, a new miniboss with two combat phases and the ability to deploy and revive snowman heads
+- Added the Skillotine, a new weapon that combines shovel and sword uses
+- Added the Coal burner, a flamethrower, very efficient against snow, ice and snowmen. Even more efficient when using blaze powder instead of coal
+- Added the hammersledge, a new vehicle that skates on ice, snow, uphill, and can be used to ram mobs and players
+- Icicles no longer pierce through shields and entities
+- Shovel beheading is now guaranteed
+- Buffed the aftermarket snowmen rocket drops
+- Killing a snowman now makes them drop their head
+- Icicles now add freezing damage
+- Beheaded snowmen will now turn rogue and attack any living entity except players
+- Mister Snuggles now disperse powder snow when exploding instead of regular snow blocks
+- Mister Snuggles no longer destroy blocks
+- Updated to Minecraft 1.18.1
+
 ### Snow Mercy 1.0.6 - 1.17.1
 - Ported to 1.17.1
 - Snowmen made immune to freezing in powder snow

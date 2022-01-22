@@ -1,16 +1,18 @@
 package ladysnake.snowmercy.common.block;
 
-import ladysnake.snowmercy.cca.SnowMercyComponents;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.explosion.Explosion;
 
 public class FrozenLodestoneBlock extends Block {
     public FrozenLodestoneBlock(Settings settings) {
@@ -18,34 +20,21 @@ public class FrozenLodestoneBlock extends Block {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
-        if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).stopEvent(world);
-        }
-    }
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!world.isClient && !player.hasVehicle() && !player.hasPassengers() && player.canUsePortals()) {
+            ServerWorld spawnWorld = world.getServer().getWorld(((ServerPlayerEntity)player).getSpawnPointDimension());
 
-    @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        super.onBroken(world, pos, state);
-        if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).stopEvent((ServerWorld) world);
-        }
-    }
+            if (spawnWorld == null) {
+                spawnWorld = world.getServer().getOverworld();
+            }
 
-    @Override
-    public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
-        super.onDestroyedByExplosion(world, pos, explosion);
-        if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).stopEvent(world);
+            BlockPos spawn = ((ServerPlayerEntity) player).getSpawnPointPosition();
+            if (spawn == null) {
+                spawn = spawnWorld.getSpawnPos();
+            }
+            FabricDimensions.teleport(player, spawnWorld, new TeleportTarget(new Vec3d(spawn.getX(), spawn.getY(), spawn.getZ()), Vec3d.ZERO, player.getYaw(), 90));
         }
-    }
 
-    @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
-        if (world instanceof ServerWorld) {
-            SnowMercyComponents.SNOWMERCY.get(world).startEvent(world);
-        }
+        return super.onUse(state, world, pos, player, hand, hit);
     }
 }

@@ -5,7 +5,6 @@
 - Snowmen made immune to freezing in powder snow
 - Snow explosions are now made of half powder and half ordinary snow blocks
 
-
 ### Snow Mercy 1.0.5 - 1.16.5
 - Fixed a crash that would occur with VoxelMap installed
 

@@ -1,10 +1,7 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.cca.SnowMercyComponents;
-import ladysnake.snowmercy.common.init.SnowMercyEntities;
-import ladysnake.snowmercy.common.init.SnowMercySoundEvents;
-import ladysnake.snowmercy.common.init.SnowMercyWaves;
-import ladysnake.snowmercy.common.init.WaveSpawnEntry;
+import ladysnake.snowmercy.common.init.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -186,6 +183,10 @@ public class IceHeartEntity extends Entity {
                             serverPlayerEntity.sendMessage(
                                     new TranslatableText("info.snowmercy.wave_cleared", world.getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false);
                         });
+
+                        if (SnowMercyComponents.SNOWMERCY.get(world).getEventWave() >= 10) {
+                            world.setBlockState(this.getBlockPos(), SnowMercyBlocks.FROZEN_LODESTONE.getDefaultState());
+                        }
 
                         this.discard();
                         this.playSound(SoundEvents.ENTITY_PLAYER_HURT_FREEZE, 1.0f, 1.2f);

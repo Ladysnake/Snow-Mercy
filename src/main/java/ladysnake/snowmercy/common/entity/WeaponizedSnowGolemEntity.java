@@ -108,7 +108,7 @@ public abstract class WeaponizedSnowGolemEntity extends PathAwareEntity implemen
 
     @Override
     protected void onKilledBy(@Nullable LivingEntity adversary) {
-        if (adversary instanceof PlayerEntity && this.getHead() != 0 && !this.isOnFire()) {
+        if (adversary instanceof PlayerEntity && this.getHead() != 0 && !this.isOnFire() && !this.isAiDisabled()) {
             this.setHead(0);
 
             double eyeHeight = this.getY() + this.getEyeHeight(this.getPose(), this.getDimensions(this.getPose())) - 0.3f;

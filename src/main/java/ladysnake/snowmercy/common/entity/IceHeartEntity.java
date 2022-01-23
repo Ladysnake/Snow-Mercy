@@ -184,9 +184,9 @@ public class IceHeartEntity extends Entity {
                                     new TranslatableText("info.snowmercy.wave_cleared", world.getRegistryKey().getValue().getPath()).setStyle(EMPTY.withColor(Formatting.AQUA)), false);
                         });
 
-                        if (SnowMercyComponents.SNOWMERCY.get(world).getEventWave() >= 10) {
+//                        if (SnowMercyComponents.SNOWMERCY.get(world).getEventWave() >= 9) {
                             world.setBlockState(this.getBlockPos(), SnowMercyBlocks.FROZEN_LODESTONE.getDefaultState());
-                        }
+//                        }
 
                         this.discard();
                         this.playSound(SoundEvents.ENTITY_PLAYER_HURT_FREEZE, 1.0f, 1.2f);

@@ -1,5 +1,9 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy 2.0.1 - 1.18.1
+- Removed the frozen compass
+- Fixed the frozen lodestone not spawning after wave 10
+
 ### Snow Mercy 2.0 - 1.18.1
 - Added a new dimension, the Winter Murderland. Get to it by encasing 3 vertical powder snow in blue ice, and then letting yourself sink to the bottom
 - Added Iceposts structures. Found in the Winter Murderland, they contain a heart of ice. Break the heart to launch a Snow Mercy wave

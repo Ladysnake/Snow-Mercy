@@ -9,14 +9,12 @@ import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.registry.Registry;
 
 public class SnowMercyItems {
-    public static Item FROZEN_COMPASS;
     public static Item SKILLOTINE;
     public static Item COAL_BURNER;
     public static Item SLEDGE;
     public static Item SUMMONER;
 
     public static void init() {
-        FROZEN_COMPASS = registerItem(new FrozenCompassItem(new FabricItemSettings().maxCount(1).group(ItemGroup.MISC)), "frozen_compass");
         SKILLOTINE = registerItem(new SkillotineItem(ToolMaterials.DIAMOND, 3, -2.4f, new Item.Settings().group(ItemGroup.COMBAT)), "skillotine");
         COAL_BURNER = registerItem(new CoalBurnerItem(new Item.Settings().group(ItemGroup.COMBAT).maxCount(1).maxDamage(13000)), "coal_burner");
         SLEDGE = registerItem(new SledgeItem(new Item.Settings().group(ItemGroup.TRANSPORTATION).maxCount(1)), "hammersledge");

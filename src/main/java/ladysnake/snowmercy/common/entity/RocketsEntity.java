@@ -1,7 +1,6 @@
 package ladysnake.snowmercy.common.entity;
 
 import ladysnake.snowmercy.common.entity.ai.goal.SalvoProjectileAttackGoal;
-import ladysnake.snowmercy.mixin.FireworkRocketEntityInvoker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -64,7 +63,7 @@ public class RocketsEntity extends WeaponizedSnowGolemEntity implements RangedAt
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         ItemStack droppedStack = this.getMainHandStack();
-        droppedStack.setCount(random.nextInt(6 * (lootingMultiplier+1)));
+        droppedStack.setCount(random.nextInt(6 * (lootingMultiplier + 1)));
         this.dropStack(droppedStack);
     }
 

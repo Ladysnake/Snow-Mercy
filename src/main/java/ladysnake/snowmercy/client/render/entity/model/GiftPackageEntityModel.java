@@ -44,7 +44,7 @@ public class GiftPackageEntityModel<T extends Entity> extends EntityModel<T> {
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        if (((GiftPackageEntity)entity).hasParachute()) {
+        if (((GiftPackageEntity) entity).hasParachute()) {
             gift.getChild("parachute").visible = true;
         } else {
             gift.getChild("parachute").visible = false;

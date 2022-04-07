@@ -1,8 +1,10 @@
 package ladysnake.snowmercy.common.init;
 
 import ladysnake.snowmercy.common.SnowMercy;
-import ladysnake.snowmercy.common.item.*;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import ladysnake.snowmercy.common.item.CoalBurnerItem;
+import ladysnake.snowmercy.common.item.SkillotineItem;
+import ladysnake.snowmercy.common.item.SledgeItem;
+import ladysnake.snowmercy.common.item.SnowMercySummonerItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ToolMaterials;

@@ -12,6 +12,7 @@ import java.util.EnumSet;
 public class FollowGoal extends Goal {
     private final double speed;
     private final boolean pauseWhenMobIdle;
+    private final int minDistance;
     protected PathAwareEntity mob;
     private Path path;
     private double targetX;
@@ -20,7 +21,6 @@ public class FollowGoal extends Goal {
     private int updateCountdownTicks;
     private int field_24667;
     private long lastUpdateTime;
-    private final int minDistance;
 
     public FollowGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle, int minDistance) {
         this.mob = mob;

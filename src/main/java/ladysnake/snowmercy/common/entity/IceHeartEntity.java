@@ -21,9 +21,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -36,9 +34,9 @@ import java.util.List;
 import static net.minecraft.text.Style.EMPTY;
 
 public class IceHeartEntity extends Entity {
-    private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IceHeartEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final int SPAWN_RADIUS = 100;
     public static final int GIFT_SPAWN_RADIUS = 20;
+    private static final TrackedData<Boolean> ACTIVE = DataTracker.registerData(IceHeartEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public IceHeartEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -85,7 +83,7 @@ public class IceHeartEntity extends Entity {
             int wave = SnowMercyComponents.SNOWMERCY.get(world).getEventWave();
 
             world.getPlayers().forEach(serverPlayerEntity -> {
-                MutableText waveText = new TranslatableText("info.snowmercy.wave_start", world.getRegistryKey().getValue().getPath()).append(wave+1 +": ");
+                MutableText waveText = new TranslatableText("info.snowmercy.wave_start", world.getRegistryKey().getValue().getPath()).append(wave + 1 + ": ");
                 int i = 0;
                 for (WaveSpawnEntry waveSpawnEntry : SnowMercyWaves.WAVES.get(wave)) {
                     if (i > 0) {
@@ -138,7 +136,7 @@ public class IceHeartEntity extends Entity {
                 // check if there are enemies left to spawn
                 List<MobEntity> enemiesLeft = world.getEntitiesByClass(MobEntity.class, this.getBoundingBox().expand(100f, 30f, 100f), entity -> entity instanceof SnowMercyEnemy);
                 SnowMercyWaves.WAVES.get(wave).removeIf(waveSpawnEntry -> waveSpawnEntry.count <= 0);
-                if (!SnowMercyWaves.WAVES.get(wave).isEmpty() && enemiesLeft.size() < 50    ) {
+                if (!SnowMercyWaves.WAVES.get(wave).isEmpty() && enemiesLeft.size() < 50) {
                     int i = random.nextInt(SnowMercyWaves.WAVES.get(wave).size());
 
                     MobEntity enemy = SnowMercyWaves.WAVES.get(wave).get(i).entityType.create(this.world);
@@ -185,7 +183,7 @@ public class IceHeartEntity extends Entity {
                         });
 
 //                        if (SnowMercyComponents.SNOWMERCY.get(world).getEventWave() >= 9) {
-                            world.setBlockState(this.getBlockPos(), SnowMercyBlocks.FROZEN_LODESTONE.getDefaultState());
+                        world.setBlockState(this.getBlockPos(), SnowMercyBlocks.FROZEN_LODESTONE.getDefaultState());
 //                        }
 
                         this.discard();

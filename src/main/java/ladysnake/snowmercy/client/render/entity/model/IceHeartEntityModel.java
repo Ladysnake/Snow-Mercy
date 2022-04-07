@@ -35,9 +35,9 @@ public class IceHeartEntityModel<T extends Entity> extends EntityModel<T> {
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         if (entity instanceof IceHeartEntity && ((IceHeartEntity) entity).isActive()) {
-            this.heart.yaw = yaw += new Random().nextFloat()/20f;
-            this.heart.pitch = pitch += new Random().nextFloat()/20f;
-            this.heart.roll = roll += new Random().nextFloat()/20f;
+            this.heart.yaw = yaw += new Random().nextFloat() / 20f;
+            this.heart.pitch = pitch += new Random().nextFloat() / 20f;
+            this.heart.roll = roll += new Random().nextFloat() / 20f;
         } else {
             this.heart.yaw = yaw += 0.001f;
             this.heart.pitch = pitch += 0.001f;

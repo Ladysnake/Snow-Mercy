@@ -1,6 +1,5 @@
 package ladysnake.snowmercy.mixin;
 
-import ladysnake.snowmercy.common.SnowMercy;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;

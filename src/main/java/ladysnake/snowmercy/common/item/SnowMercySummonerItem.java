@@ -1,21 +1,13 @@
 package ladysnake.snowmercy.common.item;
 
 import ladysnake.snowmercy.common.init.SnowMercyEntities;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.command.TeleportCommand;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -39,7 +31,7 @@ public class SnowMercySummonerItem extends Item {
         livingEntities.add(SnowMercyEntities.MORTARS);
         livingEntities.add(SnowMercyEntities.SAWMAN);
         livingEntities.add(SnowMercyEntities.BOOMBOX);
-        
+
         MobEntity mobEntity = livingEntities.get(new Random().nextInt(livingEntities.size())).create(world);
         mobEntity.setPosition(user.getX(), user.getY(), user.getZ());
 
@@ -49,7 +41,6 @@ public class SnowMercySummonerItem extends Item {
         mobEntity.refreshPositionAndAngles(user.getX(), user.getY(), user.getZ(), f, chunkPos);
         mobEntity.setHeadYaw(f);
         mobEntity.setAiDisabled(true);
-
 
 
         world.spawnEntity(mobEntity);

@@ -8,7 +8,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
@@ -27,14 +26,14 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
         super(entityType, world);
     }
 
+    public static DefaultAttributeContainer.Builder createIceballAttributes() {
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f);
+    }
+
     @Override
     protected void initGoals() {
         super.initGoals();
         this.targetSelector.add(1, new GoToHeartGoal(this, 1.0f, false, 20));
-    }
-
-    public static DefaultAttributeContainer.Builder createIceballAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f);
     }
 
     @Override

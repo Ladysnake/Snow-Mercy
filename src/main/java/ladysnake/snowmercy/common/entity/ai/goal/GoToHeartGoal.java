@@ -12,6 +12,7 @@ import java.util.List;
 public class GoToHeartGoal extends Goal {
     private final double speed;
     private final boolean pauseWhenMobIdle;
+    private final int radius;
     protected MobEntity mob;
     private Path path;
     private double targetX;
@@ -20,7 +21,6 @@ public class GoToHeartGoal extends Goal {
     private int updateCountdownTicks;
     private int field_24667;
     private long lastUpdateTime;
-    private final int radius;
     private IceHeartEntity targetHeart;
 
     public GoToHeartGoal(MobEntity mob, double speed, boolean pauseWhenMobIdle, int radius) {

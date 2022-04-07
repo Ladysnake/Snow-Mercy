@@ -10,7 +10,6 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.ServerWorldAccess;
@@ -22,6 +21,10 @@ public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy
         super(entityType, world);
         this.stepHeight = 1f;
 
+    }
+
+    public static DefaultAttributeContainer.Builder createPolarBearerAttributes() {
+        return PolarBearEntity.createPolarBearAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f);
     }
 
     @Override
@@ -89,10 +92,6 @@ public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy
                 world.spawnEntity(rider);
             }
         }
-    }
-
-    public static DefaultAttributeContainer.Builder createPolarBearerAttributes() {
-        return PolarBearEntity.createPolarBearAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0f);
     }
 
     @Override

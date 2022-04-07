@@ -9,7 +9,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -73,11 +72,11 @@ public class GiftPackageEntity extends Entity {
         super.tick();
 
         if (this.getYaw() == 0) {
-            this.setYaw(new Random().nextFloat()*360f);
+            this.setYaw(new Random().nextFloat() * 360f);
         }
 
         if (world.isClient && !this.hasParachute()) {
-            world.addParticle(ParticleTypes.END_ROD, this.getX()+random.nextGaussian()/5f, this.getY()+random.nextFloat()/1.5f, this.getZ()+random.nextGaussian()/5f, 0, 0, 0);
+            world.addParticle(ParticleTypes.END_ROD, this.getX() + random.nextGaussian() / 5f, this.getY() + random.nextFloat() / 1.5f, this.getZ() + random.nextGaussian() / 5f, 0, 0, 0);
         }
 
         if (!world.isClient) {
@@ -89,7 +88,7 @@ public class GiftPackageEntity extends Entity {
                 this.setVelocity(0, -0.2, 0);
             }
             if (!this.hasParachute() && !isOnGround()) {
-                this.setVelocity(0, this.getVelocity().getY()-0.05, 0);
+                this.setVelocity(0, this.getVelocity().getY() - 0.05, 0);
             }
         }
 
@@ -105,12 +104,12 @@ public class GiftPackageEntity extends Entity {
     public ActionResult interact(PlayerEntity player, Hand hand) {
         this.playSound(SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, 1.0f, 1.5f);
         for (int i = 0; i < 50; i++) {
-            world.addParticle(ParticleTypes.END_ROD, this.getX(), this.getY()+.25, this.getZ(), random.nextGaussian(), random.nextFloat(), random.nextGaussian());
-            world.addParticle(ParticleTypes.FIREWORK, this.getX(), this.getY()+.25, this.getZ(), random.nextGaussian(), random.nextFloat(), random.nextGaussian());
+            world.addParticle(ParticleTypes.END_ROD, this.getX(), this.getY() + .25, this.getZ(), random.nextGaussian(), random.nextFloat(), random.nextGaussian());
+            world.addParticle(ParticleTypes.FIREWORK, this.getX(), this.getY() + .25, this.getZ(), random.nextGaussian(), random.nextFloat(), random.nextGaussian());
         }
 
         for (int i = 0; i < 3; i++) {
-            ItemEntity giftItem = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), SnowMercyGifts.getRandomGift(), random.nextGaussian()/10f, 0.3f, random.nextGaussian()/10f);
+            ItemEntity giftItem = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), SnowMercyGifts.getRandomGift(), random.nextGaussian() / 10f, 0.3f, random.nextGaussian() / 10f);
             world.spawnEntity(giftItem);
         }
 

@@ -2,7 +2,6 @@ package ladysnake.snowmercy.mixin;
 
 import ladysnake.snowmercy.common.entity.SledgeEntity;
 import ladysnake.snowmercy.common.entity.SnowMercyEnemy;
-import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;
 import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;

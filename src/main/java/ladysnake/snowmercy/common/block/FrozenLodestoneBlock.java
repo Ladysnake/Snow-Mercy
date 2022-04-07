@@ -22,7 +22,7 @@ public class FrozenLodestoneBlock extends Block {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient && !player.hasVehicle() && !player.hasPassengers() && player.canUsePortals()) {
-            ServerWorld spawnWorld = world.getServer().getWorld(((ServerPlayerEntity)player).getSpawnPointDimension());
+            ServerWorld spawnWorld = world.getServer().getWorld(((ServerPlayerEntity) player).getSpawnPointDimension());
 
             if (spawnWorld == null) {
                 spawnWorld = world.getServer().getOverworld();

@@ -4,7 +4,6 @@ import ladysnake.snowmercy.client.render.entity.*;
 import ladysnake.snowmercy.client.render.entity.model.*;
 import ladysnake.snowmercy.client.sound.BoomboxMovingSoundInstance;
 import ladysnake.snowmercy.common.SnowMercy;
-import ladysnake.snowmercy.common.entity.GiftPackageEntity;
 import ladysnake.snowmercy.common.entity.IceboomboxEntity;
 import ladysnake.snowmercy.common.entity.WeaponizedGolemType;
 import ladysnake.snowmercy.common.entity.WeaponizedSnowGolemEntity;

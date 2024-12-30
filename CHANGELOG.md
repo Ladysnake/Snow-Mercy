@@ -1,5 +1,8 @@
 # Snow Mercy - Changelog:
 
+### Snow Mercy 2.0.2 - 1.18.2
+- Updated to Minecraft 1.18.2
+
 ### Snow Mercy 2.0.1 - 1.18.1
 - Removed the frozen compass
 - Fixed the frozen lodestone not spawning after wave 10

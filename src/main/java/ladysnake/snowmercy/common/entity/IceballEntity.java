@@ -113,11 +113,6 @@ public class IceballEntity extends SlimeEntity implements SnowMercyEnemy {
     }
 
     @Override
-    public boolean isFreezing() {
-        return false;
-    }
-
-    @Override
     protected void addPowderSnowSlowIfNeeded() {
     }
 

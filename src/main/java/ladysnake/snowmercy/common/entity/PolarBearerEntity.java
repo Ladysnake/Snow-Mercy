@@ -105,11 +105,6 @@ public class PolarBearerEntity extends PolarBearEntity implements SnowMercyEnemy
     }
 
     @Override
-    public boolean isFreezing() {
-        return false;
-    }
-
-    @Override
     protected void addPowderSnowSlowIfNeeded() {
     }
 

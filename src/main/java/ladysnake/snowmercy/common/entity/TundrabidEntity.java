@@ -34,11 +34,6 @@ public class TundrabidEntity extends FoxEntity implements SnowMercyEnemy {
     }
 
     @Override
-    public boolean isFreezing() {
-        return false;
-    }
-
-    @Override
     protected void addPowderSnowSlowIfNeeded() {
     }
 

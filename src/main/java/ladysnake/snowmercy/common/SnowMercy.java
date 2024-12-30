@@ -42,7 +42,7 @@ public class SnowMercy implements ModInitializer {
         SnowMercyBlocks.init();
         SnowMercyItems.init();
         SnowMercyEntities.init();
-        SnowMercyFeatures.init();
+//        SnowMercyFeatures.init();
         SnowMercySoundEvents.init();
         SnowMercyWaves.init();
 

@@ -76,7 +76,6 @@ public class SledgeEntity extends Entity {
 
     public SledgeEntity(EntityType<? extends SledgeEntity> entityType, World world) {
         super(entityType, world);
-        this.inanimate = true;
         this.stepHeight = 1.0f;
     }
 

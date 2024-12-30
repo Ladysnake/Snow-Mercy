@@ -212,10 +212,10 @@ public class HeadmasterEntity extends HostileEntity implements IAnimatable, Snow
         return false;
     }
 
-    @Override
-    public boolean isFreezing() {
-        return false;
-    }
+//    @Override
+//    public boolean isFreezing() {
+//        return false;
+//    }
 
     @Override
     protected void addPowderSnowSlowIfNeeded() {

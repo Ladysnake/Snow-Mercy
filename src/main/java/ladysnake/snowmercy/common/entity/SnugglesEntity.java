@@ -62,7 +62,7 @@ public class SnugglesEntity extends WeaponizedSnowGolemEntity {
             explosion.affectWorld(false);
 
             for (int i = 0; i < 250; i++) {
-                FallingBlockEntity entity = new FallingBlockEntity(world, this.getX(), this.getY() + 0.5, this.getZ(), Blocks.POWDER_SNOW.getDefaultState());
+                FallingBlockEntity entity = FallingBlockEntity.spawnFromBlock(world, this.getBlockPos(), Blocks.POWDER_SNOW.getDefaultState());
                 entity.timeFalling = 1;
                 entity.dropItem = false;
                 entity.setPos(this.getX(), this.getY(), this.getZ());
